@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : vue_admin
+Source Server         : hk_blog
 Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : vue_admin
@@ -10,10 +10,34 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-03-20 21:53:29
+Date: 2020-03-21 19:36:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `parentId` int(11) DEFAULT NULL,
+  `redirect` varchar(255) DEFAULT '' COMMENT '默认跳转',
+  `isHide` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`,`path`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES ('1', '/product', null, null, null, null, '', null);
+INSERT INTO `menu` VALUES ('2', '/product/list', null, null, null, null, '', null);
+INSERT INTO `menu` VALUES ('3', '/product/details', null, null, null, null, '', null);
+INSERT INTO `menu` VALUES ('4', '/product/shop', null, null, null, null, '', null);
 
 -- ----------------------------
 -- Table structure for order
@@ -78,16 +102,16 @@ CREATE TABLE `order` (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('144096', 'A15828677713825', 'ORDINARY_ORDER', '1120260', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/068/318/10876813860_14842097.jpg\",\"quantity\":100,\"productId\":1225691,\"price\":6.15,\"title\":\"เครื่องล้างถังซักผ้าสำหรับเครื่องซักผ้าทุกชนิดด้านในเพื่อกำจัดสิ่งสกปรกจากโรงงานโดยตรงขายส่งรุ่นเดียว\",\"skuId', '', '746.00', '0', '0.00', '131.00', '9', 'PAYSUCC', '1', '1583472571000', '1582867771000', '1582867776000', '0000-00-00 00:00:00', '', '0', '100', 'To Be Delivered', '0', '0', '฿746.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
-INSERT INTO `order` VALUES ('144101116', 'A15828927737026', 'ORDINARY_ORDER', '1183658', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/116/059/9105950611_1623572582.jpg\",\"quantity\":300,\"productId\":1163627,\"price\":7.41,\"title\":\"ขายส่งความงามขนตากำจัดเล็บ AD-1 ลบกาวเล็บลบกาวขนตาปลอม\",\"skuId\":\"1163627001\",\"attrs\":\"การติดฉลาก 10ML\"}]', '', '2403.00', '0', '0.00', '180.00', '9', 'PENDING_REVIEW', '1', '1583497574000', '1582892773000', '1582892777000', '0000-00-00 00:00:00', '', '0', '300', 'Wait Payment', '0', '0', '฿2403.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
-INSERT INTO `order` VALUES ('144106', 'A15828927737026', 'ORDINARY_ORDER', '1183658', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/116/059/9105950611_1623572582.jpg\",\"quantity\":300,\"productId\":1163627,\"price\":7.41,\"title\":\"ขายส่งความงามขนตากำจัดเล็บ AD-1 ลบกาวเล็บลบกาวขนตาปลอม\",\"skuId\":\"1163627001\",\"attrs\":\"การติดฉลาก 10ML\"}]', '', '2403.00', '0', '0.00', '180.00', '9', 'PENDING_REVIEW', '1', '1583497574000', '1582892773000', '1582892777000', '0000-00-00 00:00:00', '', '0', '300', 'Wait Payment', '0', '0', '฿2403.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
-INSERT INTO `order` VALUES ('144105', 'A15828914003329', 'ORDINARY_ORDER', '1027979', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/900/945/12031549009_1970550388.jpg\",\"quantity\":34,\"productId\":1352903,\"price\":8.84,\"title\":\"กล่องบรรจุภัณฑ์ กล่องใส่ฟองน้ำรูปไข่ ฟองน้ำแต่งหน้า\",\"skuId\":\"1352903001\",\"attrs\":\"เนโอเนส\"},{\"mainImage\":\"h', '', '3089.00', '0', '0.00', '80.00', '9', 'PENDING_REVIEW', '1', '1583496201000', '1582891400000', '1582891416000', '0000-00-00 00:00:00', '', '0', '64', 'Wait Payment', '0', '0', '฿3089.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
+INSERT INTO `order` VALUES ('144096', 'A15828677713825', 'ORDINARY_ORDER', '1120260', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/068/318/10876813860_14842097.jpg\",\"quantity\":100,\"productId\":1225691,\"price\":6.15,\"title\":\"เครื่องล้างถังซักผ้าสำหรับเครื่องซักผ้าทุกชนิดด้านในเพื่อกำจัดสิ่งสกปรกจากโรงงานโดยตรงขายส่งรุ่นเดียว\",\"skuId', '', '746.00', '0', '0.00', '131.00', '9', 'CANCEL', '1', '1583472571000', '1582867771000', '1582867776000', '0000-00-00 00:00:00', '', '0', '100', 'To Be Delivered', '0', '0', '฿746.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
+INSERT INTO `order` VALUES ('144101116', 'A15828927737026', 'ORDINARY_ORDER', '1183658', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/116/059/9105950611_1623572582.jpg\",\"quantity\":300,\"productId\":1163627,\"price\":7.41,\"title\":\"ขายส่งความงามขนตากำจัดเล็บ AD-1 ลบกาวเล็บลบกาวขนตาปลอม\",\"skuId\":\"1163627001\",\"attrs\":\"การติดฉลาก 10ML\"}]', '', '2403.00', '0', '0.00', '180.00', '9', 'CANCEL', '1', '1583497574000', '1582892773000', '1582892777000', '0000-00-00 00:00:00', '', '0', '300', 'Wait Payment', '0', '0', '฿2403.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
+INSERT INTO `order` VALUES ('144106', 'A15828927737026', 'ORDINARY_ORDER', '1183658', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/116/059/9105950611_1623572582.jpg\",\"quantity\":300,\"productId\":1163627,\"price\":7.41,\"title\":\"ขายส่งความงามขนตากำจัดเล็บ AD-1 ลบกาวเล็บลบกาวขนตาปลอม\",\"skuId\":\"1163627001\",\"attrs\":\"การติดฉลาก 10ML\"}]', '', '2403.00', '0', '0.00', '180.00', '9', 'CANCEL', '1', '1583497574000', '1582892773000', '1582892777000', '0000-00-00 00:00:00', '运营后台取消', '0', '300', 'Wait Payment', '0', '0', '฿2403.00', '', '', '', '', '0.00', '', null, '1584724283614', 'Joker', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
+INSERT INTO `order` VALUES ('144105', 'A15828914003329', 'ORDINARY_ORDER', '1027979', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/900/945/12031549009_1970550388.jpg\",\"quantity\":34,\"productId\":1352903,\"price\":8.84,\"title\":\"กล่องบรรจุภัณฑ์ กล่องใส่ฟองน้ำรูปไข่ ฟองน้ำแต่งหน้า\",\"skuId\":\"1352903001\",\"attrs\":\"เนโอเนส\"},{\"mainImage\":\"h', '', '3089.00', '0', '0.00', '80.00', '9', 'CANCEL', '1', '1583496201000', '1582891400000', '1582891416000', '0000-00-00 00:00:00', '运营后台取消', '0', '64', 'Wait Payment', '0', '0', '฿3089.00', '', '', '', '', '0.00', '', null, '1584785949820', 'Joker', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144104', 'A15828896299964', 'ORDINARY_ORDER', '1000835', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/304/957/11242759403_1161482004.jpg\",\"quantity\":10,\"productId\":1463667,\"price\":30.51,\"title\":\"แฟชั่นยุโรปและอเมริกาฮิปฮอปหวานสร้อยข้อมือแนวโน้มถนนอุปกรณ์การถ่ายภาพรักเย็นสร้อยข้อมือคู่ผู้หญิง E8477\",\"s', '', '340.00', '0', '0.00', '50.00', '6', 'NEW', '1', '1583494429000', '1582889629000', '1582889632000', '0000-00-00 00:00:00', '', '0', '10', 'Wait Payment', '0', '0', '฿340.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'TRANSFER', 'true');
 INSERT INTO `order` VALUES ('144103', 'A15828879577477', 'ORDINARY_ORDER', '1014623', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/308/393/11305393803_2094667046.jpg\",\"quantity\":15,\"productId\":1253878,\"price\":20.79,\"title\":\"ins ดั้งเดิมอย่างง่าย酷嘻哈土酷ชายและหญิงฮาราจูกุคู่ hipster hooks เบ็ดเบ็ดรอบสร้อยคอจี้\",\"skuId\":\"1253878001\",\"', '', '359.00', '0', '0.00', '50.00', '9', 'PAYSUCC', '1', '1583492757000', '1582887957000', '1582887958000', '0000-00-00 00:00:00', '', '0', '15', 'To Be Delivered', '0', '0', '฿359.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144102', 'A15828863733614', 'ORDINARY_ORDER', '1163290', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/075/222/10312222570_1223746898.jpg\",\"quantity\":30,\"productId\":1403684,\"price\":17.44,\"title\":\"ครีมรองพื้นสำหรับผิวหน้าผู้ชายปรับผิวเรียบเนียนมีออร่าพร้อมการบำรุงเนื้อบางเบาเป็นพิเศษ มีให้เลือก 3 เฉดสีผ', '', '577.00', '0', '0.00', '80.00', '9', 'PAYSUCC', '1', '1583491173000', '1582886373000', '1582886376000', '0000-00-00 00:00:00', '', '0', '30', 'To Be Delivered', '0', '0', '฿577.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144101', 'A15828821708073', 'ORDINARY_ORDER', '1009531', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/486/933/9059339684_1612980370.jpg\",\"quantity\":10,\"productId\":1135696,\"price\":70.82,\"title\":\"A175 ins ใหม่ลมน่ารักบลัชออใบหน้าในแนวทแยงกระเป๋าสะพายไหล่ปรับสายคล้องไหล่กระเป๋าช้อปปิ้งสีเขียวหญิง\",\"skuId', '', '778.00', '0', '0.00', '70.00', '9', 'PAYSUCC', '1', '1583486970000', '1582882170000', '1582882174000', '0000-00-00 00:00:00', '', '0', '10', 'To Be Delivered', '0', '0', '฿778.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144100', 'A15828754982241', 'ORDINARY_ORDER', '1014623', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/911/788/11437887119_1424872694.jpg\",\"quantity\":15,\"productId\":1301598,\"price\":22.45,\"title\":\"Tu 雅风蹦迪สาว Tu เย็นสแตนเลสสร้อยคอดอกไม้หญิงโซ่ลูกปัด ins สาวฮิปฮอปสร้อยคอ\",\"skuId\":\"1301598003\",\"attrs\":\"ด้ว', '', '689.00', '0', '0.00', '50.00', '9', 'PAYSUCC', '1', '1583480298000', '1582875498000', '1582875500000', '0000-00-00 00:00:00', '', '0', '36', 'To Be Delivered', '0', '0', '฿689.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
-INSERT INTO `order` VALUES ('144099', 'A15828696726662', 'ORDINARY_ORDER', '1007768', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/781/880/10312088187_1939512170.jpg\",\"quantity\":3,\"productId\":1219143,\"price\":122.85,\"title\":\"ใหม่ 5 ลูกอมแปรงสายรุ้งน้ำตาลแปรงแต่งหน้าชุด 5 คริสตัลใสจับความงามเครื่องมือโรงงานจุด\",\"skuId\":\"1219143001\"', '', '419.00', '0', '0.00', '50.00', '', 'CANCEL', '1', '1583474472000', '1582869672000', '1582869672000', '0000-00-00 00:00:00', 'A1000202', '0', '3', 'Cancelled', '0', '0', '฿419.00', '', '', '', '', '0.00', '', null, '1582869684000', '1007768', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', '', 'false');
+INSERT INTO `order` VALUES ('144099', 'A15828696726662', 'ORDINARY_ORDER', '1007768', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/781/880/10312088187_1939512170.jpg\",\"quantity\":3,\"productId\":1219143,\"price\":122.85,\"title\":\"ใหม่ 5 ลูกอมแปรงสายรุ้งน้ำตาลแปรงแต่งหน้าชุด 5 คริสตัลใสจับความงามเครื่องมือโรงงานจุด\",\"skuId\":\"1219143001\"', '', '419.00', '0', '0.00', '50.00', '9', 'CANCEL', '1', '1583474472000', '1582869672000', '1582869672000', '0000-00-00 00:00:00', 'A1000202', '0', '34', 'Cancelled', '0', '0', '฿411.00', '', '', '', '', '0.00', '', null, '1582869684000', '1007768', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', '', 'false');
 INSERT INTO `order` VALUES ('144098', 'A15828696010073', 'ORDINARY_ORDER', '1007768', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/781/880/10312088187_1939512170.jpg\",\"quantity\":3,\"productId\":1219143,\"price\":122.85,\"title\":\"ใหม่ 5 ลูกอมแปรงสายรุ้งน้ำตาลแปรงแต่งหน้าชุด 5 คริสตัลใสจับความงามเครื่องมือโรงงานจุด\",\"skuId\":\"1219143001\"', '', '419.00', '0', '0.00', '50.00', '', 'CANCEL', '1', '1583474401000', '1582869601000', '1582869601000', '0000-00-00 00:00:00', 'A1000202', '0', '3', 'Cancelled', '0', '0', '฿419.00', '', '', '', '', '0.00', '', null, '1582869625000', '1007768', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', '', 'false');
 INSERT INTO `order` VALUES ('144097', 'A15828695603775', 'ORDINARY_ORDER', '1007768', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/068/894/10373498860_1083885393.jpg\",\"quantity\":10,\"productId\":1346341,\"price\":39.17,\"title\":\"รุ่นร้อนเอวเดียวขนาดเล็กแป้งฝุ่นแปรงแต่งหน้าชุดแปรง Rose g old จับหัวใหญ่น้ำผึ้งผงแปรงเครื่องมือเสริมความงา', '', '462.00', '0', '0.00', '70.00', '', 'CANCEL', '1', '1583474360000', '1582869560000', '1582869560000', '0000-00-00 00:00:00', 'A1000202', '0', '10', 'Cancelled', '0', '0', '฿462.00', '', '', '', '', '0.00', '', null, '1582869748000', '1007768', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', '', 'false');
 INSERT INTO `order` VALUES ('144095', 'A15828657896660', 'ORDINARY_ORDER', '1009531', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/486/933/9059339684_1612980370.jpg\",\"quantity\":20,\"productId\":1135696,\"price\":67.96,\"title\":\"A175 ins ใหม่ลมน่ารักบลัชออใบหน้าในแนวทแยงกระเป๋าสะพายไหล่ปรับสายคล้องไหล่กระเป๋าช้อปปิ้งสีเขียวหญิง\",\"skuId', '', '1439.00', '0', '0.00', '80.00', '9', 'CANCEL', '1', '1583470589000', '1582865789000', '1582865826000', '0000-00-00 00:00:00', 'A1000201', '0', '20', 'Cancelled', '0', '0', '฿1439.00', '', '', '', '', '0.00', '', null, '1582882138000', '1009531', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'false');
@@ -329,3 +353,73 @@ INSERT INTO `product` VALUES ('1143915', '水磨圆碗', '', '2019-09-19 20:56:3
 INSERT INTO `product` VALUES ('1143914', '新款无钢圈性感文胸聚拢小胸上托少女胸罩无痕美背调整型侧收抹胸', 'https://detail.1688.com/offer/591114098006.html?', '2019-10-17 17:43:50', '2019-09-16 12:02:44', 'New non-steel sexy bra gathered small chest on the girl bra without traces beautiful back adjustment side chest tube', '2.1492-2.5075', '1.791', '1', 'https://cbu01.alicdn.com/img/ibank/2019/033/038/10760830330_1267726488.jpg', '65897', 'Sporting Goods -> Outdoor Recreation -> Hunting & Shooting -> Paintball & Airsoft -> Paintball -> Paintball Gun Parts & Accessories -> Paintball Hoppers', '1688', '3.582');
 INSERT INTO `product` VALUES ('1143911', '水磨圆碗', '', '2019-09-12 11:51:14', '2019-09-12 11:51:14', '阿斯蒂芬', '3.7612', '3.1343', '1', '', '0', 'General -> nome -> 家居生活>陶瓷杯', 'nome', '6.2686');
 INSERT INTO `product` VALUES ('1143912', '彩色极简双头马克笔', '', '2019-09-12 11:51:14', '2019-09-12 11:51:14', 'Mark pen', '102.9851', '85.8209', '1', '', '0', 'General -> nome -> 文体礼品>马克笔', 'nome', '171.6418');
+
+-- ----------------------------
+-- Table structure for resource
+-- ----------------------------
+DROP TABLE IF EXISTS `resource`;
+CREATE TABLE `resource` (
+  `id` int(11) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `parentId` int(11) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`,`value`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of resource
+-- ----------------------------
+INSERT INTO `resource` VALUES ('1', 'product::', null, null, null);
+INSERT INTO `resource` VALUES ('2', 'product::list::', '1', null, null);
+INSERT INTO `resource` VALUES ('3', 'product::list::edit', '2', null, null);
+INSERT INTO `resource` VALUES ('4', 'product::list::remove', '2', null, null);
+INSERT INTO `resource` VALUES ('5', 'product::list::status', '2', null, null);
+
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `resource` text,
+  `menu` longtext,
+  `createTime` bigint(20) DEFAULT NULL,
+  `updateTime` bigint(20) DEFAULT NULL,
+  `createUser` varchar(255) DEFAULT NULL,
+  `createUserId` int(11) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5', '1,2,3,4', '1582107045000', null, 'Joker', '10000', '一看就很拽');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL DEFAULT '123456',
+  `mail` varchar(255) DEFAULT NULL,
+  `qq` varchar(255) DEFAULT NULL,
+  `status` int(2) NOT NULL DEFAULT '1',
+  `phone` varchar(255) DEFAULT NULL,
+  `nickName` varchar(255) DEFAULT NULL,
+  `createTime` bigint(20) DEFAULT NULL,
+  `updateTime` bigint(20) DEFAULT NULL,
+  `role` varchar(255) NOT NULL DEFAULT '0',
+  `remark` varchar(255) DEFAULT NULL,
+  `lastLogin` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10001 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', null, null, '9999', '超级管理员', '1584788202070');

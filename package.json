@@ -9,9 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.7.2",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-cors": "0.0.16",
+    "koa-jwt": "^3.6.0",
     "koa-router": "^8.0.8",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",

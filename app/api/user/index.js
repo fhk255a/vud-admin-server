@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const Success = require('../../../lib/success');
 const MyError = require('../../../lib/error');
 const query = require('../../../lib/query');
-const tokenVerify = require('../../../lib/config').tokenVerify;
+const CONFIG = require('../../../lib/config');
 const jwt = require('jsonwebtoken')
 const TABLE_NAME = 'user';
 const {WHERE_TOTAL,SEARCH_PAGE,SEARCH,INSERT,UPDATE} = require('../../../lib/sql');
@@ -47,11 +47,15 @@ router.post('/user/login',async (ctx,next)=>{
     ctx.body = new MyError('用户名或者密码错误',400,1000);
     return;
   }
+  if(user_info.status!=1){
+    ctx.body = new MyError('你的账户已被冻结',202,404);
+    return;
+  }
   const UPDATE_SQL = UPDATE(TABLE_NAME,{lastLogin},{id:user_info.id});
   await query(UPDATE_SQL);
   // 3查询用户权限信息
   let role_info = {};
-  await query(SEARCH('role',{id:user_info.role})).then(res=>{
+  await query(SEARCH('role',{id:user_info.role})).then( res=>{
     if(res.length>0){
       userInfo.userInfo['role'] = res[0].name;
       role_info = res[0];
@@ -67,9 +71,12 @@ router.post('/user/login',async (ctx,next)=>{
   await query(resourceSQL).then(res=>{
     userInfo.resource = res.map(item=>item.value);
   });
-  // userInfo.token = 'jokerjokerjokerjokerjoker';
-  let payload = {username:user_info.username,time:new Date().getTime(),timeout:1000*60*60*2}
-  userInfo.token = jwt.sign(payload, tokenVerify);
+  let payload = {username:user_info.username,time:new Date().getTime(),timeout:CONFIG.tokenTime}
+  userInfo.token = jwt.sign(payload, CONFIG.tokenVerify);
+  ctx.session.userInfo = {
+    ...user_info,
+    token:userInfo.token
+  };
   ctx.body = new Success(userInfo);
 })
 
@@ -93,11 +100,14 @@ router.post('/user/register',async (ctx,next)=>{
         qq:params.qq,
         phone:params.phone,
         nickName:params.nickName?params.nickName:params.username,
-        createTime:new Date().getTime()
+        createUser:ctx.session.userInfo.nickName?ctx.session.userInfo.nickName:'ADMIN',
+        createUserId:ctx.session.userInfo.id?ctx.session.userInfo.id:'ADMIN',
       }
-      const ADD_SQL = INSERT(TABLE_NAME,key,key);
+      const ADD_SQL = INSERT(TABLE_NAME,key,[key]);
       await query(ADD_SQL).then(res=>{
         ctx.body = new Success(null,'添加成功',200);
+      }).catch(err=>{
+        ctx.body = new MyError('添加失败',500,500);
       })
     }
   }).catch(err=>{
@@ -108,7 +118,7 @@ router.post('/user/register',async (ctx,next)=>{
 // 获取用户列表
 router.get('/user/userList',async (ctx,next)=>{
   const SQL = SEARCH_PAGE(TABLE_NAME,ctx.query,['username','nickName']);
-  const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query);
+  const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query,['username','nickName']);
   await query(SQL).then( async res=>{
     await query(TOTAL).then(total=>{
       ctx.body = new Success({

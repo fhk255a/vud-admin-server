@@ -3,10 +3,11 @@ const Success = require('../../../lib/success');
 const MyError = require('../../../lib/error');
 const query = require('../../../lib/query');
 const TABLE_NAME = 'order';
-const {WHERE_TOTAL,SEARCH_PAGE,SEARCH,INSERT,UPDATE} = require('../../../lib/sql');
+const {WHERE_TOTAL,SEARCH_PAGE,SEARCH,UPDATE} = require('../../../lib/sql');
 const router = new Router();
 // 获取订单列表
 router.get('/order/list',async (ctx,next)=>{
+  console.log('session',ctx.session);
   const SQL = SEARCH_PAGE(TABLE_NAME,ctx.query);
   const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query);
   let body = {
@@ -31,7 +32,7 @@ router.post('/order/cancel',async (ctx,next)=>{
     cancelDate:new Date().getTime(),
     isCancel:true,
     cancelCode:'运营后台取消',
-    cancelUser:'Joker',
+    cancelUser:ctx.session.userInfo.username,
     orderStatus:'CANCEL'
   }
   const SQL = UPDATE(TABLE_NAME,key,{id:ctx.request.body.id});

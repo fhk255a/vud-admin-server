@@ -2,8 +2,10 @@ const Router = require('koa-router');
 const Success = require('../../../lib/success');
 const MyError = require('../../../lib/error');
 const query = require('../../../lib/query');
+const jwt = require('jsonwebtoken');
+const Promise = require("bluebird");
 const CONFIG = require('../../../lib/config');
-const jwt = require('jsonwebtoken')
+const verify = Promise.promisify(jwt.verify);
 const TABLE_NAME = 'user';
 const {WHERE_TOTAL,SEARCH_PAGE,SEARCH,INSERT,UPDATE} = require('../../../lib/sql');
 const router = new Router();
@@ -39,6 +41,7 @@ router.post('/user/login',async (ctx,next)=>{
         username:res[0].username,
         createTime:res[0].createTime,
         lastLogin:lastLogin,
+        remark:res[0].remark,
       }
     }
   }).catch();
@@ -79,7 +82,49 @@ router.post('/user/login',async (ctx,next)=>{
   };
   ctx.body = new Success(userInfo);
 })
-
+// 获取用户信息
+router.post('/user/userinfo',async (ctx,next)=>{
+  const token = await verify(ctx.headers['authorization'],CONFIG.tokenVerify);
+  const userinfo = ctx.session.userInfo;
+  let result = {
+    userInfo:{
+      nickName:userinfo.nickName,
+      role:userinfo.role,
+      phone:userinfo.phone,
+      qq:userinfo.qq,
+      mail:userinfo.mail,
+      username:userinfo.username,
+      createUser:userinfo.createUser,
+      createTime:userinfo.createTime,
+      remark:userinfo.remark,
+      lastLogin:userinfo.lastLogin,
+    },
+    menu:[],
+    resource:[],
+  };
+  delete result.userInfo.password
+  if(token.username == userinfo.username){
+    // 3查询用户权限信息
+    let role_info = {};
+    await query(SEARCH('role',{id:userinfo.role})).then( res=>{
+      if(res.length>0){
+        result.userInfo['role'] = res[0].name;
+        role_info = res[0];
+      }
+    });
+    // 4根据用户权限查询用户所有菜单
+    const menuSQL = `SELECT \`menu\`.path FROM \`menu\` WHERE find_in_set(id,'${role_info.menu}')`;
+    await query(menuSQL).then(res=>{
+      result.menu = res.map(item=>item.path);
+    });
+    // 5根据用户权限查询用户所有资源
+    const resourceSQL = `SELECT \`resource\`.value FROM \`resource\` WHERE find_in_set(id,'${role_info.resource}')`;
+    await query(resourceSQL).then(res=>{
+      result.resource = res.map(item=>item.value);
+    });
+    ctx.body = new Success(result);
+  }
+})
 // 注册
 router.post('/user/register',async (ctx,next)=>{
   let params = ctx.request.body;

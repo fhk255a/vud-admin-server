@@ -10,10 +10,36 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-03-25 14:54:23
+Date: 2020-03-28 18:38:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for image
+-- ----------------------------
+DROP TABLE IF EXISTS `image`;
+CREATE TABLE `image` (
+  `dirName` varchar(255) DEFAULT NULL COMMENT '文件夹名',
+  `fileName` varchar(255) NOT NULL COMMENT '文件名',
+  `image` varchar(255) DEFAULT NULL COMMENT '完整路径',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `createTime` bigint(20) DEFAULT NULL COMMENT '上传时间',
+  `size` bigint(20) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `minImage` varchar(255) NOT NULL COMMENT '缩略图',
+  `bigImage` varchar(255) DEFAULT NULL COMMENT '原图',
+  `minSize` double DEFAULT NULL,
+  `bigSize` double DEFAULT NULL,
+  `serverPath` varchar(255) DEFAULT NULL COMMENT '服务器路径',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of image
+-- ----------------------------
+INSERT INTO `image` VALUES ('20200328', '15853876923299557', 'http://img.fhk255.cn/20200328/15853876923299557x240.png', '73', '1585387692000', '20', 'png', 'http://img.fhk255.cn/20200328/15853876923299557x100.png', 'http://img.fhk255.cn/20200328/15853876923299557.png', '4.35', '0.32', 'E:\\img.fhk255.cn/20200328/15853876923299557');
+INSERT INTO `image` VALUES ('20200328', '15853876896038720', 'http://img.fhk255.cn/20200328/15853876896038720x240.jpg', '72', '1585387689000', '7', 'jpg', 'http://img.fhk255.cn/20200328/15853876896038720x100.jpg', 'http://img.fhk255.cn/20200328/15853876896038720.jpg', '1.83', '479.36', 'E:\\img.fhk255.cn/20200328/15853876896038720');
 
 -- ----------------------------
 -- Table structure for menu
@@ -237,7 +263,7 @@ CREATE TABLE `page` (
 -- ----------------------------
 -- Records of page
 -- ----------------------------
-INSERT INTO `page` VALUES ('1', '测2试页', '这是一个测试页\r\n', 'h5.fhk255.cn/ufjnh87hp1o', '1', 'ufjnh87hp1o', '1584893790000', '[{\"type\":\"title\",\"title\":\"公告\",\"isShowTitle\":false,\"data\":{\"content\":\"温馨提示：此乃测试文本\",\"color\":\"#580707\",\"background\":\"#ffffff\",\"textAlign\":\"left\",\"fontWeight\":\"lighter\",\"fontSize\":\"16px\",\"paddingLeftRight\":0,\"paddingTopBottom\":12,\"margin\":\"\"},\"id\":\"q2s83pavdeg\",\"color\":\"#7E4B4B\"},{\"type\":\"banner\",\"title\":\"轮播图\",\"color\":\"#FFFFFF\",\"isShowTitle\":false,\"background\":\"rgba(0, 0, 0, 0.07)\",\"postion\":\"bottom\",\"height\":\"200\",\"data\":[{\"id\":\"oigsusmhd3\",\"title\":\"joker\",\"image\":\"http://project.fhk255.cn/media/5.jpg\"}],\"id\":\"7tngc3rfo6\"},{\"type\":\"product\",\"title\":\"推荐商品\",\"itemType\":\"33.3%\",\"isShowTitle\":true,\"showBtn\":\"1\",\"showRemark\":\"1\",\"showPrice\":\"1\",\"showTitle\":\"1\",\"color\":\"#9D3D3D\",\"background\":\"rgba(0,0,0,0.13)\",\"data\":[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg\",\"title_zh\":\"新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发\",\"id\":1144024,\"remark\":\"11\",\"priceRange\":7.4626,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg\",\"title_zh\":\"速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发\",\"id\":1144012,\"remark\":\"11\",\"priceRange\":0.7672,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg\",\"title_zh\":\"莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天\",\"id\":1144008,\"remark\":\"122\",\"priceRange\":0.591,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg\",\"title_zh\":\"新款针织触屏手套女冬季韩版加厚小鹿毛线手套\",\"id\":1144007,\"remark\":\"33\",\"priceRange\":2.3582,\"link\":\"opshop.com\"}],\"id\":\"uhm5elpttbo\"}]', '1585117417000');
+INSERT INTO `page` VALUES ('1', '测2试页', '这是一个测试页\r\n', 'h5.fhk255.cn/ufjnh87hp1o', '1', 'ufjnh87hp1o', '1584893790000', '[{\"type\":\"banner\",\"title\":\"轮播图\",\"color\":\"#FFFFFF\",\"isShowTitle\":false,\"background\":\"rgba(0, 0, 0, 0.07)\",\"postion\":\"bottom\",\"height\":\"200\",\"data\":[{\"id\":\"oigsusmhd3\",\"title\":\"joker\",\"image\":\"http://project.fhk255.cn/media/5.jpg\"}],\"id\":\"7tngc3rfo6\"},{\"type\":\"product\",\"title\":\"推荐商品\",\"itemType\":\"50%\",\"isShowTitle\":true,\"showBtn\":\"1\",\"showRemark\":\"1\",\"showPrice\":\"1\",\"showTitle\":\"1\",\"color\":\"#9D3D3D\",\"background\":\"rgba(0,0,0,0.13)\",\"data\":[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg\",\"title_zh\":\"新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发\",\"id\":1144024,\"remark\":\"11\",\"priceRange\":7.4626,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg\",\"title_zh\":\"速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发\",\"id\":1144012,\"remark\":\"11\",\"priceRange\":0.7672,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg\",\"title_zh\":\"莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天\",\"id\":1144008,\"remark\":\"122\",\"priceRange\":0.591,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg\",\"title_zh\":\"新款针织触屏手套女冬季韩版加厚小鹿毛线手套\",\"id\":1144007,\"remark\":\"33\",\"priceRange\":2.3582,\"link\":\"opshop.com\"}],\"id\":\"uhm5elpttbo\"}]', '1585224364000');
 INSERT INTO `page` VALUES ('6', '测试页', '', '', '0', 'lg3l0jebumo', '1585110089501', '[{\"type\":\"product\",\"title\":\"商品列表\",\"itemType\":\"50%\",\"isShowTitle\":true,\"showBtn\":\"1\",\"showRemark\":\"1\",\"showPrice\":\"1\",\"showTitle\":\"1\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"data\":[],\"id\":\"3hahtd8bqg8\"},{\"type\":\"banner\",\"title\":\"轮播图\",\"color\":\"#333\",\"isShowTitle\":true,\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"height\":\"200\",\"data\":[],\"id\":\"lq171c014n\"},{\"type\":\"title\",\"title\":\"公告\",\"isShowTitle\":true,\"data\":{\"content\":\"默认文本\",\"color\":\"#333333\",\"background\":\"#ffffff\",\"textAlign\":\"left\",\"fontWeight\":\"normal\",\"fontSize\":\"14px\",\"paddingLeftRight\":0,\"paddingTopBottom\":0,\"margin\":\"\"},\"id\":\"p7391th39tg\"}]', '1585111988000');
 
 -- ----------------------------
@@ -465,9 +491,14 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585046745000', '9999', '超级管理员', '1585046745574', 'ADMIN', '10000');
+INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585299585000', '9999', '超级管理员', '1585299585752', 'ADMIN', '10000');
 INSERT INTO `user` VALUES ('10001', 'joker', '123456', '3', null, '1', null, 'FHK', '1584878000000', '1584971763000', '10000', '普通用户', '1584971763783', 'Joker', '10000');
 INSERT INTO `user` VALUES ('10002', 'fhk', '123456', '', '', '0', '', 'fhk', '1584878000000', '1584891183000', '10000', '', '1584883673514', 'Joker', '10000');
+DROP TRIGGER IF EXISTS `image_create_time`;
+DELIMITER ;;
+CREATE TRIGGER `image_create_time` BEFORE INSERT ON `image` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
+;;
+DELIMITER ;
 DROP TRIGGER IF EXISTS `menu_create_time`;
 DELIMITER ;;
 CREATE TRIGGER `menu_create_time` BEFORE INSERT ON `menu` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000;

@@ -11,11 +11,11 @@ router.get('/role/list',async (ctx,next)=>{
     const SQL = SEARCH_PAGE(TABLE_NAME,ctx.query,['name']);
     const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query);
     let result = {};
-    
-    console.log(SQL);
     await query(SQL).then(res=>{
       result.data = res.map(item=>{
         delete item.createUserId;
+        item.resource = (item.resource.split(',')).map(item=>item*=1);
+        item.menu = (item.menu.split(',')).map(item=>item*=1);
         return item;
       });
     })
@@ -110,6 +110,7 @@ router.post('/role/create',async (ctx,next)=>{
     return;
   })
 })
+// 删除角色
 router.post('/role/delete', async (ctx,next)=>{
   const params = ctx.request.body;
   if(!params.id){
@@ -131,6 +132,34 @@ router.post('/role/delete', async (ctx,next)=>{
   }).catch(err=>{
     ctx.body = new MyError('系统繁忙',500,500);
     return;
+  })
+})
+// 给角色设置菜单
+router.post('/role/menu',async (ctx,next)=>{
+  const params = ctx.request.body;
+  if(!params.id){
+    ctx.body = new MyError('角色ID不能为空',500,1000);
+    return;
+  }
+  const key = {menu:params.menu}
+  await query(UPDATE(TABLE_NAME,key,{id:params.id})).then(res=>{
+    ctx.body = new Success(null,'修改成功');
+  }).catch(err=>{
+    ctx.body = new MyError('数据有误',500,1000);
+  })
+})
+// 给角色设置资源
+router.post('/role/resource',async (ctx,next)=>{
+  const params = ctx.request.body;
+  if(!params.id){
+    ctx.body = new MyError('角色ID不能为空',500,1000);
+    return;
+  }
+  const key = {resource:params.resource}
+  await query(UPDATE(TABLE_NAME,key,{id:params.id})).then(res=>{
+    ctx.body = new Success(null,'修改成功');
+  }).catch(err=>{
+    ctx.body = new MyError('数据有误',500,1000);
   })
 })
 module.exports = router;

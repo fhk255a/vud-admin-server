@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : hk_blog
+Source Server         : vue_admin
 Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : vue_admin
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-03-23 01:10:33
+Date: 2020-03-25 14:54:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,24 +20,37 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `path` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `icon` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
-  `parentId` int(11) DEFAULT NULL,
+  `parentId` int(11) unsigned zerofill DEFAULT NULL,
   `redirect` varchar(255) DEFAULT '' COMMENT '默认跳转',
-  `isHide` varchar(255) DEFAULT NULL,
+  `isHide` int(1) unsigned zerofill DEFAULT '0',
+  `createTime` bigint(20) DEFAULT NULL,
+  `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`,`path`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '/product', null, null, null, null, '', null);
-INSERT INTO `menu` VALUES ('2', '/product/list', null, null, null, null, '', null);
-INSERT INTO `menu` VALUES ('3', '/product/details', null, null, null, null, '', null);
-INSERT INTO `menu` VALUES ('4', '/product/shop', null, null, null, null, '', null);
+INSERT INTO `menu` VALUES ('1', '/product', '商品模块', 'icon-shangpingouwudai', '商品模块', '00000000000', '', '0', '1584947404000', '1584953990000');
+INSERT INTO `menu` VALUES ('2', '/product/list', '商品列表', null, '商品列表', '00000000001', '', '0', '1584947404000', '1584953990000');
+INSERT INTO `menu` VALUES ('3', '/product/details', '商品详情', null, '商品详情', '00000000001', '', '1', '1584947404000', '1584973081000');
+INSERT INTO `menu` VALUES ('4', '/product/shop', '店铺列表', null, '店铺列表', '00000000001', '', '0', '1584947404000', '1584953991000');
+INSERT INTO `menu` VALUES ('5', '/order', '订单模块', 'icon-biaodan', '订单模块', '00000000000', '', '0', '1584947404000', '1584953950000');
+INSERT INTO `menu` VALUES ('6', '/order/list', '订单列表', null, '订单列表', '00000000005', '', '0', '1584947404000', '1584953951000');
+INSERT INTO `menu` VALUES ('7', '/order/details', '订单详情', '', '订单详情', '00000000005', '', '1', '1584950664000', '1584953952000');
+INSERT INTO `menu` VALUES ('8', '/competence', '权限模块', 'icon-houtaiguanli', '权限模块', '00000000000', '', '0', '1584950781000', '1584953981000');
+INSERT INTO `menu` VALUES ('9', '/competence/user', '用户列表', null, '用户列表', '00000000008', '', '0', '1584950800000', '1584953955000');
+INSERT INTO `menu` VALUES ('10', '/competence/role', '角色列表', null, '角色列表', '00000000008', '', '0', '1584950808000', '1584953957000');
+INSERT INTO `menu` VALUES ('11', '/competence/menu', '菜单列表', null, '菜单列表', '00000000008', '', '0', '1584950810000', '1584953958000');
+INSERT INTO `menu` VALUES ('12', '/competence/resource', '资源列表', null, '资源列表', '00000000008', '', '0', '1584950812000', '1584953960000');
+INSERT INTO `menu` VALUES ('13', '/h5', 'H5模块', 'icon-houtaiguanli', 'H5模块', '00000000000', '', '0', '1584953663000', '1584953988000');
+INSERT INTO `menu` VALUES ('14', '/h5/list', 'H5列表', null, 'H5列表', '00000000013', '', '0', '1584953677000', '1584953962000');
+INSERT INTO `menu` VALUES ('15', '/h5/details', 'H5详情', '', 'H5详情', '00000000013', '', '1', '1584953705000', '1585028692000');
 
 -- ----------------------------
 -- Table structure for order
@@ -107,7 +120,7 @@ INSERT INTO `order` VALUES ('144101116', 'A15828927737026', 'ORDINARY_ORDER', '1
 INSERT INTO `order` VALUES ('144106', 'A15828927737026', 'ORDINARY_ORDER', '1183658', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/116/059/9105950611_1623572582.jpg\",\"quantity\":300,\"productId\":1163627,\"price\":7.41,\"title\":\"ขายส่งความงามขนตากำจัดเล็บ AD-1 ลบกาวเล็บลบกาวขนตาปลอม\",\"skuId\":\"1163627001\",\"attrs\":\"การติดฉลาก 10ML\"}]', '', '2403.00', '0', '0.00', '180.00', '9', 'CANCEL', '1', '1583497574000', '1582892773000', '1582892777000', '0000-00-00 00:00:00', '运营后台取消', '0', '300', 'Wait Payment', '0', '0', '฿2403.00', '', '', '', '', '0.00', '', null, '1584724283614', 'Joker', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144105', 'A15828914003329', 'ORDINARY_ORDER', '1027979', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/900/945/12031549009_1970550388.jpg\",\"quantity\":34,\"productId\":1352903,\"price\":8.84,\"title\":\"กล่องบรรจุภัณฑ์ กล่องใส่ฟองน้ำรูปไข่ ฟองน้ำแต่งหน้า\",\"skuId\":\"1352903001\",\"attrs\":\"เนโอเนส\"},{\"mainImage\":\"h', '', '3089.00', '0', '0.00', '80.00', '9', 'CANCEL', '1', '1583496201000', '1582891400000', '1582891416000', '0000-00-00 00:00:00', '运营后台取消', '0', '64', 'Wait Payment', '0', '0', '฿3089.00', '', '', '', '', '0.00', '', null, '1584785949820', 'Joker', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144104', 'A15828896299964', 'ORDINARY_ORDER', '1000835', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/304/957/11242759403_1161482004.jpg\",\"quantity\":10,\"productId\":1463667,\"price\":30.51,\"title\":\"แฟชั่นยุโรปและอเมริกาฮิปฮอปหวานสร้อยข้อมือแนวโน้มถนนอุปกรณ์การถ่ายภาพรักเย็นสร้อยข้อมือคู่ผู้หญิง E8477\",\"s', '', '340.00', '0', '0.00', '50.00', '6', 'CANCEL', '1', '1583494429000', '1582889629000', '1582889632000', '0000-00-00 00:00:00', '运营后台取消', '0', '10', 'Wait Payment', '0', '0', '฿340.00', '', '', '', '', '0.00', '', null, '1584893256829', 'admin', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'TRANSFER', 'true');
-INSERT INTO `order` VALUES ('144103', 'A15828879577477', 'ORDINARY_ORDER', '1014623', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/308/393/11305393803_2094667046.jpg\",\"quantity\":15,\"productId\":1253878,\"price\":20.79,\"title\":\"ins ดั้งเดิมอย่างง่าย酷嘻哈土酷ชายและหญิงฮาราจูกุคู่ hipster hooks เบ็ดเบ็ดรอบสร้อยคอจี้\",\"skuId\":\"1253878001\",\"', '', '359.00', '0', '0.00', '50.00', '9', 'PAYSUCC', '1', '1583492757000', '1582887957000', '1582887958000', '0000-00-00 00:00:00', '', '0', '15', 'To Be Delivered', '0', '0', '฿359.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
+INSERT INTO `order` VALUES ('144103', 'A15828879577477', 'ORDINARY_ORDER', '1014623', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/308/393/11305393803_2094667046.jpg\",\"quantity\":15,\"productId\":1253878,\"price\":20.79,\"title\":\"ins ดั้งเดิมอย่างง่าย酷嘻哈土酷ชายและหญิงฮาราจูกุคู่ hipster hooks เบ็ดเบ็ดรอบสร้อยคอจี้\",\"skuId\":\"1253878001\",\"', '', '359.00', '0', '0.00', '50.00', '9', 'CANCEL', '1', '1583492757000', '1582887957000', '1582887958000', '0000-00-00 00:00:00', '运营后台取消', '0', '15', 'To Be Delivered', '0', '0', '฿359.00', '', '', '', '', '0.00', '', null, '1584936709976', 'admin', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144102', 'A15828863733614', 'ORDINARY_ORDER', '1163290', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/075/222/10312222570_1223746898.jpg\",\"quantity\":30,\"productId\":1403684,\"price\":17.44,\"title\":\"ครีมรองพื้นสำหรับผิวหน้าผู้ชายปรับผิวเรียบเนียนมีออร่าพร้อมการบำรุงเนื้อบางเบาเป็นพิเศษ มีให้เลือก 3 เฉดสีผ', '', '577.00', '0', '0.00', '80.00', '9', 'PAYSUCC', '1', '1583491173000', '1582886373000', '1582886376000', '0000-00-00 00:00:00', '', '0', '30', 'To Be Delivered', '0', '0', '฿577.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144101', 'A15828821708073', 'ORDINARY_ORDER', '1009531', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/486/933/9059339684_1612980370.jpg\",\"quantity\":10,\"productId\":1135696,\"price\":70.82,\"title\":\"A175 ins ใหม่ลมน่ารักบลัชออใบหน้าในแนวทแยงกระเป๋าสะพายไหล่ปรับสายคล้องไหล่กระเป๋าช้อปปิ้งสีเขียวหญิง\",\"skuId', '', '778.00', '0', '0.00', '70.00', '9', 'PAYSUCC', '1', '1583486970000', '1582882170000', '1582882174000', '0000-00-00 00:00:00', '', '0', '10', 'To Be Delivered', '0', '0', '฿778.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144100', 'A15828754982241', 'ORDINARY_ORDER', '1014623', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/911/788/11437887119_1424872694.jpg\",\"quantity\":15,\"productId\":1301598,\"price\":22.45,\"title\":\"Tu 雅风蹦迪สาว Tu เย็นสแตนเลสสร้อยคอดอกไม้หญิงโซ่ลูกปัด ins สาวฮิปฮอปสร้อยคอ\",\"skuId\":\"1301598003\",\"attrs\":\"ด้ว', '', '689.00', '0', '0.00', '50.00', '9', 'PAYSUCC', '1', '1583480298000', '1582875498000', '1582875500000', '0000-00-00 00:00:00', '', '0', '36', 'To Be Delivered', '0', '0', '฿689.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
@@ -218,13 +231,14 @@ CREATE TABLE `page` (
   `createTime` bigint(20) NOT NULL,
   `content` text,
   `updateTime` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`,`pid`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of page
 -- ----------------------------
-INSERT INTO `page` VALUES ('1', '测2试页', '这是一个测试页\r\n', 'h5.fhk255.cn/ufjnh87hp1o', '0', 'ufjnh87hp1o', '1584893790000', '[{\"type\":\"title\",\"title\":\"公告\",\"isShowTitle\":false,\"data\":{\"content\":\"温馨提示：此乃测试文本\",\"color\":\"#580707\",\"background\":\"#ffffff\",\"textAlign\":\"left\",\"fontWeight\":\"lighter\",\"fontSize\":\"16px\",\"paddingLeftRight\":0,\"paddingTopBottom\":12,\"margin\":\"\"},\"id\":\"q2s83pavdeg\"},{\"type\":\"banner\",\"title\":\"轮播图\",\"color\":\"#FFFFFF\",\"isShowTitle\":false,\"background\":\"rgba(0, 0, 0, 0.07)\",\"postion\":\"bottom\",\"height\":\"100\",\"data\":[{\"id\":\"h6ih51ac9j\",\"title\":\"猴子\",\"image\":\"http://project.fhk255.cn/media/2.jpg\"},{\"id\":\"oigsusmhd3\",\"title\":\"joker\",\"image\":\"http://project.fhk255.cn/media/5.jpg\"}],\"id\":\"7tngc3rfo6\"},{\"type\":\"product\",\"title\":\"推荐商品\",\"itemType\":\"50%\",\"isShowTitle\":true,\"showBtn\":\"0\",\"showRemark\":\"1\",\"showPrice\":\"0\",\"showTitle\":\"1\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"data\":[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg\",\"title_zh\":\"新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发\",\"id\":1144024,\"remark\":\"11\",\"priceRange\":7.4626},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg\",\"title_zh\":\"速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发\",\"id\":1144012,\"remark\":\"11\",\"priceRange\":0.7672},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg\",\"title_zh\":\"莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天\",\"id\":1144008,\"remark\":\"122\",\"priceRange\":0.591},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg\",\"title_zh\":\"新款针织触屏手套女冬季韩版加厚小鹿毛线手套\",\"id\":1144007,\"remark\":\"33\",\"priceRange\":2.3582}],\"id\":\"uhm5elpttbo\"}]', '1584896967000');
+INSERT INTO `page` VALUES ('1', '测2试页', '这是一个测试页\r\n', 'h5.fhk255.cn/ufjnh87hp1o', '1', 'ufjnh87hp1o', '1584893790000', '[{\"type\":\"title\",\"title\":\"公告\",\"isShowTitle\":false,\"data\":{\"content\":\"温馨提示：此乃测试文本\",\"color\":\"#580707\",\"background\":\"#ffffff\",\"textAlign\":\"left\",\"fontWeight\":\"lighter\",\"fontSize\":\"16px\",\"paddingLeftRight\":0,\"paddingTopBottom\":12,\"margin\":\"\"},\"id\":\"q2s83pavdeg\",\"color\":\"#7E4B4B\"},{\"type\":\"banner\",\"title\":\"轮播图\",\"color\":\"#FFFFFF\",\"isShowTitle\":false,\"background\":\"rgba(0, 0, 0, 0.07)\",\"postion\":\"bottom\",\"height\":\"200\",\"data\":[{\"id\":\"oigsusmhd3\",\"title\":\"joker\",\"image\":\"http://project.fhk255.cn/media/5.jpg\"}],\"id\":\"7tngc3rfo6\"},{\"type\":\"product\",\"title\":\"推荐商品\",\"itemType\":\"33.3%\",\"isShowTitle\":true,\"showBtn\":\"1\",\"showRemark\":\"1\",\"showPrice\":\"1\",\"showTitle\":\"1\",\"color\":\"#9D3D3D\",\"background\":\"rgba(0,0,0,0.13)\",\"data\":[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg\",\"title_zh\":\"新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发\",\"id\":1144024,\"remark\":\"11\",\"priceRange\":7.4626,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg\",\"title_zh\":\"速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发\",\"id\":1144012,\"remark\":\"11\",\"priceRange\":0.7672,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg\",\"title_zh\":\"莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天\",\"id\":1144008,\"remark\":\"122\",\"priceRange\":0.591,\"link\":\"baidu.com\"},{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg\",\"title_zh\":\"新款针织触屏手套女冬季韩版加厚小鹿毛线手套\",\"id\":1144007,\"remark\":\"33\",\"priceRange\":2.3582,\"link\":\"opshop.com\"}],\"id\":\"uhm5elpttbo\"}]', '1585117417000');
+INSERT INTO `page` VALUES ('6', '测试页', '', '', '0', 'lg3l0jebumo', '1585110089501', '[{\"type\":\"product\",\"title\":\"商品列表\",\"itemType\":\"50%\",\"isShowTitle\":true,\"showBtn\":\"1\",\"showRemark\":\"1\",\"showPrice\":\"1\",\"showTitle\":\"1\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"data\":[],\"id\":\"3hahtd8bqg8\"},{\"type\":\"banner\",\"title\":\"轮播图\",\"color\":\"#333\",\"isShowTitle\":true,\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"height\":\"200\",\"data\":[],\"id\":\"lq171c014n\"},{\"type\":\"title\",\"title\":\"公告\",\"isShowTitle\":true,\"data\":{\"content\":\"默认文本\",\"color\":\"#333333\",\"background\":\"#ffffff\",\"textAlign\":\"left\",\"fontWeight\":\"normal\",\"fontSize\":\"14px\",\"paddingLeftRight\":0,\"paddingTopBottom\":0,\"margin\":\"\"},\"id\":\"p7391th39tg\"}]', '1585111988000');
 
 -- ----------------------------
 -- Table structure for product
@@ -357,22 +371,50 @@ INSERT INTO `product` VALUES ('1143912', '彩色极简双头马克笔', '', '201
 -- ----------------------------
 DROP TABLE IF EXISTS `resource`;
 CREATE TABLE `resource` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` varchar(255) NOT NULL,
   `parentId` int(11) DEFAULT NULL,
   `label` varchar(255) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL,
+  `createTime` bigint(20) DEFAULT NULL,
+  `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`,`value`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` VALUES ('1', 'product::', null, null, null);
-INSERT INTO `resource` VALUES ('2', 'product::list::', '1', null, null);
-INSERT INTO `resource` VALUES ('3', 'product::list::edit', '2', null, null);
-INSERT INTO `resource` VALUES ('4', 'product::list::remove', '2', null, null);
-INSERT INTO `resource` VALUES ('5', 'product::list::status', '2', null, null);
+INSERT INTO `resource` VALUES ('1', 'product::', '0', '商品模块', null, '1585029273000', '1585029580000');
+INSERT INTO `resource` VALUES ('2', 'product::list::', '1', '商品列表', null, '1585029273000', '1585046449000');
+INSERT INTO `resource` VALUES ('3', 'product::list::edit', '2', '编辑商品', null, '1585029273000', '1585029581000');
+INSERT INTO `resource` VALUES ('4', 'product::list::remove', '2', '删除商品', null, '1585029273000', '1585029582000');
+INSERT INTO `resource` VALUES ('5', 'product::list::status', '2', '切换状态', null, '1585029273000', '1585029582000');
+INSERT INTO `resource` VALUES ('6', 'product::shop::', '1', '店铺列表', null, '1585029273000', '1585046575000');
+INSERT INTO `resource` VALUES ('7', 'product::shop::edit', '6', '编辑店铺', null, '1585029273000', '1585029583000');
+INSERT INTO `resource` VALUES ('8', 'product::shop::remove', '6', '删除店铺', null, '1585029273000', '1585029584000');
+INSERT INTO `resource` VALUES ('9', 'product::shop::add', '6', '添加店铺', null, '1585029273000', '1585029585000');
+INSERT INTO `resource` VALUES ('10', 'product::details::', '1', '商品详情', null, '1585029273000', '1585029586000');
+INSERT INTO `resource` VALUES ('11', 'product::shop::skuStatus', '10', 'SKU上下架', null, '1585029273000', null);
+INSERT INTO `resource` VALUES ('12', 'product::details::editJianJie', '10', '编辑简介', null, '1585029294000', null);
+INSERT INTO `resource` VALUES ('13', 'product::details::editDetails', '10', '编辑详情', null, '1585029307000', null);
+INSERT INTO `resource` VALUES ('14', 'product::details::save', '10', '保存按钮', null, '1585029317000', null);
+INSERT INTO `resource` VALUES ('15', 'order::', '0', '订单模块', null, '1585029337000', '1585029346000');
+INSERT INTO `resource` VALUES ('16', 'order::list::', '15', '订单列表', null, '1585029365000', '1585046580000');
+INSERT INTO `resource` VALUES ('17', 'order::list::cancel', '16', '取消订单', null, '1585029380000', null);
+INSERT INTO `resource` VALUES ('18', 'competence::', '0', '权限模块', null, '1585029397000', null);
+INSERT INTO `resource` VALUES ('19', 'competence::user::', '18', '用户列表', null, '1585029414000', null);
+INSERT INTO `resource` VALUES ('20', 'competence::user::edit', '19', '编辑用户', null, '1585029434000', null);
+INSERT INTO `resource` VALUES ('21', 'competence::user::remove', '19', '删除用户', null, '1585029455000', null);
+INSERT INTO `resource` VALUES ('22', 'competence::user::add', '19', '添加用户', null, '1585029460000', null);
+INSERT INTO `resource` VALUES ('23', 'competence::user::status', '19', '冻结用户', null, '1585029477000', null);
+INSERT INTO `resource` VALUES ('24', 'competence-role::', '18', '角色列表', null, '1585029488000', null);
+INSERT INTO `resource` VALUES ('25', 'competence::role::edit', '24', '编辑角色', null, '1585029503000', null);
+INSERT INTO `resource` VALUES ('26', 'competence::role::remove', '24', '删除角色', null, '1585029518000', '1585029530000');
+INSERT INTO `resource` VALUES ('27', 'competence::role::add', '24', '添加角色', null, '1585029529000', '1585029536000');
+INSERT INTO `resource` VALUES ('28', 'competence::role::menu', '24', '设置菜单', null, '1585029556000', null);
+INSERT INTO `resource` VALUES ('29', 'competence::role::resource', '24', '设置资源', null, '1585029559000', '1585029573000');
+INSERT INTO `resource` VALUES ('30', 'h5::', '0', 'H5模块', null, '1585049195000', '1585049360000');
+INSERT INTO `resource` VALUES ('31', 'h5::list::', '30', 'H5列表', null, '1585049480000', null);
 
 -- ----------------------------
 -- Table structure for role
@@ -394,8 +436,8 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5', '1,2,3,4', '1582107045000', '1584888360000', 'admin', '10000', '一看就很拽');
-INSERT INTO `role` VALUES ('10000', '普通用户', '1,2', '1,2', '1582107045000', '1584890773000', 'Joker', '10000', '苦逼1');
+INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15', '1582107045000', '1585048743000', 'admin', '10000', '一看就很拽');
+INSERT INTO `role` VALUES ('10000', '普通用户', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17', '1,2,3,4,6,5', '1582107045000', '1585048752000', 'Joker', '10000', '苦逼1');
 
 -- ----------------------------
 -- Table structure for user
@@ -423,32 +465,57 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1584892629000', '9999', '超级管理员', '1584883807343', 'ADMIN', '10000');
-INSERT INTO `user` VALUES ('10001', 'joker', '123456', '3', null, '1', null, 'FHK', '1584878000000', '1584892630000', '10000', '普通用户', '1584883788491', 'Joker', '10000');
+INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585046745000', '9999', '超级管理员', '1585046745574', 'ADMIN', '10000');
+INSERT INTO `user` VALUES ('10001', 'joker', '123456', '3', null, '1', null, 'FHK', '1584878000000', '1584971763000', '10000', '普通用户', '1584971763783', 'Joker', '10000');
 INSERT INTO `user` VALUES ('10002', 'fhk', '123456', '', '', '0', '', 'fhk', '1584878000000', '1584891183000', '10000', '', '1584883673514', 'Joker', '10000');
+DROP TRIGGER IF EXISTS `menu_create_time`;
+DELIMITER ;;
+CREATE TRIGGER `menu_create_time` BEFORE INSERT ON `menu` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000;
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `menu_update_time`;
+DELIMITER ;;
+CREATE TRIGGER `menu_update_time` BEFORE UPDATE ON `menu` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
+;;
+DELIMITER ;
 DROP TRIGGER IF EXISTS `page_create_time`;
 DELIMITER ;;
 CREATE TRIGGER `page_create_time` BEFORE INSERT ON `page` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `page_update_time`;
 DELIMITER ;;
 CREATE TRIGGER `page_update_time` BEFORE UPDATE ON `page` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
+;
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `resource_create_time`;
+DELIMITER ;;
+CREATE TRIGGER `resource_create_time` BEFORE INSERT ON `resource` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `resource_update_time`;
+DELIMITER ;;
+CREATE TRIGGER `resource_update_time` BEFORE UPDATE ON `resource` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `role_create_time`;
 DELIMITER ;;
 CREATE TRIGGER `role_create_time` BEFORE INSERT ON `role` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `role_update_time`;
 DELIMITER ;;
 CREATE TRIGGER `role_update_time` BEFORE UPDATE ON `role` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `user_create_user_time`;
 DELIMITER ;;
 CREATE TRIGGER `user_create_user_time` BEFORE INSERT ON `user` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `user_update_user_time`;

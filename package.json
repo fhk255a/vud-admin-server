@@ -10,15 +10,22 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.7.2",
+    "fs": "0.0.1-security",
+    "images": "^3.0.2",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
+    "koa-body": "^4.1.1",
     "koa-bodyparser": "^4.2.1",
     "koa-cors": "0.0.16",
     "koa-jwt": "^3.6.0",
     "koa-router": "^8.0.8",
     "koa-session": "^5.13.1",
+    "mkdirp": "^1.0.3",
     "mysql": "^2.18.1",
+    "node-uuid": "^1.4.8",
     "nodemon": "^2.0.2",
-    "require-directory": "^2.1.1"
+    "qr-image": "^3.2.0",
+    "require-directory": "^2.1.1",
+    "sharp": "^0.25.2"
   }
 }

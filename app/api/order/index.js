@@ -7,7 +7,6 @@ const {WHERE_TOTAL,SEARCH_PAGE,SEARCH,UPDATE} = require('../../../lib/sql');
 const router = new Router();
 // 获取订单列表
 router.get('/order/list',async (ctx,next)=>{
-  console.log('session',ctx.session);
   const SQL = SEARCH_PAGE(TABLE_NAME,ctx.query);
   const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query);
   let body = {

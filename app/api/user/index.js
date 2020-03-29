@@ -54,10 +54,12 @@ router.post('/user/login',async (ctx,next)=>{
     ctx.body = new MyError('你的账户已被冻结',202,404);
     return;
   }
+  console.log(user_info)
   const UPDATE_SQL = UPDATE(TABLE_NAME,{lastLogin},{id:user_info.id});
   await query(UPDATE_SQL);
   // 3查询用户权限信息
   let role_info = {};
+  console.log(1)
   await query(SEARCH('role',{id:user_info.role})).then( res=>{
     if(res.length>0){
       userInfo.userInfo['role'] = res[0].name;

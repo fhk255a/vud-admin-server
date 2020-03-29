@@ -84,7 +84,7 @@ router.post('/h5/qr', async (ctx, next) =>{
     ctx.body = new MyError('ID不能为空',404,1000);
     return;
   }
-  const url = 'http://h5.fhk255.cn/';
+  const url = 'http://h5.fhk255.cn/#/h5/';
   const img = QRCODE.image(url+params.id,{size :10,type:'svg'});
   ctx.body = img;
 })

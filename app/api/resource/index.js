@@ -82,4 +82,5 @@ router.post('/resource/delete',async (ctx,next)=>{
     ctx.body = new MyError('删除失败,resource-delete',400,500);
   })
 })
+router.name="resource";
 module.exports=router;

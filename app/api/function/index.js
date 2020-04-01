@@ -87,4 +87,6 @@ router.post('/function/upload',async (ctx,next)=>{
     return;
   }
 })
+
+router.name="function";
 module.exports=router;

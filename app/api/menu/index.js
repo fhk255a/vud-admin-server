@@ -96,4 +96,5 @@ router.post('/menu/delete', async(ctx,next)=>{
     ctx.body = new MyError('删除失败,menu-delete',400,500);
   })
 })
+router.name="menu";
 module.exports = router;

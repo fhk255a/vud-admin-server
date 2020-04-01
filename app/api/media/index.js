@@ -76,4 +76,5 @@ router.post('/media/deleteFileItem',async (ctx,next)=>{
     ctx.body = new MyError('删除失败');
   })
 })
+router.name="media";
 module.exports=router;

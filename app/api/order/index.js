@@ -57,4 +57,5 @@ router.get('/order/details',async (ctx,next)=>{
 // 添加
   // const SQL = INSERT('order',ctx.request.body.data[0],ctx.request.body.data);
 
+router.name="order";
 module.exports=router;

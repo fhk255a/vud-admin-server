@@ -15,7 +15,11 @@ class InitRouter {
 
     function loadModules(obj){
       if(obj instanceof Router){
-        console.log(InitRouter.app.use(obj.routes()));
+        if(obj.name=='socket'){
+          InitRouter.app.ws.use(obj.routes());
+        }else{
+          InitRouter.app.use(obj.routes());
+        }
       }
     }
   }

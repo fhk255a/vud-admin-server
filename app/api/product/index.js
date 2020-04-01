@@ -33,4 +33,5 @@ router.get('/product/details' , async (ctx,next)=>{
   })
 })
 
+router.name="product";
 module.exports=router;

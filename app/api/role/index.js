@@ -14,8 +14,8 @@ router.get('/role/list',async (ctx,next)=>{
     await query(SQL).then(res=>{
       result.data = res.map(item=>{
         delete item.createUserId;
-        item.resource = (item.resource.split(',')).map(item=>item*=1);
-        item.menu = (item.menu.split(',')).map(item=>item*=1);
+        item.resource = item.resource ?(item.resource.split(',')).map(item=>item*=1):[];
+        item.menu = item.menu?(item.menu.split(',')).map(item=>item*=1):[];
         return item;
       });
     })
@@ -41,7 +41,7 @@ router.post('/role/update',async (ctx,next)=>{
     ctx.body = new MyError('ID不能为空',400,1000);
     return;
   }
-  if(params.id==10000 || params.id == 9999){
+  if((params.id==10000 || params.id == 9999 || params.id == 8888) && ctx.session.userInfo.role != 9999){
     ctx.body = new MyError('这个角色不能编辑',400,400);
     return;
   }
@@ -117,7 +117,7 @@ router.post('/role/delete', async (ctx,next)=>{
     ctx.body = new MyError('请指定删除的ID',400,1000);
     return;
   }
-  if(params.id == 10000 || params.id == 9999){
+  if(params.id == 10000 || params.id == 9999 || params.id == 8888){
     ctx.body = new MyError('系统角色不能被删除',400,400);
     return;
   }
@@ -162,4 +162,5 @@ router.post('/role/resource',async (ctx,next)=>{
     ctx.body = new MyError('数据有误',500,1000);
   })
 })
+router.name="role";
 module.exports = router;

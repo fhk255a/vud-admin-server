@@ -77,9 +77,40 @@ router.post('/h5/save', async (ctx,next)=>{
     })
   }
 })
-// 生成二维码
-router.post('/h5/qr', async (ctx, next) =>{
+// 发布h5
+router.post('/h5/status',async (ctx,next)=>{
   const params = ctx.request.body;
+  if(!params.id){
+    ctx.body = new MyError('ID不能为空',404,1000);
+    return;
+  }
+  const data = {
+    id:params.id,
+    status:params.status?1:0,
+  }
+  query(UPDATE(TABLE_NAME,data,{id:data.id})).then(res=>{
+    if(res){
+      if(data.status == 1){
+        ctx.body = new Success(null,'发布成功');
+        return;
+      }else{
+        ctx.body = new Success(null,'下架成功');
+        return;
+      }
+    }else{
+      ctx.body = new MyError('修改失败',500,500);
+      return;
+    }
+  }).catch(()=>{
+    ctx.body = new MyError('服务器有问题',500,500);
+    return;
+  })
+})
+
+
+// 生成二维码
+router.get('/h5/qr/:id', async (ctx, next) =>{
+  const params = ctx.params;
   if(!params.id){
     ctx.body = new MyError('ID不能为空',404,1000);
     return;
@@ -108,4 +139,5 @@ router.get('/h5/getPid/:id', async (ctx,next)=>{
     }
   })
 })
+router.name="h5";
 module.exports=router;

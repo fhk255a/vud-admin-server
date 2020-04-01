@@ -20,11 +20,13 @@
     "koa-jwt": "^3.6.0",
     "koa-router": "^8.0.8",
     "koa-session": "^5.13.1",
+    "koa-websocket": "^6.0.0",
     "mkdirp": "^1.0.3",
     "mysql": "^2.18.1",
     "node-uuid": "^1.4.8",
     "nodemon": "^2.0.2",
     "qr-image": "^3.2.0",
+    "redis": "^3.0.2",
     "require-directory": "^2.1.1",
     "sharp": "^0.25.2"
   }

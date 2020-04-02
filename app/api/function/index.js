@@ -6,8 +6,6 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const sharp = require('sharp');
-
-
 const {DELETE,SEARCH,INSERT,UPDATE} = require('../../../lib/sql');
 const router = new Router();
 // 上传

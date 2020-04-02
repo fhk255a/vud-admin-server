@@ -235,7 +235,6 @@ router.post('/user/delete',async (ctx,next)=>{
 });
 // 获取登录二维码
 router.get('/user/getLoginCode',async (ctx,next)=>{
-  // console.log(ctx.query.id)
   const uuid = ctx.query.uuid;
   // 服务器ip
   const url = 'http://project.fhk255.cn/user/qrLogin/'+uuid;

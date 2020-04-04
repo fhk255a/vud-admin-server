@@ -10,10 +10,52 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-03-28 18:38:40
+Date: 2020-04-04 21:21:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for config_key
+-- ----------------------------
+DROP TABLE IF EXISTS `config_key`;
+CREATE TABLE `config_key` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `label` varchar(255) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `node` varchar(255) DEFAULT NULL,
+  `status` int(2) DEFAULT '1',
+  `createTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `key` varchar(255) NOT NULL,
+  `sort` int(2) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`key`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of config_key
+-- ----------------------------
+INSERT INTO `config_key` VALUES ('1', '0', '性别', null, '性别选择', '1', '2020-04-02 16:58:27', 'SEX', '0');
+INSERT INTO `config_key` VALUES ('2', '1', '男', '1', '', '1', '2020-04-02 00:12:44', '', '1');
+INSERT INTO `config_key` VALUES ('3', '1', '女', '0', '', '1', '2020-04-01 16:09:38', '', '2');
+INSERT INTO `config_key` VALUES ('4', '0', '状态', '', '开启 & 屏蔽', '0', '2020-04-03 17:24:07', 'STATUS', '0');
+INSERT INTO `config_key` VALUES ('5', '4', '开启', '1', null, '1', null, '', '0');
+INSERT INTO `config_key` VALUES ('6', '4', '关闭', '0', null, '1', null, '', '0');
+INSERT INTO `config_key` VALUES ('8', '0', '测试', '', '测试', '0', '2020-04-03 09:08:40', 'test', '0');
+INSERT INTO `config_key` VALUES ('10', '0', '商品上下架', null, '', '0', null, 'PRODUCT_STATUS', '0');
+INSERT INTO `config_key` VALUES ('11', '10', '上架', '1', '', '1', '0000-00-00 00:00:00', '', '1');
+INSERT INTO `config_key` VALUES ('12', '10', '下架', '0', '', '1', '0000-00-00 00:00:00', '', '2');
+INSERT INTO `config_key` VALUES ('13', '10', '全部', '', '', '1', null, '', '0');
+INSERT INTO `config_key` VALUES ('14', '0', '店铺来源', null, '', '0', null, 'PRODUCT_FROM', '0');
+INSERT INTO `config_key` VALUES ('15', '14', '全部', '', '', '1', '0000-00-00 00:00:00', '', '0');
+INSERT INTO `config_key` VALUES ('16', '14', '天猫', 'tmall', '', '1', '0000-00-00 00:00:00', '', '1');
+INSERT INTO `config_key` VALUES ('17', '14', '淘宝', 'taobao', '', '1', '0000-00-00 00:00:00', '', '2');
+INSERT INTO `config_key` VALUES ('18', '14', '阿里巴巴', '1688', '', '1', '0000-00-00 00:00:00', '', '3');
+INSERT INTO `config_key` VALUES ('19', '14', 'NOME', 'nome', '', '1', '0000-00-00 00:00:00', '', '4');
+INSERT INTO `config_key` VALUES ('20', '0', 'H5发布状态', null, '', '0', null, 'H5_STATUS', '0');
+INSERT INTO `config_key` VALUES ('21', '20', '全部', '', '', '1', null, '', '0');
+INSERT INTO `config_key` VALUES ('22', '20', '已发布', '1', '', '1', null, '', '0');
+INSERT INTO `config_key` VALUES ('23', '20', '未发布', '0', '', '1', null, '', '0');
 
 -- ----------------------------
 -- Table structure for image
@@ -33,13 +75,25 @@ CREATE TABLE `image` (
   `bigSize` double DEFAULT NULL,
   `serverPath` varchar(255) DEFAULT NULL COMMENT '服务器路径',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of image
 -- ----------------------------
+INSERT INTO `image` VALUES ('20200330', '15855414868627203', 'http://img.fhk255.cn/20200330/15855414868627203x240.png', '74', '1585541486000', '61', 'png', 'http://img.fhk255.cn/20200330/15855414868627203x100.png', 'http://img.fhk255.cn/20200330/15855414868627203.png', '13.97', '279.09', 'E:\\img.fhk255.cn/20200330/15855414868627203');
 INSERT INTO `image` VALUES ('20200328', '15853876923299557', 'http://img.fhk255.cn/20200328/15853876923299557x240.png', '73', '1585387692000', '20', 'png', 'http://img.fhk255.cn/20200328/15853876923299557x100.png', 'http://img.fhk255.cn/20200328/15853876923299557.png', '4.35', '0.32', 'E:\\img.fhk255.cn/20200328/15853876923299557');
 INSERT INTO `image` VALUES ('20200328', '15853876896038720', 'http://img.fhk255.cn/20200328/15853876896038720x240.jpg', '72', '1585387689000', '7', 'jpg', 'http://img.fhk255.cn/20200328/15853876896038720x100.jpg', 'http://img.fhk255.cn/20200328/15853876896038720.jpg', '1.83', '479.36', 'E:\\img.fhk255.cn/20200328/15853876896038720');
+INSERT INTO `image` VALUES ('2020041', '15857341290835521', 'http://img.fhk255.cn/2020041/15857341290835521x240.png', '75', '1585734129000', '25', 'png', 'http://img.fhk255.cn/2020041/15857341290835521x100.png', 'http://img.fhk255.cn/2020041/15857341290835521.png', '6.06', '33.11', 'E:\\img.fhk255.cn/2020041/15857341290835521');
+INSERT INTO `image` VALUES ('2020041', '15857341519287351', 'http://img.fhk255.cn/2020041/15857341519287351x240.png', '76', '1585734151000', '76', 'png', 'http://img.fhk255.cn/2020041/15857341519287351x100.png', 'http://img.fhk255.cn/2020041/15857341519287351.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857341519287351');
+INSERT INTO `image` VALUES ('2020041', '15857342041939083', 'http://img.fhk255.cn/2020041/15857342041939083x240.png', '77', '1585734204000', '17', 'png', 'http://img.fhk255.cn/2020041/15857342041939083x100.png', 'http://img.fhk255.cn/2020041/15857342041939083.png', '3.41', '0.27', 'E:\\img.fhk255.cn/2020041/15857342041939083');
+INSERT INTO `image` VALUES ('2020041', '15857342419891015', 'http://img.fhk255.cn/2020041/15857342419891015x240.png', '78', '1585734241000', '76', 'png', 'http://img.fhk255.cn/2020041/15857342419891015x100.png', 'http://img.fhk255.cn/2020041/15857342419891015.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857342419891015');
+INSERT INTO `image` VALUES ('2020041', '15857342583477064', 'http://img.fhk255.cn/2020041/15857342583477064x240.png', '79', '1585734258000', '17', 'png', 'http://img.fhk255.cn/2020041/15857342583477064x100.png', 'http://img.fhk255.cn/2020041/15857342583477064.png', '3.41', '0.27', 'E:\\img.fhk255.cn/2020041/15857342583477064');
+INSERT INTO `image` VALUES ('2020041', '15857342837997706', 'http://img.fhk255.cn/2020041/15857342837997706x240.png', '80', '1585734283000', '76', 'png', 'http://img.fhk255.cn/2020041/15857342837997706x100.png', 'http://img.fhk255.cn/2020041/15857342837997706.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857342837997706');
+INSERT INTO `image` VALUES ('2020041', '15857346776173672', 'http://img.fhk255.cn/2020041/15857346776173672x240.png', '81', '1585734677000', '17', 'png', 'http://img.fhk255.cn/2020041/15857346776173672x100.png', 'http://img.fhk255.cn/2020041/15857346776173672.png', '3.41', '0.27', 'E:\\img.fhk255.cn/2020041/15857346776173672');
+INSERT INTO `image` VALUES ('2020041', '15857359696524636', 'http://img.fhk255.cn/2020041/15857359696524636x240.png', '82', '1585735969000', '76', 'png', 'http://img.fhk255.cn/2020041/15857359696524636x100.png', 'http://img.fhk255.cn/2020041/15857359696524636.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857359696524636');
+INSERT INTO `image` VALUES ('2020041', '15857363020958623', 'http://img.fhk255.cn/2020041/15857363020958623x240.png', '83', '1585736302000', '76', 'png', 'http://img.fhk255.cn/2020041/15857363020958623x100.png', 'http://img.fhk255.cn/2020041/15857363020958623.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857363020958623');
+INSERT INTO `image` VALUES ('2020041', '15857363769634936', 'http://img.fhk255.cn/2020041/15857363769634936x240.png', '84', '1585736376000', '76', 'png', 'http://img.fhk255.cn/2020041/15857363769634936x100.png', 'http://img.fhk255.cn/2020041/15857363769634936.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857363769634936');
+INSERT INTO `image` VALUES ('2020041', '15857365286367036', 'http://img.fhk255.cn/2020041/15857365286367036x240.png', '85', '1585736528000', '76', 'png', 'http://img.fhk255.cn/2020041/15857365286367036x100.png', 'http://img.fhk255.cn/2020041/15857365286367036.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857365286367036');
 
 -- ----------------------------
 -- Table structure for menu
@@ -57,7 +111,7 @@ CREATE TABLE `menu` (
   `createTime` bigint(20) DEFAULT NULL,
   `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`,`path`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -77,6 +131,9 @@ INSERT INTO `menu` VALUES ('12', '/competence/resource', '资源列表', null, '
 INSERT INTO `menu` VALUES ('13', '/h5', 'H5模块', 'icon-houtaiguanli', 'H5模块', '00000000000', '', '0', '1584953663000', '1584953988000');
 INSERT INTO `menu` VALUES ('14', '/h5/list', 'H5列表', null, 'H5列表', '00000000013', '', '0', '1584953677000', '1584953962000');
 INSERT INTO `menu` VALUES ('15', '/h5/details', 'H5详情', '', 'H5详情', '00000000013', '', '1', '1584953705000', '1585028692000');
+INSERT INTO `menu` VALUES ('19', '/config', null, '', '系统配置', '00000000000', '', '0', '1585535214000', null);
+INSERT INTO `menu` VALUES ('20', '/config/media', null, '', '媒体库', '00000000019', '', '0', '1585535235000', null);
+INSERT INTO `menu` VALUES ('21', '/config/keys', null, '', '参数配置', '00000000019', '', '0', '1585816166000', '1585816222000');
 
 -- ----------------------------
 -- Table structure for order
@@ -393,6 +450,22 @@ INSERT INTO `product` VALUES ('1143911', '水磨圆碗', '', '2019-09-12 11:51:1
 INSERT INTO `product` VALUES ('1143912', '彩色极简双头马克笔', '', '2019-09-12 11:51:14', '2019-09-12 11:51:14', 'Mark pen', '102.9851', '85.8209', '1', '', '0', 'General -> nome -> 文体礼品>马克笔', 'nome', '171.6418');
 
 -- ----------------------------
+-- Table structure for qr_login
+-- ----------------------------
+DROP TABLE IF EXISTS `qr_login`;
+CREATE TABLE `qr_login` (
+  `key` varchar(255) NOT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `timer` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qr_login
+-- ----------------------------
+INSERT INTO `qr_login` VALUES ('hmshdn2ssb8', null, '1585827520000');
+
+-- ----------------------------
 -- Table structure for resource
 -- ----------------------------
 DROP TABLE IF EXISTS `resource`;
@@ -462,8 +535,9 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15', '1582107045000', '1585048743000', 'admin', '10000', '一看就很拽');
-INSERT INTO `role` VALUES ('10000', '普通用户', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17', '1,2,3,4,6,5', '1582107045000', '1585048752000', 'Joker', '10000', '苦逼1');
+INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20,21', '1582107045000', '1585816191000', 'admin', '10000', '一看就很拽');
+INSERT INTO `role` VALUES ('10000', '普通用户', '3,5,7,9,10,11,12,13,14,20,23,25', '1,2,3,4,5,6,7,9,10,13,14,15', '1582107045000', '1585732032000', 'admin', '10000', '苦逼1');
+INSERT INTO `role` VALUES ('8888', '体验账号', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20', '1585547587000', '1585732014000', 'admin', '10000', '');
 
 -- ----------------------------
 -- Table structure for user
@@ -491,9 +565,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585299585000', '9999', '超级管理员', '1585299585752', 'ADMIN', '10000');
-INSERT INTO `user` VALUES ('10001', 'joker', '123456', '3', null, '1', null, 'FHK', '1584878000000', '1584971763000', '10000', '普通用户', '1584971763783', 'Joker', '10000');
-INSERT INTO `user` VALUES ('10002', 'fhk', '123456', '', '', '0', '', 'fhk', '1584878000000', '1584891183000', '10000', '', '1584883673514', 'Joker', '10000');
+INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585884860000', '9999', '超级管理员', '1585884860706', 'ADMIN', '10000');
+INSERT INTO `user` VALUES ('10001', 'joker', '123456', '3', '', '1', '22222', 'FHK', '1584878000000', '1585731778000', '10000', '普通用户', '1585534641027', 'Joker', '10000');
+INSERT INTO `user` VALUES ('9999', 'test', 'fhk255.cn/test', null, null, '1', null, '体验者账号', '1585547569000', '1585737268000', '8888', '体验账号', '1585737268898', null, '10000');
 DROP TRIGGER IF EXISTS `image_create_time`;
 DELIMITER ;;
 CREATE TRIGGER `image_create_time` BEFORE INSERT ON `image` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
@@ -519,6 +593,11 @@ DROP TRIGGER IF EXISTS `page_update_time`;
 DELIMITER ;;
 CREATE TRIGGER `page_update_time` BEFORE UPDATE ON `page` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
 ;
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `qr_login_end_time`;
+DELIMITER ;;
+CREATE TRIGGER `qr_login_end_time` BEFORE INSERT ON `qr_login` FOR EACH ROW SET new.timer = (unix_timestamp(now())+30)*1000
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `resource_create_time`;

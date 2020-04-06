@@ -166,5 +166,15 @@ router.get(URL+':key',async ctx =>{
     ctx.body = new MyError('key查找失败');
   })
 })
+// 删除key
+router.post(URL+'delete',async ctx=>{
+  const ID = ctx.request.body.id;
+  await query(DELETE(TABLE_NAME,{id:ID})).then(async res=>{
+    await query(DELETE(TABLE_NAME,{pid:ID}))
+    ctx.body = new Success('删除成功');
+  }).catch(err=>{
+    ctx.body = new MyError('删除失败');
+  })
+})
 router.name="config_key";
 module.exports = router;

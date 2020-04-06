@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : vue_admin
+Source Server         : hk_blog
 Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : vue_admin
@@ -10,10 +10,75 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-04-04 21:21:20
+Date: 2020-04-06 23:40:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for category
+-- ----------------------------
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(255) DEFAULT NULL,
+  `parentId` int(10) unsigned DEFAULT '0',
+  `levelName` varchar(255) DEFAULT NULL,
+  `level` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of category
+-- ----------------------------
+INSERT INTO `category` VALUES ('1', '通用', '0', null, '1');
+INSERT INTO `category` VALUES ('2', '男装', '0', null, '1');
+INSERT INTO `category` VALUES ('3', '女装', '0', null, '1');
+INSERT INTO `category` VALUES ('4', '电器', '0', null, '1');
+INSERT INTO `category` VALUES ('5', '手机', '0', null, '1');
+INSERT INTO `category` VALUES ('6', '鞋靴', '0', null, '1');
+INSERT INTO `category` VALUES ('7', '饰品', '0', null, '1');
+INSERT INTO `category` VALUES ('8', '百货', '0', null, '1');
+INSERT INTO `category` VALUES ('9', '食品', '0', null, '1');
+INSERT INTO `category` VALUES ('10', '美妆', '0', null, '1');
+INSERT INTO `category` VALUES ('11', '运动', '0', null, '1');
+INSERT INTO `category` VALUES ('12', '宠物', '0', null, '1');
+INSERT INTO `category` VALUES ('13', '套装', '2', null, '2');
+INSERT INTO `category` VALUES ('14', '上装', '2', null, '2');
+INSERT INTO `category` VALUES ('15', '长裤', '2', null, '2');
+INSERT INTO `category` VALUES ('16', '套装', '3', null, '2');
+INSERT INTO `category` VALUES ('17', '上装', '3', null, '2');
+INSERT INTO `category` VALUES ('18', '裤子', '3', null, '2');
+INSERT INTO `category` VALUES ('19', '内衣裤', '3', null, '2');
+INSERT INTO `category` VALUES ('20', '厨房小电器', '4', null, '2');
+INSERT INTO `category` VALUES ('21', '个护电器', '4', null, '2');
+INSERT INTO `category` VALUES ('22', '生活电器', '4', null, '2');
+INSERT INTO `category` VALUES ('23', '厨房大电', '4', null, '2');
+INSERT INTO `category` VALUES ('24', '大家电', '4', null, '2');
+INSERT INTO `category` VALUES ('25', '手机配件', '5', null, '2');
+INSERT INTO `category` VALUES ('26', '男鞋', '6', null, '2');
+INSERT INTO `category` VALUES ('27', '女鞋', '6', null, '2');
+INSERT INTO `category` VALUES ('28', '手表', '7', null, '2');
+INSERT INTO `category` VALUES ('29', '眼镜', '7', null, '2');
+INSERT INTO `category` VALUES ('30', '珠宝', '7', null, '2');
+INSERT INTO `category` VALUES ('31', '厨房用品', '8', null, '2');
+INSERT INTO `category` VALUES ('32', '餐饮用具', '8', null, '2');
+INSERT INTO `category` VALUES ('33', '居家日用', '8', null, '0');
+INSERT INTO `category` VALUES ('34', '文具教具', '8', null, '2');
+INSERT INTO `category` VALUES ('35', '窗帘布艺', '8', null, '2');
+INSERT INTO `category` VALUES ('36', '收纳整理', '8', null, '2');
+INSERT INTO `category` VALUES ('37', '床上用品', '8', null, '2');
+INSERT INTO `category` VALUES ('38', '书籍', '8', null, '2');
+INSERT INTO `category` VALUES ('39', '护肤', '10', null, '0');
+INSERT INTO `category` VALUES ('40', '彩妆', '10', null, '2');
+INSERT INTO `category` VALUES ('41', '美容美体', '10', null, '2');
+INSERT INTO `category` VALUES ('42', '户外运动', '11', null, '2');
+INSERT INTO `category` VALUES ('43', '运动器材', '11', null, '2');
+INSERT INTO `category` VALUES ('44', '旅游器材', '11', null, '2');
+INSERT INTO `category` VALUES ('45', '宠物洗护', '12', null, '2');
+INSERT INTO `category` VALUES ('46', '宠物用品', '12', null, '2');
+INSERT INTO `category` VALUES ('47', '宠物粮食', '12', null, '2');
+INSERT INTO `category` VALUES ('48', '宠物医护', '12', null, '2');
 
 -- ----------------------------
 -- Table structure for config_key
@@ -30,7 +95,7 @@ CREATE TABLE `config_key` (
   `key` varchar(255) NOT NULL,
   `sort` int(2) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`,`key`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of config_key
@@ -41,7 +106,6 @@ INSERT INTO `config_key` VALUES ('3', '1', '女', '0', '', '1', '2020-04-01 16:0
 INSERT INTO `config_key` VALUES ('4', '0', '状态', '', '开启 & 屏蔽', '0', '2020-04-03 17:24:07', 'STATUS', '0');
 INSERT INTO `config_key` VALUES ('5', '4', '开启', '1', null, '1', null, '', '0');
 INSERT INTO `config_key` VALUES ('6', '4', '关闭', '0', null, '1', null, '', '0');
-INSERT INTO `config_key` VALUES ('8', '0', '测试', '', '测试', '0', '2020-04-03 09:08:40', 'test', '0');
 INSERT INTO `config_key` VALUES ('10', '0', '商品上下架', null, '', '0', null, 'PRODUCT_STATUS', '0');
 INSERT INTO `config_key` VALUES ('11', '10', '上架', '1', '', '1', '0000-00-00 00:00:00', '', '1');
 INSERT INTO `config_key` VALUES ('12', '10', '下架', '0', '', '1', '0000-00-00 00:00:00', '', '2');
@@ -74,26 +138,44 @@ CREATE TABLE `image` (
   `minSize` double DEFAULT NULL,
   `bigSize` double DEFAULT NULL,
   `serverPath` varchar(255) DEFAULT NULL COMMENT '服务器路径',
+  `pathDir` varchar(255) DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of image
 -- ----------------------------
-INSERT INTO `image` VALUES ('20200330', '15855414868627203', 'http://img.fhk255.cn/20200330/15855414868627203x240.png', '74', '1585541486000', '61', 'png', 'http://img.fhk255.cn/20200330/15855414868627203x100.png', 'http://img.fhk255.cn/20200330/15855414868627203.png', '13.97', '279.09', 'E:\\img.fhk255.cn/20200330/15855414868627203');
-INSERT INTO `image` VALUES ('20200328', '15853876923299557', 'http://img.fhk255.cn/20200328/15853876923299557x240.png', '73', '1585387692000', '20', 'png', 'http://img.fhk255.cn/20200328/15853876923299557x100.png', 'http://img.fhk255.cn/20200328/15853876923299557.png', '4.35', '0.32', 'E:\\img.fhk255.cn/20200328/15853876923299557');
-INSERT INTO `image` VALUES ('20200328', '15853876896038720', 'http://img.fhk255.cn/20200328/15853876896038720x240.jpg', '72', '1585387689000', '7', 'jpg', 'http://img.fhk255.cn/20200328/15853876896038720x100.jpg', 'http://img.fhk255.cn/20200328/15853876896038720.jpg', '1.83', '479.36', 'E:\\img.fhk255.cn/20200328/15853876896038720');
-INSERT INTO `image` VALUES ('2020041', '15857341290835521', 'http://img.fhk255.cn/2020041/15857341290835521x240.png', '75', '1585734129000', '25', 'png', 'http://img.fhk255.cn/2020041/15857341290835521x100.png', 'http://img.fhk255.cn/2020041/15857341290835521.png', '6.06', '33.11', 'E:\\img.fhk255.cn/2020041/15857341290835521');
-INSERT INTO `image` VALUES ('2020041', '15857341519287351', 'http://img.fhk255.cn/2020041/15857341519287351x240.png', '76', '1585734151000', '76', 'png', 'http://img.fhk255.cn/2020041/15857341519287351x100.png', 'http://img.fhk255.cn/2020041/15857341519287351.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857341519287351');
-INSERT INTO `image` VALUES ('2020041', '15857342041939083', 'http://img.fhk255.cn/2020041/15857342041939083x240.png', '77', '1585734204000', '17', 'png', 'http://img.fhk255.cn/2020041/15857342041939083x100.png', 'http://img.fhk255.cn/2020041/15857342041939083.png', '3.41', '0.27', 'E:\\img.fhk255.cn/2020041/15857342041939083');
-INSERT INTO `image` VALUES ('2020041', '15857342419891015', 'http://img.fhk255.cn/2020041/15857342419891015x240.png', '78', '1585734241000', '76', 'png', 'http://img.fhk255.cn/2020041/15857342419891015x100.png', 'http://img.fhk255.cn/2020041/15857342419891015.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857342419891015');
-INSERT INTO `image` VALUES ('2020041', '15857342583477064', 'http://img.fhk255.cn/2020041/15857342583477064x240.png', '79', '1585734258000', '17', 'png', 'http://img.fhk255.cn/2020041/15857342583477064x100.png', 'http://img.fhk255.cn/2020041/15857342583477064.png', '3.41', '0.27', 'E:\\img.fhk255.cn/2020041/15857342583477064');
-INSERT INTO `image` VALUES ('2020041', '15857342837997706', 'http://img.fhk255.cn/2020041/15857342837997706x240.png', '80', '1585734283000', '76', 'png', 'http://img.fhk255.cn/2020041/15857342837997706x100.png', 'http://img.fhk255.cn/2020041/15857342837997706.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857342837997706');
-INSERT INTO `image` VALUES ('2020041', '15857346776173672', 'http://img.fhk255.cn/2020041/15857346776173672x240.png', '81', '1585734677000', '17', 'png', 'http://img.fhk255.cn/2020041/15857346776173672x100.png', 'http://img.fhk255.cn/2020041/15857346776173672.png', '3.41', '0.27', 'E:\\img.fhk255.cn/2020041/15857346776173672');
-INSERT INTO `image` VALUES ('2020041', '15857359696524636', 'http://img.fhk255.cn/2020041/15857359696524636x240.png', '82', '1585735969000', '76', 'png', 'http://img.fhk255.cn/2020041/15857359696524636x100.png', 'http://img.fhk255.cn/2020041/15857359696524636.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857359696524636');
-INSERT INTO `image` VALUES ('2020041', '15857363020958623', 'http://img.fhk255.cn/2020041/15857363020958623x240.png', '83', '1585736302000', '76', 'png', 'http://img.fhk255.cn/2020041/15857363020958623x100.png', 'http://img.fhk255.cn/2020041/15857363020958623.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857363020958623');
-INSERT INTO `image` VALUES ('2020041', '15857363769634936', 'http://img.fhk255.cn/2020041/15857363769634936x240.png', '84', '1585736376000', '76', 'png', 'http://img.fhk255.cn/2020041/15857363769634936x100.png', 'http://img.fhk255.cn/2020041/15857363769634936.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857363769634936');
-INSERT INTO `image` VALUES ('2020041', '15857365286367036', 'http://img.fhk255.cn/2020041/15857365286367036x240.png', '85', '1585736528000', '76', 'png', 'http://img.fhk255.cn/2020041/15857365286367036x100.png', 'http://img.fhk255.cn/2020041/15857365286367036.png', '15.4', '2.77', 'E:\\img.fhk255.cn/2020041/15857365286367036');
+INSERT INTO `image` VALUES ('2020046', '15861590526173776', 'http://img.fhk255.cn/product/2020046/15861590526173776x240.jpg', '97', '1586159052000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861590526173776x100.jpg', 'http://img.fhk255.cn/product/2020046/15861590526173776.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861590526173776', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861591742297807', 'http://img.fhk255.cn/product/2020046/15861591742297807x240.jpg', '98', '1586159174000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861591742297807x100.jpg', 'http://img.fhk255.cn/product/2020046/15861591742297807.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861591742297807', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861619864526862', 'http://img.fhk255.cn/sku/2020046/15861619864526862x240.jpg', '99', '1586161986000', '9', 'jpg', 'http://img.fhk255.cn/sku/2020046/15861619864526862x100.jpg', 'http://img.fhk255.cn/sku/2020046/15861619864526862.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/sku/2020046/15861619864526862', 'sku');
+INSERT INTO `image` VALUES ('2020046', '15861620445096974', 'http://img.fhk255.cn/sku/2020046/15861620445096974x240.jpg', '100', '1586162044000', '9', 'jpg', 'http://img.fhk255.cn/sku/2020046/15861620445096974x100.jpg', 'http://img.fhk255.cn/sku/2020046/15861620445096974.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/sku/2020046/15861620445096974', 'sku');
+INSERT INTO `image` VALUES ('2020046', '15861620751083558', 'http://img.fhk255.cn/sku/2020046/15861620751083558x240.jpg', '101', '1586162075000', '9', 'jpg', 'http://img.fhk255.cn/sku/2020046/15861620751083558x100.jpg', 'http://img.fhk255.cn/sku/2020046/15861620751083558.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/sku/2020046/15861620751083558', 'sku');
+INSERT INTO `image` VALUES ('2020046', '15861621149445702', 'http://img.fhk255.cn/sku/2020046/15861621149445702x240.jpg', '102', '1586162114000', '8', 'jpg', 'http://img.fhk255.cn/sku/2020046/15861621149445702x100.jpg', 'http://img.fhk255.cn/sku/2020046/15861621149445702.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/sku/2020046/15861621149445702', 'sku');
+INSERT INTO `image` VALUES ('2020046', '1586162201746695', 'http://img.fhk255.cn/sku/2020046/1586162201746695x240.jpg', '103', '1586162201000', '8', 'jpg', 'http://img.fhk255.cn/sku/2020046/1586162201746695x100.jpg', 'http://img.fhk255.cn/sku/2020046/1586162201746695.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/sku/2020046/1586162201746695', 'sku');
+INSERT INTO `image` VALUES ('2020046', '15861622272555570', 'http://img.fhk255.cn/sku/2020046/15861622272555570x240.jpg', '104', '1586162227000', '8', 'jpg', 'http://img.fhk255.cn/sku/2020046/15861622272555570x100.jpg', 'http://img.fhk255.cn/sku/2020046/15861622272555570.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/sku/2020046/15861622272555570', 'sku');
+INSERT INTO `image` VALUES ('2020046', '1586162917671431', 'http://img.fhk255.cn/product/2020046/1586162917671431x240.jpg', '105', '1586162917000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/1586162917671431x100.jpg', 'http://img.fhk255.cn/product/2020046/1586162917671431.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/1586162917671431', 'product');
+INSERT INTO `image` VALUES ('2020046', '1586162922917613', 'http://img.fhk255.cn/product/2020046/1586162922917613x240.jpg', '106', '1586162922000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/1586162922917613x100.jpg', 'http://img.fhk255.cn/product/2020046/1586162922917613.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/1586162922917613', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861632247673333', 'http://img.fhk255.cn/product/2020046/15861632247673333x240.jpg', '107', '1586163224000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861632247673333x100.jpg', 'http://img.fhk255.cn/product/2020046/15861632247673333.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861632247673333', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861634627501252', 'http://img.fhk255.cn/product/2020046/15861634627501252x240.jpg', '108', '1586163462000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861634627501252x100.jpg', 'http://img.fhk255.cn/product/2020046/15861634627501252.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861634627501252', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861634663368254', 'http://img.fhk255.cn/product/2020046/15861634663368254x240.jpg', '109', '1586163466000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861634663368254x100.jpg', 'http://img.fhk255.cn/product/2020046/15861634663368254.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861634663368254', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861635032519003', 'http://img.fhk255.cn/product/2020046/15861635032519003x240.jpg', '110', '1586163503000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861635032519003x100.jpg', 'http://img.fhk255.cn/product/2020046/15861635032519003.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861635032519003', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861635402491233', 'http://img.fhk255.cn/product/2020046/15861635402491233x240.jpg', '111', '1586163540000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861635402491233x100.jpg', 'http://img.fhk255.cn/product/2020046/15861635402491233.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861635402491233', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861635780098062', 'http://img.fhk255.cn/product/2020046/15861635780098062x240.jpg', '112', '1586163578000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861635780098062x100.jpg', 'http://img.fhk255.cn/product/2020046/15861635780098062.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861635780098062', 'product');
+INSERT INTO `image` VALUES ('2020046', '1586163904306441', 'http://img.fhk255.cn/product/2020046/1586163904306441x240.jpg', '113', '1586163904000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/1586163904306441x100.jpg', 'http://img.fhk255.cn/product/2020046/1586163904306441.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/1586163904306441', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861639073113727', 'http://img.fhk255.cn/product/2020046/15861639073113727x240.jpg', '114', '1586163907000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861639073113727x100.jpg', 'http://img.fhk255.cn/product/2020046/15861639073113727.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861639073113727', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861664791724807', 'http://img.fhk255.cn/product/2020046/15861664791724807x240.jpg', '115', '1586166479000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861664791724807x100.jpg', 'http://img.fhk255.cn/product/2020046/15861664791724807.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861664791724807', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861590233135580', 'http://img.fhk255.cn/product/2020046/15861590233135580x240.jpg', '96', '1586159023000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861590233135580x100.jpg', 'http://img.fhk255.cn/product/2020046/15861590233135580.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861590233135580', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861588825968578', 'http://img.fhk255.cn/product/2020046/15861588825968578x240.jpg', '95', '1586158882000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861588825968578x100.jpg', 'http://img.fhk255.cn/product/2020046/15861588825968578.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861588825968578', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861664834104934', 'http://img.fhk255.cn/product/2020046/15861664834104934x240.jpg', '116', '1586166483000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861664834104934x100.jpg', 'http://img.fhk255.cn/product/2020046/15861664834104934.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861664834104934', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861668968334296', 'http://img.fhk255.cn/product/2020046/15861668968334296x240.jpg', '117', '1586166896000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861668968334296x100.jpg', 'http://img.fhk255.cn/product/2020046/15861668968334296.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861668968334296', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861669003343465', 'http://img.fhk255.cn/product/2020046/15861669003343465x240.jpg', '118', '1586166900000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861669003343465x100.jpg', 'http://img.fhk255.cn/product/2020046/15861669003343465.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861669003343465', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861697104261685', 'http://img.fhk255.cn/product/2020046/15861697104261685x240.jpg', '119', '1586169710000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861697104261685x100.jpg', 'http://img.fhk255.cn/product/2020046/15861697104261685.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861697104261685', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861697142514283', 'http://img.fhk255.cn/product/2020046/15861697142514283x240.jpg', '120', '1586169714000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861697142514283x100.jpg', 'http://img.fhk255.cn/product/2020046/15861697142514283.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861697142514283', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861697198781704', 'http://img.fhk255.cn/product/2020046/15861697198781704x240.jpg', '121', '1586169719000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861697198781704x100.jpg', 'http://img.fhk255.cn/product/2020046/15861697198781704.jpg', '2.94', '153.72', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861697198781704', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861734468825692', 'http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg', '122', '1586173446000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861734468825692x100.jpg', 'http://img.fhk255.cn/product/2020046/15861734468825692.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861734468825692', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861734502104912', 'http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg', '123', '1586173450000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861734502104912x100.jpg', 'http://img.fhk255.cn/product/2020046/15861734502104912.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861734502104912', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861831056516287', 'http://img.fhk255.cn/product/2020046/15861831056516287x240.jpg', '124', '1586183105000', '9', 'jpg', 'http://img.fhk255.cn/product/2020046/15861831056516287x100.jpg', 'http://img.fhk255.cn/product/2020046/15861831056516287.jpg', '2.39', '140.96', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861831056516287', 'product');
+INSERT INTO `image` VALUES ('2020046', '15861831091518486', 'http://img.fhk255.cn/product/2020046/15861831091518486x240.jpg', '125', '1586183109000', '8', 'jpg', 'http://img.fhk255.cn/product/2020046/15861831091518486x100.jpg', 'http://img.fhk255.cn/product/2020046/15861831091518486.jpg', '2.64', '26.54', 'G:\\个人项目\\img.fhk255.cn/product/2020046/15861831091518486', 'product');
 
 -- ----------------------------
 -- Table structure for menu
@@ -111,7 +193,7 @@ CREATE TABLE `menu` (
   `createTime` bigint(20) DEFAULT NULL,
   `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`,`path`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -134,6 +216,8 @@ INSERT INTO `menu` VALUES ('15', '/h5/details', 'H5详情', '', 'H5详情', '000
 INSERT INTO `menu` VALUES ('19', '/config', null, '', '系统配置', '00000000000', '', '0', '1585535214000', null);
 INSERT INTO `menu` VALUES ('20', '/config/media', null, '', '媒体库', '00000000019', '', '0', '1585535235000', null);
 INSERT INTO `menu` VALUES ('21', '/config/keys', null, '', '参数配置', '00000000019', '', '0', '1585816166000', '1585816222000');
+INSERT INTO `menu` VALUES ('22', '/config/components', null, '', '页面组件', '00000000019', '', '0', '1586011450000', null);
+INSERT INTO `menu` VALUES ('23', '/product/category', null, '', '基础分类', '00000000001', '', '0', '1586018252000', null);
 
 -- ----------------------------
 -- Table structure for order
@@ -328,126 +412,65 @@ INSERT INTO `page` VALUES ('6', '测试页', '', '', '0', 'lg3l0jebumo', '158511
 -- ----------------------------
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
-  `id` varchar(255) NOT NULL,
-  `title_zh` varchar(255) NOT NULL,
-  `from_url` varchar(255) NOT NULL,
-  `update_time` datetime NOT NULL,
-  `create_time` datetime NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `price_range_cn` varchar(255) DEFAULT NULL,
-  `purchaseRange` varchar(255) DEFAULT NULL COMMENT '进货价',
-  `status` varchar(20) DEFAULT NULL COMMENT '状态',
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `fromUrl` varchar(255) NOT NULL,
+  `updateTime` bigint(20) NOT NULL,
+  `createTime` bigint(20) NOT NULL,
+  `desc` text,
+  `inPrice` varchar(255) DEFAULT NULL COMMENT '进货价',
+  `outPrice` varchar(255) DEFAULT NULL COMMENT '销售价',
+  `status` int(1) DEFAULT '1' COMMENT '状态',
   `mainImage` varchar(255) DEFAULT NULL COMMENT '主图',
-  `from_shop_id` int(11) DEFAULT NULL,
-  `baseCategoryName` varchar(255) DEFAULT NULL,
+  `shopId` int(11) DEFAULT NULL,
+  `categoryId` varchar(255) DEFAULT NULL,
   `from` varchar(255) DEFAULT NULL,
-  `priceRange` varchar(255) DEFAULT NULL,
+  `subTitle` varchar(255) DEFAULT NULL,
+  `propList` text,
+  `images` varchar(255) DEFAULT NULL,
+  `attrList` text,
+  `tag` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1144040 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES ('1144024', '新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发', 'https://detail.1688.com/offer/610415517942.html?', '2020-02-17 17:04:34', '2020-01-15 16:50:36', 'New trendy temperament wild ear bone clip ladies simple personality no pierced ear clip ear hook wholesale', '4.4776', '3.7313', '1', 'https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg', '65924', 'General -> 1688 -> 耳夹', '1688', '7.4626');
-INSERT INTO `product` VALUES ('1144013', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'https://detail.1688.com/offer/563151816211.html?', '2020-01-10 15:20:34', '2020-01-09 14:50:49', 'New curved oval tempered glass phone case for Apple 11Pro / OPPOReno2 / VIVOS1 / V30', '0.5374-1.5224', '0.4478', '0', 'https://cbu01.alicdn.com/img/ibank/2019/349/668/13052866943_352634785.jpg', '65921', 'General -> 1688 -> 手机保护套', '1688', '0.8956');
-INSERT INTO `product` VALUES ('1144012', '速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发', 'https://detail.1688.com/offer/596448266225.html?', '2020-01-08 15:24:56', '2020-01-02 10:20:10', 'AliExpress Explosion Style Zircon Earrings Stainless Steel Ear Bone Studs European and American Micro-Set Sunflower Screw Ear Piercing', '0.4603-0.9725', '0.3836', '1', 'https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg', '65920', 'Apparel & Accessories -> Clothing Accessories -> Balaclavas', '1688', '0.7672');
-INSERT INTO `product` VALUES ('1144008', '莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天', 'https://detail.1688.com/offer/564782453735.html?', '2019-12-30 18:17:32', '2019-12-30 18:17:29', 'Mortray Nail Polish Dedicated Nail Polish Gel', '0.3546-0.5015', '0.2955', '1', 'https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg', '65916', 'General -> 1688 -> 甲油胶', '1688', '0.591');
-INSERT INTO `product` VALUES ('1144007', '新款针织触屏手套女冬季韩版加厚小鹿毛线手套', 'https://detail.1688.com/offer/605107717900.html?', '2019-12-21 18:03:02', '2019-12-21 18:03:01', 'New Knitted Touchscreen Gloves Female Winter Korean Thicken Fawn Wool Gloves', '1.4149', '1.1791', '1', 'https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg', '65915', 'General -> 1688 -> 成人手套', '1688', '2.3582');
-INSERT INTO `product` VALUES ('1144006', '狗窝可拆洗 泰迪卡通宠物窝 宠物用品 大型犬金毛狗床狗垫子批发', 'https://detail.1688.com/offer/526228423192.html?', '2019-11-28 10:33:39', '2019-11-26 15:07:47', 'Dog kennel removable and washable Teddy cartoon pet kennel pet supplies large dog golden retriever dog bed dog mat wholesale', '3.3672-12.1792', '2.806', '1', 'https://cbu01.alicdn.com/img/ibank/2017/377/455/4582554773_813356358.jpg', '65914', 'General -> 1688 -> 狗狗窝、笼', '1688', '5.612');
-INSERT INTO `product` VALUES ('1144005', '【男女袜多款式可选】袜子女短袜子四季款棉透气男士船袜女士袜子', 'https://detail.1688.com/offer/574437693492.html?', '2019-11-21 21:21:00', '2019-10-21 14:51:20', '[men and women socks more styles available] socks female short socks four seasons cotton breathable men\'s boat socks ladies socks', '0.0895-0.1343', '0.0746', '0', 'https://cbu01.alicdn.com/img/ibank/2019/757/444/11417444757_442655963.jpg', '65913', 'VIP', '1688', '0.1492');
-INSERT INTO `product` VALUES ('1144004', '盒装抽纸定做酒店银行保险抽取式餐巾纸定做印logo广告纸巾定制', 'https://detail.1688.com/offer/591674846945.html?', '2019-11-21 21:21:48', '2019-10-18 17:40:00', 'Boxed paper custom hotel bank insurance removable napkins custom printed logo advertising paper towel custom', '0.1164-0.1523', '0.097', '0', 'https://cbu01.alicdn.com/img/ibank/2019/105/171/11722171501_878688472.jpg', '65912', 'VIP', '1688', '0.194');
-INSERT INTO `product` VALUES ('1144003', '冬新款13cm恨天高松糕厚底弹力绒内增高显瘦女靴水钻过膝长筒靴', 'https://detail.1688.com/offer/580499195894.html?', '2019-11-29 13:58:36', '2019-10-18 16:18:04', 'Winter new 13cm hate sky high sponge cake thick bottom stretch velvet increase high thin women\'s boots rhinestones over the knee boots', '16.2985-21.6716', '0', '1', 'https://cbu01.alicdn.com/img/ibank/2018/983/124/9533421389_81353897.jpg', '65911', 'VIP', '1688', '0');
-INSERT INTO `product` VALUES ('1144002', '跨境货源LOGO可定制USB背包休闲商务男包笔记本双肩包一件代发', 'https://detail.1688.com/offer/595435329502.html?', '2019-11-21 21:21:03', '2019-10-17 18:53:17', 'Cross-border supply LOGO customizable USB backpack casual business men\'s bag notebook backpack one generation', '4.8359-5.1941', '4.0299', '1', 'https://cbu01.alicdn.com/img/ibank/2019/578/232/12073232875_604889811.jpg', '65910', 'VIP', '1688', '8.0598');
-INSERT INTO `product` VALUES ('1144001', '故宫 金桂浮月挂饰钥匙扣包挂送礼礼品故宫博物院官方旗舰店', 'https://detail.tmall.com/item.htm?id=602826511597', '2019-11-21 21:21:51', '2019-10-17 16:52:13', 'Forbidden City Jingui Floating Moon Hanging Keychain Bag Hanging Gift Gifts Palace Museum Official Flagship Store', '11.8208', '9.8507', '0', 'http://img.alicdn.com/bao/uploaded/i4/2893966855/O1CN0143D5MS20VdaYlqH8o_!!0-item_pic.jpg', '65909', 'VIP', 'tmall', '19.7014');
-INSERT INTO `product` VALUES ('1144000', '亚马逊宠物碗双碗防滑不锈钢狗碗 糖果色狗食盆圆形两用猫碗', 'https://detail.1688.com/offer/1017228275.html?', '2019-11-21 21:21:53', '2019-09-28 15:51:02', 'Amazon pet bowl double bowl non-slip stainless steel dog bowl candy color dog food bowl round dual-use cat bowl', '0.7075-2.597', '0.5896', '1', 'https://cbu01.alicdn.com/img/ibank/2018/252/678/9051876252_973676538.jpg', '65908', 'VIP', '1688', '1.1792');
-INSERT INTO `product` VALUES ('1143999', '35连30连马卡龙模具 不粘曲奇饼干模具曲奇烤盘 电烤箱烘焙模具', 'https://detail.1688.com/offer/598008516338.html?', '2019-11-21 21:21:55', '2019-09-27 16:43:54', '35 even30 even macaron mold non-stick cookie mold cookie baking tray electric oven baking mold', '2.8298-3.009', '2.3582', '1', 'https://cbu01.alicdn.com/img/ibank/2019/869/082/11485280968_1529814816.jpg', '65907', 'VIP', '1688', '4.7164');
-INSERT INTO `product` VALUES ('1143998', '工厂批发定做 可重复使用疫苗/血浆/奶制品运输冷链冰袋冰包', 'https://detail.1688.com/offer/561993785449.html?', '2019-11-21 21:21:58', '2019-09-27 16:36:32', 'Factory wholesale custom Reusable vaccine / plasma / dairy transport cold chain ice pack ice pack', '0.3941-0.4477', '0.3284', '1', 'https://cbu01.alicdn.com/img/ibank/2017/901/919/7190919109_1031885222.jpg', '65906', 'VIP', '1688', '0.6568');
-INSERT INTO `product` VALUES ('1143997', '帽子男女秋冬天韩版潮人棒球帽百搭休闲潮牌时尚嘻哈鸭舌帽渔夫帽', 'https://detail.1688.com/offer/584238072916.html?', '2019-11-21 21:21:59', '2019-09-27 16:12:18', 'Hat men and women autumn and winter Korean version of the tide baseball cap wild casual tide brand fashion hip hop cap fisherman hat', '0.8956-1.0746', '0.7463', '1', 'https://cbu01.alicdn.com/img/ibank/2018/263/920/10126029362_1648360977.jpg', '65905', 'VIP', '1688', '1.4926');
-INSERT INTO `product` VALUES ('1143996', '美国king糖果王国新款电子烟油烟味水果味大烟雾秒杀果酱怪兽', 'https://detail.1688.com/offer/591441685940.html?', '2019-11-21 21:22:02', '2019-09-27 16:05:13', 'United States king candy kingdom new electronic cigarette oil smoke flavor fruit flavor big smoke spike jam monster', '', '37313432.8358', '1', 'https://cbu01.alicdn.com/img/ibank/2019/253/255/10798552352_963618484.jpg', '0', 'VIP', '1688', '74626865.6716');
-INSERT INTO `product` VALUES ('1143995', '猫王玻璃杯', '', '2019-09-27 20:02:28', '2019-09-27 14:27:16', 'Elvis Presley', '2.6866', '2.2388', '1', '', '65898', 'Hardware1 -> Fuel Containers & Tanks', 'nome', '4.4776');
-INSERT INTO `product` VALUES ('1143994', '100T中空柱塞千斤顶 RRH-1001双作用空心千斤顶  空心液压油缸', 'https://detail.1688.com/offer/559282179181.html?', '2020-02-14 22:32:06', '2019-09-25 14:11:51', '100T hollow plunger jack RRH-1001 double acting hollow jack hollow hydraulic cylinder', '587.4626-874.0298', '489.5522', '0', 'https://cbu01.alicdn.com/img/ibank/2017/268/440/5340044862_274107156.jpg', '65903', 'VIP', '1688', '979.1044');
-INSERT INTO `product` VALUES ('1143993', '简约风系列-香氛包', '', '2019-09-25 14:08:52', '2019-09-25 11:25:03', 'Simple style series fragrance package', '1.2538', '1.0448', '1', '', '12', 'General -> nome -> 家居装饰>香包', 'nome', '2.0896');
-INSERT INTO `product` VALUES ('1143992', '金属质感纤薄无线鼠标', '', '2019-09-25 14:08:52', '2019-09-25 11:24:48', 'Metallic slim wireless mouse', '3.5821', '2.9851', '1', '', '12', 'General -> nome -> 数码配件>鼠标', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143991', '字母斜挎小单肩包混', '', '2019-11-21 21:21:35', '2019-09-24 14:45:49', 'Letter slanting small shoulder bag', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143990', '刺绣字母时尚棒球帽混', '', '2019-09-24 14:46:06', '2019-09-24 14:45:46', 'Embroidered letters fashion baseball cap mixed', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143989', '三用立体自动眉笔', '', '2019-09-24 14:46:06', '2019-09-24 14:45:44', 'Three-dimensional automatic eyebrow pencil', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143988', '炫彩手提化妆包', '', '2019-09-24 14:46:06', '2019-09-24 14:45:42', 'Colorful portable cosmetic bag', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143987', '学院风字母双肩包', '', '2019-09-24 14:46:06', '2019-09-24 14:45:40', 'College style letter backpack', '5.8092', '4.841', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '9.682');
-INSERT INTO `product` VALUES ('1143986', '柔和三角自动眉笔', '', '2019-09-24 14:46:05', '2019-09-24 14:45:38', 'Soft triangle automatic eyebrow pencil', '1.7346', '1.4455', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '2.891');
-INSERT INTO `product` VALUES ('1143985', '透明网系列拼色化妆包', '', '2019-09-24 14:46:05', '2019-09-24 14:45:36', 'Transparent mesh series color matching cosmetic bag', '2.3167', '1.9306', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '3.8612');
-INSERT INTO `product` VALUES ('1143984', '高保湿精油口红', '', '2019-09-24 14:46:05', '2019-09-24 14:45:31', 'High moisturizing essential oil lipstick', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143983', '轻薄隐形双头遮瑕', '', '2019-09-24 14:46:04', '2019-09-24 14:45:29', 'Light and invisible double-headed concealer', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143982', '时尚潮款太阳镜混', '', '2019-09-24 14:46:04', '2019-09-24 14:45:26', 'Fashion tide sunglasses mixed', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143981', '星辰魔幻顺滑防水眼线笔', '', '2019-09-24 14:46:04', '2019-09-24 14:45:24', 'Star Magic Smooth and Waterproof Eyeliner', '1.1525', '0.9604', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '1.9208');
-INSERT INTO `product` VALUES ('1143980', '便携自动双头眼影笔', '', '2019-09-24 14:46:04', '2019-09-24 14:45:21', 'Portable automatic double-headed eye shadow pen', '2.3167', '1.9306', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '3.8612');
-INSERT INTO `product` VALUES ('1143979', '几何系列化妆包混', '', '2019-09-24 14:46:03', '2019-09-24 14:45:20', 'Geometric series cosmetic mix', '2.3167', '1.9306', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '3.8612');
-INSERT INTO `product` VALUES ('1143978', '波点印花儿童渔夫帽混', '', '2019-09-24 14:46:03', '2019-09-24 14:45:17', 'Polka dot print child fisherman hat mix', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143977', '休闲牛皮纸系列零钱包', '', '2019-09-24 14:46:03', '2019-09-24 14:45:14', 'Kraft Paper Series-Coin Bag ', '1.7346', '1.4455', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '2.891');
-INSERT INTO `product` VALUES ('1143976', '双头珠光阴影卧蚕笔', '', '2019-09-24 14:46:03', '2019-09-24 14:45:13', 'Double-headed pearl shadow', '1.7346', '1.4455', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '2.891');
-INSERT INTO `product` VALUES ('1143975', '春日田园系列-纤细柔和自动眉笔+纤细防水眼线液笔黑色', '', '2019-09-24 14:46:02', '2019-09-24 14:45:11', 'Spring Garden Series - Slim and Soft Automatic Eyebrow Pencil + Slim Waterproof Eyeliner Pen Black', '2.212', '1.8433', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '3.6866');
-INSERT INTO `product` VALUES ('1143974', '三用立体自动眉笔 ', '', '2019-09-24 14:46:02', '2019-09-24 14:45:08', 'Three-dimensional automatic eyebrow pencil', '2.212', '1.8433', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '3.6866');
-INSERT INTO `product` VALUES ('1143973', '水光润泽气垫BB霜', '', '2019-09-24 14:46:02', '2019-09-24 14:45:06', 'Water light moisturizing cushion BB cream', '5.8092', '4.841', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '9.682');
-INSERT INTO `product` VALUES ('1143972', '修颜隔离霜', '', '2019-09-24 14:46:02', '2019-09-24 14:45:05', 'Repairing cream', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143971', '丝绒顺滑口红', '', '2019-09-24 14:46:01', '2019-09-24 14:45:02', 'Velvet smooth lipstick', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143970', '炫彩大容量化妆包', '', '2019-09-24 14:46:01', '2019-09-24 14:45:00', 'Colorful large-capacity cosmetic bag', '2.3167', '1.9306', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '3.8612');
-INSERT INTO `product` VALUES ('1143969', '简约拼接短款女士钱包', '', '2019-09-24 14:46:01', '2019-09-24 14:44:58', 'Simple stitching short ladies wallet', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143968', '简约纯色子母手拿包', '', '2019-09-24 14:46:01', '2019-09-24 14:44:55', 'Concise Matching Handbags ', '6.9734', '5.8112', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '11.6224');
-INSERT INTO `product` VALUES ('1143967', '水光缤纷唇釉', '', '2019-09-24 14:46:00', '2019-09-24 14:44:53', 'Water-coloured lip glaze', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143966', '粉嫩清透腮红膏', '', '2019-09-24 14:46:00', '2019-09-24 14:44:51', 'Pink and clear blush cream', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143965', '自然润色修容腮红', '', '2019-09-24 14:46:00', '2019-09-24 14:44:49', 'Natural touch color repair blush', '2.8988', '2.4157', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '4.8314');
-INSERT INTO `product` VALUES ('1143964', '金属猫眼时尚太阳镜', '', '2019-09-24 14:45:59', '2019-09-24 14:44:46', 'Metal cat eye fashion sunglasses', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143963', '白色绅士香水', '', '2019-09-24 14:45:59', '2019-09-24 14:44:44', 'White gentleman perfume', '1.7346', '1.4455', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '2.891');
-INSERT INTO `product` VALUES ('1143962', '畅舞指甲油', '', '2019-09-24 14:45:59', '2019-09-24 14:44:41', 'Dancing nail polish', '1.1525', '0.9604', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '1.9208');
-INSERT INTO `product` VALUES ('1143961', '三色控油定妆蜜粉', '', '2019-09-24 14:45:59', '2019-09-24 14:44:38', 'Three color oil control makeup powder', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143960', '控油清爽散粉', '', '2019-09-24 14:45:58', '2019-09-24 14:44:36', 'Oil control refreshing powder', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143959', '寻真足迹系列 香水', '', '2019-09-24 14:45:58', '2019-09-24 14:44:33', 'Authentic Footprint Series', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143958', '时尚系列渔夫帽混', '', '2019-09-24 14:45:58', '2019-09-24 14:44:31', 'Fashion series fisherman hat mix', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143957', '平顶小香风草帽', '', '2019-09-24 14:45:57', '2019-09-24 14:44:28', 'Straw Boater ', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143956', '舒适梯形便当袋', '', '2019-09-24 14:45:57', '2019-09-24 14:44:26', 'Lunch Bag ', '1.7346', '1.4455', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '2.891');
-INSERT INTO `product` VALUES ('1143955', '致润轻薄遮瑕液 ', '', '2019-09-24 14:45:57', '2019-09-24 14:44:25', 'Moisturizing light concealer', '2.3167', '1.9306', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '3.8612');
-INSERT INTO `product` VALUES ('1143954', '简单时尚切边偏光镜混', '', '2019-09-24 14:45:57', '2019-09-24 14:44:24', 'Simple and stylish trimming polarizer', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143953', '夏日蝴蝶结渔夫帽混', '', '2019-09-24 14:45:57', '2019-09-24 14:44:22', 'Summer bow fisherman hat mixed', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143952', '简约百搭造型定型帽', '', '2019-09-24 14:45:57', '2019-09-24 14:44:20', 'Simple and versatile shape cap', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143951', '简约拼色拉链女士钱包', '', '2019-09-24 14:45:56', '2019-09-24 14:44:18', 'Simple colorblock zipper ladies wallet', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143950', '1.5毫米纤细自动眉笔 ', '', '2019-09-24 14:45:56', '2019-09-24 14:44:16', '1.5 mm slim automatic eyebrow pencil', '1.7346', '1.4455', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '2.891');
-INSERT INTO `product` VALUES ('1143949', '迷你儿童双肩包', '', '2019-09-24 14:45:56', '2019-09-24 14:44:13', 'Mini children\'s backpack', '4.063', '3.3858', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '6.7716');
-INSERT INTO `product` VALUES ('1143948', '全新防水卷翘浓密睫毛膏', '', '2019-09-24 14:45:56', '2019-09-24 14:44:11', 'New waterproof curling thick mascara', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143947', '北欧少女小香水', '', '2019-09-24 14:45:56', '2019-09-24 14:44:08', 'Nordic girl perfume', '1.1641', '0.9701', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '1.9402');
-INSERT INTO `product` VALUES ('1143946', '简约帆布购物袋', '', '2019-09-24 14:45:55', '2019-09-24 14:44:05', 'Simple canvas shopping bag', '5.8092', '4.841', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '9.682');
-INSERT INTO `product` VALUES ('1143945', '夏日丛林系列-三角柔滑自动眉笔+魅黑持妆眼线液笔', '', '2019-09-24 14:45:54', '2019-09-24 14:44:02', 'Summer Jungle Series - Triangle Smooth Automatic Eyebrow Pencil + Charm Black Eyeliner', '2.212', '1.8433', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '3.6866');
-INSERT INTO `product` VALUES ('1143944', '促销定制马克杯批发水杯礼品陶瓷杯广告杯logo文字图案感温变色杯', 'https://detail.1688.com/offer/591054778810.html?', '2019-10-17 17:43:55', '2019-09-24 14:06:27', 'Promotional custom mug wholesale cup gift ceramic cup advertising cup logo text pattern temperature change color cup', '0.1792-0.2149', '0.1493', '1', 'https://cbu01.alicdn.com/img/ibank/2019/331/574/10783475133_1021605586.jpg', '65902', 'General -> nome -> 彩妆>彩妆', '1688', '0.2986');
-INSERT INTO `product` VALUES ('1143943', '源头厂商 创意陶瓷杯 哑光马克杯 咖啡水杯广告礼品定制LOGO', 'https://detail.1688.com/offer/529345153429.html?', '2019-10-17 17:43:54', '2019-09-24 14:04:47', 'Source manufacturer Creative ceramic cup Matte mug Coffee cup advertising gift custom LOGO', '0.6269-1.791', '0.5224', '1', 'https://cbu01.alicdn.com/img/ibank/2019/119/862/11309268911_1216195017.jpg', '65901', 'General -> nome -> 彩妆>彩妆', '1688', '1.0448');
-INSERT INTO `product` VALUES ('1143942', '创意陶瓷杯促销小礼品卡通陶瓷咖啡杯单杯广告马克杯定制logo', 'https://detail.1688.com/offer/591676364206.html?', '2019-10-17 17:43:53', '2019-09-24 13:55:17', 'Creative ceramic cup promotion small gift cartoon ceramic coffee cup single cup advertising mug custom logo', '', '0', '1', 'https://cbu01.alicdn.com/img/ibank/2019/253/039/10843930352_133164220.jpg', '0', 'General -> nome -> 彩妆>彩妆', '1688', '0');
-INSERT INTO `product` VALUES ('1143941', '卡通陶瓷杯定制LOGO广告杯咖啡杯日用百货小礼品活动赠送实用批发', 'https://detail.1688.com/offer/587416473642.html?', '2019-10-17 17:43:53', '2019-09-24 13:50:32', 'Cartoon ceramic cup custom LOGO advertising cup coffee cup daily necessities small gift activities gift practical wholesale', '0.3044-0.3403', '0.2537', '1', 'https://cbu01.alicdn.com/img/ibank/2019/106/282/10429282601_133164220.jpg', '65900', 'General -> 1688 -> 陶瓷杯', '1688', '0.5074');
-INSERT INTO `product` VALUES ('1143940', '厂家直销正方形手缝亚克力爪钻婚纱鞋帽DIY服装服饰饰品辅料配件', 'https://detail.1688.com/offer/1281922850.html?', '2019-10-17 17:43:52', '2019-09-24 13:44:16', 'Factory direct square hand-stitched acrylic claw drill wedding shoes and hats DIY clothing apparel jewelry accessories', '8.9552-21.4925', '7.4627', '1', 'https://cbu01.alicdn.com/img/ibank/2019/024/902/11579209420_1492608319.jpg', '65899', 'Arts & Entertainment -> Party & Celebration -> Trophies & Awards', '1688', '14.9254');
-INSERT INTO `product` VALUES ('1143939', '夏日丛林系列-三角柔滑自动眉笔+魅黑持妆眼线液笔', '', '2019-09-24 10:52:33', '2019-09-20 14:02:30', 'Summer Jungle Series - Triangle Smooth Automatic Eyebrow Pencil + Charm Black Eyeliner', '', '0', '1', '', '12', 'General', 'nome', '0');
-INSERT INTO `product` VALUES ('1143938', '轻舞水性撕拉指甲油', '', '2019-09-24 14:45:54', '2019-09-20 13:59:28', 'Light dance water-based tearing nail polish', '1.1525', '0.9604', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '1.9208');
-INSERT INTO `product` VALUES ('1143937', '全新自然立体三色眉粉', '', '2019-09-24 14:45:53', '2019-09-20 13:56:28', 'New natural three-dimensional eyebrow powder', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143936', '时尚脚丝点漆偏光镜混', '', '2019-09-24 14:45:53', '2019-09-20 13:53:27', 'Fashion foot silk paint polarizer mixed', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143935', '丝滑持妆眼影膏', '', '2019-09-24 14:45:53', '2019-09-20 13:50:27', 'Silky makeup eye shadow cream', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143934', '双梁烤漆超轻偏光镜混', '', '2019-09-24 14:45:53', '2019-09-20 13:47:26', 'Double beam paint ultra light polarizer', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143933', '透明网料零钱包', '', '2019-09-24 14:45:53', '2019-09-20 13:44:25', 'Transparent mesh coin purse', '1.1641', '0.9701', '1', '', '65898', 'General -> nome -> 服饰配件>服饰配件', 'nome', '1.9402');
-INSERT INTO `product` VALUES ('1143932', '持妆自动眉笔', '', '2019-09-24 14:45:52', '2019-09-20 13:41:25', 'Automatic eyebrow pencil', '1.1525', '0.9604', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '1.9208');
-INSERT INTO `product` VALUES ('1143931', '北欧系列双肩包', '', '2019-09-24 15:31:16', '2019-09-20 13:38:24', 'Nordic shoulder bag', '4.6451', '3.8709', '1', '', '65898', 'Business & Industrial -> Advertising & Marketing -> Brochures', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143930', '美肌提亮遮瑕BB霜', '', '2019-09-24 14:45:52', '2019-09-20 12:00:06', 'Beauty Brightening Concealer BB Cream', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143929', '丰盈滋润变色唇膏', '', '2019-09-24 14:45:52', '2019-09-20 11:56:54', 'Rich and moisturizing lipstick', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143928', '双头高光阴影修容棒', '', '2019-09-24 14:45:52', '2019-09-20 11:53:50', 'Double-headed high-gloss shadow repairing rod', '3.4808', '2.9007', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '5.8014');
-INSERT INTO `product` VALUES ('1143927', '自然无暇双效粉饼', '', '2019-09-24 14:45:51', '2019-09-20 11:50:49', 'Natural flawless double effect powder', '4.6451', '3.8709', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '7.7418');
-INSERT INTO `product` VALUES ('1143926', '固色护甲指彩套装', '', '2019-09-24 14:45:51', '2019-09-20 11:47:47', 'Solid color armor finger color suit', '1.7346', '1.4455', '1', '', '65898', 'General -> nome -> 彩妆>彩妆', 'nome', '2.891');
-INSERT INTO `product` VALUES ('1143925', '  DG DSG SDG', '', '2019-09-19 21:04:47', '2019-09-19 21:04:44', '212DS', '3.5821', '2.9851', '1', '', '65898', 'General -> nome -> E>而且', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143924', '撒大声地萨多撒', '', '2019-09-19 21:04:46', '2019-09-19 21:04:42', '是紧挨', '3.5821', '2.9851', '1', '', '65898', 'General -> nome -> RER>TE', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143923', 'DADS', '', '2019-09-19 21:04:46', '2019-09-19 21:04:41', 'JKSL', '3.5821', '2.9851', '1', '', '65898', 'General -> nome -> ET>ER', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143922', '彩色极简', '', '2019-09-19 21:16:42', '2019-09-19 20:56:23', '简约', '3.5821', '2.9851', '1', '', '12', 'General -> nome -> 文2体品>而2', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143921', '放散阀', '', '2019-09-19 21:16:42', '2019-09-19 20:56:19', '快递费死是啥的', '3.5821', '2.9851', '1', '', '12', 'General -> nome -> 家居3生活>我3去', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143920', '是紧挨', '', '2019-09-19 20:16:06', '2019-09-19 20:06:19', '是紧挨', '3.5821', '2.9851', '1', '', '65898', 'General', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143919', 'JKSL', '', '2019-09-19 20:16:06', '2019-09-19 20:06:18', 'JKSL', '3.5821', '2.9851', '1', '', '65898', 'General', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143918', '212DS', '', '2019-09-19 20:16:06', '2019-09-19 20:06:17', '212DS', '3.5821', '2.9851', '1', '', '65898', 'General', 'nome', '5.9702');
-INSERT INTO `product` VALUES ('1143917', '一件代发现货可发不锈钢保温杯韩版螺旋渐变车载办公杯男女随行杯', 'https://detail.1688.com/offer/596358475304.html?', '2019-10-17 17:43:51', '2019-09-19 16:07:50', 'A generation of found goods can send stainless steel vacuum flask Korean version of the spiral gradient car office cup men and women accompanying cup', '', '0', '1', 'https://cbu01.alicdn.com/img/ibank/2019/402/116/11873611204_1906679802.jpg', '0', 'General -> 1688 -> 保温杯', '1688', '0');
-INSERT INTO `product` VALUES ('1143916', '彩色极简双头马克笔', '', '2019-09-19 20:56:35', '2019-09-17 14:57:30', 'Mark pen', '102.9851', '85.8209', '1', '', '12', 'General -> nome -> 文体礼品>马克笔', 'nome', '171.6418');
-INSERT INTO `product` VALUES ('1143915', '水磨圆碗', '', '2019-09-19 20:56:35', '2019-09-17 14:57:26', '阿斯蒂芬', '3.7612', '3.1343', '1', '', '12', 'General -> nome -> 家居生活>陶瓷杯', 'nome', '6.2686');
-INSERT INTO `product` VALUES ('1143914', '新款无钢圈性感文胸聚拢小胸上托少女胸罩无痕美背调整型侧收抹胸', 'https://detail.1688.com/offer/591114098006.html?', '2019-10-17 17:43:50', '2019-09-16 12:02:44', 'New non-steel sexy bra gathered small chest on the girl bra without traces beautiful back adjustment side chest tube', '2.1492-2.5075', '1.791', '1', 'https://cbu01.alicdn.com/img/ibank/2019/033/038/10760830330_1267726488.jpg', '65897', 'Sporting Goods -> Outdoor Recreation -> Hunting & Shooting -> Paintball & Airsoft -> Paintball -> Paintball Gun Parts & Accessories -> Paintball Hoppers', '1688', '3.582');
-INSERT INTO `product` VALUES ('1143911', '水磨圆碗', '', '2019-09-12 11:51:14', '2019-09-12 11:51:14', '阿斯蒂芬', '3.7612', '3.1343', '1', '', '0', 'General -> nome -> 家居生活>陶瓷杯', 'nome', '6.2686');
-INSERT INTO `product` VALUES ('1143912', '彩色极简双头马克笔', '', '2019-09-12 11:51:14', '2019-09-12 11:51:14', 'Mark pen', '102.9851', '85.8209', '1', '', '0', 'General -> nome -> 文体礼品>马克笔', 'nome', '171.6418');
+INSERT INTO `product` VALUES ('1144024', '新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发', 'https://detail.1688.com/offer/610415517942.html?', '2020', '2020', 'New trendy temperament wild ear bone clip ladies simple personality no pierced ear clip ear hook wholesale', '4.4776', '3.7313', '1', 'https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg', '65924', 'General -> 1688 -> 耳夹', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144013', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'https://detail.1688.com/offer/563151816211.html?', '2020', '2020', 'New curved oval tempered glass phone case for Apple 11Pro / OPPOReno2 / VIVOS1 / V30', '0.5374-1.5224', '0.4478', '0', 'https://cbu01.alicdn.com/img/ibank/2019/349/668/13052866943_352634785.jpg', '65921', 'General -> 1688 -> 手机保护套', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144012', '速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发', 'https://detail.1688.com/offer/596448266225.html?', '2020', '2020', 'AliExpress Explosion Style Zircon Earrings Stainless Steel Ear Bone Studs European and American Micro-Set Sunflower Screw Ear Piercing', '0.4603-0.9725', '0.3836', '1', 'https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg', '65920', 'Apparel & Accessories -> Clothing Accessories -> Balaclavas', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144008', '莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天', 'https://detail.1688.com/offer/564782453735.html?', '2019', '2019', 'Mortray Nail Polish Dedicated Nail Polish Gel', '0.3546-0.5015', '0.2955', '1', 'https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg', '65916', 'General -> 1688 -> 甲油胶', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144007', '新款针织触屏手套女冬季韩版加厚小鹿毛线手套', 'https://detail.1688.com/offer/605107717900.html?', '2019', '2019', 'New Knitted Touchscreen Gloves Female Winter Korean Thicken Fawn Wool Gloves', '1.4149', '1.1791', '1', 'https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg', '65915', 'General -> 1688 -> 成人手套', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144006', '狗窝可拆洗 泰迪卡通宠物窝 宠物用品 大型犬金毛狗床狗垫子批发', 'https://detail.1688.com/offer/526228423192.html?', '2019', '2019', 'Dog kennel removable and washable Teddy cartoon pet kennel pet supplies large dog golden retriever dog bed dog mat wholesale', '3.3672-12.1792', '2.806', '1', 'https://cbu01.alicdn.com/img/ibank/2017/377/455/4582554773_813356358.jpg', '65914', 'General -> 1688 -> 狗狗窝、笼', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144005', '【男女袜多款式可选】袜子女短袜子四季款棉透气男士船袜女士袜子', 'https://detail.1688.com/offer/574437693492.html?', '2019', '2019', '[men and women socks more styles available] socks female short socks four seasons cotton breathable men\'s boat socks ladies socks', '0.0895-0.1343', '0.0746', '0', 'https://cbu01.alicdn.com/img/ibank/2019/757/444/11417444757_442655963.jpg', '65913', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144004', '盒装抽纸定做酒店银行保险抽取式餐巾纸定做印logo广告纸巾定制', 'https://detail.1688.com/offer/591674846945.html?', '2019', '2019', 'Boxed paper custom hotel bank insurance removable napkins custom printed logo advertising paper towel custom', '0.1164-0.1523', '0.097', '0', 'https://cbu01.alicdn.com/img/ibank/2019/105/171/11722171501_878688472.jpg', '65912', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144003', '冬新款13cm恨天高松糕厚底弹力绒内增高显瘦女靴水钻过膝长筒靴', 'https://detail.1688.com/offer/580499195894.html?', '2019', '2019', 'Winter new 13cm hate sky high sponge cake thick bottom stretch velvet increase high thin women\'s boots rhinestones over the knee boots', '16.2985-21.6716', '0', '1', 'https://cbu01.alicdn.com/img/ibank/2018/983/124/9533421389_81353897.jpg', '65911', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144002', '跨境货源LOGO可定制USB背包休闲商务男包笔记本双肩包一件代发', 'https://detail.1688.com/offer/595435329502.html?', '2019', '2019', 'Cross-border supply LOGO customizable USB backpack casual business men\'s bag notebook backpack one generation', '4.8359-5.1941', '4.0299', '1', 'https://cbu01.alicdn.com/img/ibank/2019/578/232/12073232875_604889811.jpg', '65910', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144001', '故宫 金桂浮月挂饰钥匙扣包挂送礼礼品故宫博物院官方旗舰店', 'https://detail.tmall.com/item.htm?id=602826511597', '2019', '2019', 'Forbidden City Jingui Floating Moon Hanging Keychain Bag Hanging Gift Gifts Palace Museum Official Flagship Store', '11.8208', '9.8507', '0', 'http://img.alicdn.com/bao/uploaded/i4/2893966855/O1CN0143D5MS20VdaYlqH8o_!!0-item_pic.jpg', '65909', 'VIP', 'tmall', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144000', '亚马逊宠物碗双碗防滑不锈钢狗碗 糖果色狗食盆圆形两用猫碗', 'https://detail.1688.com/offer/1017228275.html?', '2019', '2019', 'Amazon pet bowl double bowl non-slip stainless steel dog bowl candy color dog food bowl round dual-use cat bowl', '0.7075-2.597', '0.5896', '1', 'https://cbu01.alicdn.com/img/ibank/2018/252/678/9051876252_973676538.jpg', '65908', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143999', '35连30连马卡龙模具 不粘曲奇饼干模具曲奇烤盘 电烤箱烘焙模具', 'https://detail.1688.com/offer/598008516338.html?', '2019', '2019', '35 even30 even macaron mold non-stick cookie mold cookie baking tray electric oven baking mold', '2.8298-3.009', '2.3582', '1', 'https://cbu01.alicdn.com/img/ibank/2019/869/082/11485280968_1529814816.jpg', '65907', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143998', '工厂批发定做 可重复使用疫苗/血浆/奶制品运输冷链冰袋冰包', 'https://detail.1688.com/offer/561993785449.html?', '2019', '2019', 'Factory wholesale custom Reusable vaccine / plasma / dairy transport cold chain ice pack ice pack', '0.3941-0.4477', '0.3284', '1', 'https://cbu01.alicdn.com/img/ibank/2017/901/919/7190919109_1031885222.jpg', '65906', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143997', '帽子男女秋冬天韩版潮人棒球帽百搭休闲潮牌时尚嘻哈鸭舌帽渔夫帽', 'https://detail.1688.com/offer/584238072916.html?', '2019', '2019', 'Hat men and women autumn and winter Korean version of the tide baseball cap wild casual tide brand fashion hip hop cap fisherman hat', '0.8956-1.0746', '0.7463', '1', 'https://cbu01.alicdn.com/img/ibank/2018/263/920/10126029362_1648360977.jpg', '65905', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143996', '美国king糖果王国新款电子烟油烟味水果味大烟雾秒杀果酱怪兽', 'https://detail.1688.com/offer/591441685940.html?', '2019', '2019', 'United States king candy kingdom new electronic cigarette oil smoke flavor fruit flavor big smoke spike jam monster', '', '37313432.8358', '1', 'https://cbu01.alicdn.com/img/ibank/2019/253/255/10798552352_963618484.jpg', '0', 'VIP', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143916', '彩色极简双头马克笔', '', '2019', '2019', 'Mark pen', '102.9851', '85.8209', '1', '', '12', 'General -> nome -> 文体礼品>马克笔', 'nome', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143915', '水磨圆碗', '', '2019', '2019', '阿斯蒂芬', '3.7612', '3.1343', '1', '', '12', 'General -> nome -> 家居生活>陶瓷杯', 'nome', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143914', '新款无钢圈性感文胸聚拢小胸上托少女胸罩无痕美背调整型侧收抹胸', 'https://detail.1688.com/offer/591114098006.html?', '2019', '2019', 'New non-steel sexy bra gathered small chest on the girl bra without traces beautiful back adjustment side chest tube', '2.1492-2.5075', '1.791', '1', 'https://cbu01.alicdn.com/img/ibank/2019/033/038/10760830330_1267726488.jpg', '65897', 'Sporting Goods -> Outdoor Recreation -> Hunting & Shooting -> Paintball & Airsoft -> Paintball -> Paintball Gun Parts & Accessories -> Paintball Hoppers', '1688', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143911', '水磨圆碗', '', '2019', '2019', '阿斯蒂芬', '3.7612', '3.1343', '1', '', '0', 'General -> nome -> 家居生活>陶瓷杯', 'nome', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1143912', '彩色极简双头马克笔', '', '2019', '2019', 'Mark pen', '102.9851', '85.8209', '1', '', '0', 'General -> nome -> 文体礼品>马克笔', 'nome', null, null, null, null, null);
+INSERT INTO `product` VALUES ('1144026', '\"66\"', '\"66\"', '0', '0', '\"<p>6</p><p>6</p><p>6</p><p>1</p><p>1</p><p>1</p><p>1</p><p>11</p><p>2</p><p>3</p><p>12</p><p>312</p><p>3</p><p>123</p><p>123</p><p>1</p><p>312</p><p>3</p><p>123</p><p>123</p><p>12</p><p>312</p><p>312</p><p>3</p><p>123</p><p>123</p><p>12</p><p>31</p><p>23</p><p>123</p><p>123</p><p>12</p><p>3</p>\"', '\"\"', '\"2\"', '1', '\"\"', null, '1', null, '\"66\"', '[{\"key\":\"材质\",\"value\":\"塑料\"},{\"key\":\"保质期\",\"value\":\"2018\"}]', '[\"http://img.fhk255.cn/product/2020046/15861697104261685x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861697142514283x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861697198781704x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144027', '\"66\"', '\"66\"', '0', '0', '\"<p>6</p><p>6</p><p>6</p><p>1</p><p>1</p><p>1</p><p>1</p><p>11</p><p>2</p><p>3</p><p>12</p><p>312</p><p>3</p><p>123</p><p>123</p><p>1</p><p>312</p><p>3</p><p>123</p><p>123</p><p>12</p><p>312</p><p>312</p><p>3</p><p>123</p><p>123</p><p>12</p><p>31</p><p>23</p><p>123</p><p>123</p><p>12</p><p>3</p>\"', '\"\"', '\"2\"', '1', '\"\"', null, null, null, '\"66\"', '[{\"key\":\"材质\",\"value\":\"塑料\"},{\"key\":\"保质期\",\"value\":\"2018\"}]', '[\"http://img.fhk255.cn/product/2020046/15861697104261685x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861697142514283x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861697198781704x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144028', '66', '66', '0', '0', '<p>6</p><p>6</p><p>6</p><p>1</p><p>1</p><p>1</p><p>1</p><p>11</p><p>2</p><p>3</p><p>12</p><p>312</p><p>3</p><p>123</p><p>123</p><p>1</p><p>312</p><p>3</p><p>123</p><p>123</p><p>12</p><p>312</p><p>312</p><p>3</p><p>123</p><p>123</p><p>12</p><p>31</p><p>23</p><p>123</p><p>123</p><p>12</p><p>3</p>', '', '2', '1', '', null, '1', null, '66', '[{\"key\":\"材质\",\"value\":\"塑料\"},{\"key\":\"保质期\",\"value\":\"2018\"}]', '[\"http://img.fhk255.cn/product/2020046/15861697104261685x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861697142514283x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861697198781704x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144029', '标题', 'ffff', '0', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '', '1', '', null, null, null, '副标题', '[{\"key\":\"材质\",\"value\":\"塑料\"}]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144030', '标题', 'ffff', '0', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '', '1', '', null, null, null, '副标题', '[{\"key\":\"材质\",\"value\":\"塑料\"}]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144031', '标题', 'ffff', '0', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '', '1', '', null, null, null, '副标题', '[{\"key\":\"材质\",\"value\":\"塑料\"}]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144032', '标题', 'ffff', '0', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '', '1', '', null, '15', null, '副标题', '[{\"key\":\"材质\",\"value\":\"塑料\"}]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144033', '标题', 'ffff', '0', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '', '1', '', null, null, null, '副标题', '[{\"key\":\"材质\",\"value\":\"塑料\"}]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144034', '标题', 'ffff', '1586187373601', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '', '1', '', '0', '2', 'null', '副标题', '[{\"key\":\"材质\",\"value\":\"塑料\"}]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144035', '标题', 'ffff', '1586186951118', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '', '1', '', '0', 'null', 'null', '副标题', '[object Object]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144036', '标题', 'ffff', '1586185741195', '0', '<p>哒哒哒哒哒哒多多</p><p>dddd</p><p><br></p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p><br></p>', '', '2', '1', '', '0', 'null', 'null', '副标题', '[object Object]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144037', '商品标题', '地址', '0', '0', '<p>6</p><p>66</p><p>666</p><p>66</p><p>66</p><p>66</p><p>66</p>', '', '22', '1', '', null, '23', null, '副标题', '[{\"key\":\"材质\",\"value\":\"塑料\"}]', '[\"http://img.fhk255.cn/product/2020046/15861831056516287x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861831091518486x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144038', '商品标题1', '地址', '1586185307566', '0', '<p>6</p><p>66</p><p>666</p><p>66</p><p>66</p><p>66</p><p>66</p>', '', '22', '1', '', '0', '8', 'null', '副标题', '[object Object]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
+INSERT INTO `product` VALUES ('1144039', '商品标题', '地址1', '2020', '0', '<p>6</p><p>66</p><p>666</p><p>66</p><p>66</p><p>66</p><p>66</p>', '', '22', '1', '', '0', '7', 'null', '副标题1', '[object Object]', '[\"http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg\",\"http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg\"]', '[]', '[]');
 
 -- ----------------------------
 -- Table structure for qr_login
@@ -535,9 +558,42 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20,21', '1582107045000', '1585816191000', 'admin', '10000', '一看就很拽');
+INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29', '1,2,3,4,23,5,6,7,8,9,10,11,12,13,14,15,19,20,21,22', '1582107045000', '1585816191000', 'admin', '10000', '一看就很拽');
 INSERT INTO `role` VALUES ('10000', '普通用户', '3,5,7,9,10,11,12,13,14,20,23,25', '1,2,3,4,5,6,7,9,10,13,14,15', '1582107045000', '1585732032000', 'admin', '10000', '苦逼1');
 INSERT INTO `role` VALUES ('8888', '体验账号', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20', '1585547587000', '1585732014000', 'admin', '10000', '');
+
+-- ----------------------------
+-- Table structure for skulist
+-- ----------------------------
+DROP TABLE IF EXISTS `skulist`;
+CREATE TABLE `skulist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `productId` int(11) NOT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `inPrice` decimal(10,2) DEFAULT NULL,
+  `outPrice` decimal(10,2) DEFAULT NULL,
+  `createTime` bigint(20) NOT NULL,
+  `updateTime` bigint(20) NOT NULL,
+  `status` int(1) DEFAULT '0',
+  `imgUrl` varchar(255) DEFAULT NULL,
+  `count` int(11) DEFAULT NULL COMMENT '库存',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of skulist
+-- ----------------------------
+INSERT INTO `skulist` VALUES ('1', '1144034', '小', '1.00', '2.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg', '1');
+INSERT INTO `skulist` VALUES ('2', '1144035', '小', '1.00', '2.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg', '1');
+INSERT INTO `skulist` VALUES ('3', '1144035', '中', '2.00', '3.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg', '2');
+INSERT INTO `skulist` VALUES ('4', '1144036', '小', '1.00', '2.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861734468825692x240.jpg', '1');
+INSERT INTO `skulist` VALUES ('5', '1144036', '中', '2.00', '3.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg', '2');
+INSERT INTO `skulist` VALUES ('6', '1144037', '小', '22.00', '34.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861831056516287x240.jpg', '1');
+INSERT INTO `skulist` VALUES ('7', '1144037', '中', '22.00', '34.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861831091518486x240.jpg', '2');
+INSERT INTO `skulist` VALUES ('8', '1144038', '小', '22.00', '34.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861831056516287x240.jpg', '1');
+INSERT INTO `skulist` VALUES ('9', '1144038', '中', '22.00', '341.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861831091518486x240.jpg', '2');
+INSERT INTO `skulist` VALUES ('10', '1144039', '小', '22.00', '34.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861831056516287x240.jpg', '1');
+INSERT INTO `skulist` VALUES ('11', '1144039', '中', '22.00', '34.00', '0', '0', '0', 'http://img.fhk255.cn/product/2020046/15861831091518486x240.jpg', '2');
 
 -- ----------------------------
 -- Table structure for user
@@ -565,71 +621,17 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585884860000', '9999', '超级管理员', '1585884860706', 'ADMIN', '10000');
+INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585884860000', '9999', '超级管理员', '1586156034093', 'ADMIN', '10000');
 INSERT INTO `user` VALUES ('10001', 'joker', '123456', '3', '', '1', '22222', 'FHK', '1584878000000', '1585731778000', '10000', '普通用户', '1585534641027', 'Joker', '10000');
 INSERT INTO `user` VALUES ('9999', 'test', 'fhk255.cn/test', null, null, '1', null, '体验者账号', '1585547569000', '1585737268000', '8888', '体验账号', '1585737268898', null, '10000');
 DROP TRIGGER IF EXISTS `image_create_time`;
 DELIMITER ;;
 CREATE TRIGGER `image_create_time` BEFORE INSERT ON `image` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
+;
 ;;
 DELIMITER ;
 DROP TRIGGER IF EXISTS `menu_create_time`;
 DELIMITER ;;
 CREATE TRIGGER `menu_create_time` BEFORE INSERT ON `menu` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000;
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `menu_update_time`;
-DELIMITER ;;
-CREATE TRIGGER `menu_update_time` BEFORE UPDATE ON `menu` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `page_create_time`;
-DELIMITER ;;
-CREATE TRIGGER `page_create_time` BEFORE INSERT ON `page` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
-;
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `page_update_time`;
-DELIMITER ;;
-CREATE TRIGGER `page_update_time` BEFORE UPDATE ON `page` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
-;
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `qr_login_end_time`;
-DELIMITER ;;
-CREATE TRIGGER `qr_login_end_time` BEFORE INSERT ON `qr_login` FOR EACH ROW SET new.timer = (unix_timestamp(now())+30)*1000
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `resource_create_time`;
-DELIMITER ;;
-CREATE TRIGGER `resource_create_time` BEFORE INSERT ON `resource` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `resource_update_time`;
-DELIMITER ;;
-CREATE TRIGGER `resource_update_time` BEFORE UPDATE ON `resource` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `role_create_time`;
-DELIMITER ;;
-CREATE TRIGGER `role_create_time` BEFORE INSERT ON `role` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
-;
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `role_update_time`;
-DELIMITER ;;
-CREATE TRIGGER `role_update_time` BEFORE UPDATE ON `role` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
-;
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `user_create_user_time`;
-DELIMITER ;;
-CREATE TRIGGER `user_create_user_time` BEFORE INSERT ON `user` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
-;
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `user_update_user_time`;
-DELIMITER ;;
-CREATE TRIGGER `user_update_user_time` BEFORE UPDATE ON `user` FOR EACH ROW SET new.updateTime = unix_timestamp(now())*1000
 ;;
 DELIMITER ;

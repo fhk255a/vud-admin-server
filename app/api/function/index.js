@@ -11,6 +11,7 @@ const router = new Router();
 // 上传
 router.post('/function/upload',async (ctx,next)=>{
   const file = ctx.request.files.image;
+  const otherDir = ctx.request.body.path;
   if(file){
     if(file.size/1024 > 500){
       ctx.body = new MyError('图片大小不能超过500KB',400,1000);
@@ -20,7 +21,8 @@ router.post('/function/upload',async (ctx,next)=>{
       const date = new Date();
       let month = Number.parseInt(date.getMonth()) + 1;
       month = month.toString().length > 1 ? month : `0${month}`;
-      let dirD = `${date.getFullYear()}${month}${date.getDate()}`
+      let ddir = `${date.getFullYear()}${month}${date.getDate()}`
+      let dirD = `${otherDir?otherDir+'/':''}${ddir}`;
       // 创建可读流
       const reader = fs.createReadStream(file.path);    
       // 获取后缀
@@ -41,9 +43,10 @@ router.post('/function/upload',async (ctx,next)=>{
       const oldFileP = file.path;
       file.path = `${dir}/${pName}.${ext}`;
       const params = {
-        dirName:dirD,
+        dirName:ddir,
         serverPath:`${dir}/${pName}`,
         fileName:pName,
+        pathDir:otherDir?otherDir:'default',
         bigSize:(file.size/1024).toFixed(2),
         minImage:`http://${fileP}${pName}x100.${ext}`,
         image:`http://${fileP}${pName}x240.${ext}`,
@@ -57,13 +60,13 @@ router.post('/function/upload',async (ctx,next)=>{
           await imgBuffer.clone().resize({ width: 100}).toBuffer(async (err,data,info)=>{
             // 存进小尺寸内存
             let size = (info.size/1024).toFixed(2);
-            await query(UPDATE('image',{minSize:size},{fileName:pName,dirName:dirD}))
+            await query(UPDATE('image',{minSize:size},{fileName:pName,dirName:ddir}))
             await fs.writeFile(`${dir}/${pName}x100.${ext}`,data, async ()=>{})
           });
           await imgBuffer.clone().resize({ width: 240}).toBuffer(async (err,data,info)=>{
             // 存进中尺寸内存
             let size = (info.size/1024).toFixed(2);
-            await query(UPDATE('image',{size:size},{fileName:pName,dirName:dirD}))
+            await query(UPDATE('image',{size:size},{fileName:pName,dirName:ddir}))
             await fs.writeFile(`${dir}/${pName}x240.${ext}`,data, async ()=>{})
           });
           // 存原始图

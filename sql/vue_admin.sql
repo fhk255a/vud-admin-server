@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-04-07 20:01:48
+Date: 2020-04-08 16:59:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,6 +67,34 @@ CREATE TABLE `image` (
 ) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for member
+-- ----------------------------
+DROP TABLE IF EXISTS `member`;
+CREATE TABLE `member` (
+  `id` int(6) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `username` bigint(20) NOT NULL COMMENT '登录名',
+  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
+  `password` varchar(255) NOT NULL COMMENT '密码',
+  `isFirst` int(1) NOT NULL DEFAULT '0',
+  `createTime` bigint(20) DEFAULT NULL,
+  `lastLoginTime` bigint(20) DEFAULT NULL,
+  `status` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for memberinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `memberinfo`;
+CREATE TABLE `memberinfo` (
+  `id` int(6) NOT NULL,
+  `price` double(20,2) NOT NULL DEFAULT '0.00',
+  `cion` int(10) NOT NULL DEFAULT '1000' COMMENT '虚拟币',
+  `head` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for menu
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
@@ -82,7 +110,7 @@ CREATE TABLE `menu` (
   `createTime` bigint(20) DEFAULT NULL,
   `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`,`path`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for order
@@ -261,7 +289,7 @@ CREATE TABLE `shop` (
   `status` int(1) NOT NULL DEFAULT '1',
   `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for skulist

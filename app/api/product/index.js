@@ -7,11 +7,13 @@ const mkdirp = require('mkdirp');
 const path = require('path');
 const TABLE_NAME = 'product';
 const {WHERE_TOTAL,UPDATE,SEARCH,INSERT,DELETES,getParentSql,UPDATES} = require('../../../lib/sql');
+const {getColumn,getValue} = require('../../../lib/sqlRow');
 const router = new Router();
 // 获取商品列表
 router.get('/product/list', async (ctx,next)=>{
-  let params = ['id','title','mainImage','outPrice','status','createTime','categoryId','shopId'];
-  const SQL = SEARCH(TABLE_NAME,ctx.query,params,['title']);
+  // 查询shop跟product表
+  let params = getColumn(TABLE_NAME,['id','title','mainImage','outPrice','status','createTime','categoryId','shopId']);
+  const SQL = `SELECT ${params},shop.name as shopName FROM ${TABLE_NAME},shop WHERE  product.shopId = shop.id ${getValue(ctx.query,['title'])}`;
   const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query,['title']);
   let body = {
     total:0,
@@ -25,16 +27,6 @@ router.get('/product/list', async (ctx,next)=>{
       // 查询分类名称
       const category = await query(getParentSql('category',res[i].categoryId));
       res[i].categoryName = category.map(it=>it.label).join('>');
-      // 查询店铺名称
-      const shop = await query(SEARCH('shop',{id:res[0].shopId}));
-      if(shop.length>0){
-        res[i]['shopName'] = shop[0].name;
-      }else{
-        const shop = await query(SEARCH('shop',{id:1}));
-        await query(UPDATE(TABLE_NAME,{shopId:1},{id:res[i].id}));
-        res[i].shopName = shop[0].name;
-        res[i].shopId = 1;
-      }
       body.data.push(res[i]);
     }
   });

@@ -237,12 +237,13 @@ router.post('/user/delete',async (ctx,next)=>{
 router.get('/user/getLoginCode',async (ctx,next)=>{
   const uuid = ctx.query.uuid;
   // 服务器ip
-  const url = 'http://project.fhk255.cn/user/qrLogin/'+uuid;
+  // const url = 'http://project.fhk255.cn/user/qrLogin/'+uuid;
   // 本地ip
-  // const url = 'http://172.18.3.51:3000/user/qrLogin/'+uuid;
+  const url = 'http://172.18.3.51:3000/user/qrLogin/'+uuid;
   // 清除失效的二维码
+  let newTime = new Date().getTime()+300000;
   await query(`DELETE from \`qr_login\` WHERE timer < ${new Date().getTime()}`);
-  await query(INSERT('qr_login',{key:uuid},[{key:uuid}])).then(res=>{
+  await query(INSERT('qr_login',{key:uuid,timer:newTime},[{key:uuid,timer:newTime}])).then(res=>{
     const img = QRCODE.imageSync(url,{size :5,type:'svg'});
     ctx.body = new Success({uuid:uuid,img:img});
     return;
@@ -253,12 +254,14 @@ router.get('/user/getLoginCode',async (ctx,next)=>{
 })
 // 扫码登录
 router.get('/user/qrLogin/:id',async (ctx,next)=>{
+  console.log('jin;a')
   const key = ctx.params.id;
   const divStyle=`display:flex;flex-direction: column;width: 100%;align-items: center;height: 60vh;background: #fff;justify-content: center;`
   const imgStyle=`width:50%;height:auto;`;
   const pStyle=`font-size:40px;color:#666;margin:10px 0;`
   const ERR_IMG = 'http://img.fhk255.cn/2020041/15857240399412454.png';
   const SUCC_IMG = 'http://img.fhk255.cn/2020041/15857240448687197.png';
+  
   const HTML = (title='登录失败',msg='',img=0)=>{
     return `<div style="${divStyle}">
       <img src="${img==0?ERR_IMG:SUCC_IMG}" style="${imgStyle}"/>
@@ -267,8 +270,10 @@ router.get('/user/qrLogin/:id',async (ctx,next)=>{
     </div>`
   }
   // 清除失效得二维码
+  console.log(SEARCH('qr_login',{key:key}))
   await query(`DELETE from \`qr_login\` WHERE timer < ${new Date().getTime()}`);
   await query(SEARCH('qr_login',{key:key})).then(async res=>{
+    console.log(`DELETE from \`qr_login\` WHERE timer < ${new Date().getTime()}`);
     if(res.length>0){
       if(res[0].timer*1 < new Date().getTime()*1){
         await query(DELETE('qr_login',{key:key})).then(res=>{

@@ -10,10 +10,38 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-04-08 17:38:26
+Date: 2020-04-11 18:21:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for apppageconfig
+-- ----------------------------
+DROP TABLE IF EXISTS `apppageconfig`;
+CREATE TABLE `apppageconfig` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `pageType` varchar(50) NOT NULL DEFAULT 'home' COMMENT '具体页面',
+  `createTime` bigint(20) DEFAULT NULL,
+  `updateTime` bigint(20) DEFAULT NULL,
+  `content` text,
+  `title` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of apppageconfig
+-- ----------------------------
+INSERT INTO `apppageconfig` VALUES ('1', 'home', '1586510480941', null, '[{\"type\":\"banner\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"showIndex\":false,\"height\":\"200\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"123\"}],\"id\":\"vq43ja5j3o\"}]', '测试');
+INSERT INTO `apppageconfig` VALUES ('2', 'home', '1586510563920', null, '[{\"type\":\"banner\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"showIndex\":false,\"height\":\"200\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"123\"}],\"id\":\"vq43ja5j3o\"}]', '测试');
+INSERT INTO `apppageconfig` VALUES ('3', 'home', '1586510575269', null, '[{\"type\":\"banner\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"showIndex\":false,\"height\":\"200\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"123\"}],\"id\":\"vq43ja5j3o\"}]', '测试');
+INSERT INTO `apppageconfig` VALUES ('4', 'home', '1586510578548', null, '[{\"type\":\"banner\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"showIndex\":false,\"height\":\"200\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"123\"}],\"id\":\"vq43ja5j3o\"}]', '测试');
+INSERT INTO `apppageconfig` VALUES ('5', 'home', '1586510590504', null, '[{\"type\":\"banner\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"showIndex\":false,\"height\":\"200\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"123\"}],\"id\":\"vq43ja5j3o\"}]', '测试');
+INSERT INTO `apppageconfig` VALUES ('6', 'home', '1586510595124', null, '[{\"type\":\"banner\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"showIndex\":false,\"height\":\"200\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"123\"}],\"id\":\"vq43ja5j3o\"}]', '测试');
+INSERT INTO `apppageconfig` VALUES ('7', 'home', '1586510621089', null, '[]', '666');
+INSERT INTO `apppageconfig` VALUES ('8', 'home', '1586510641381', null, '[]', '666');
+INSERT INTO `apppageconfig` VALUES ('9', 'home', '1586510692424', null, '[]', '测试');
+INSERT INTO `apppageconfig` VALUES ('10', 'home', '1586600352551', null, '[{\"type\":\"banner\",\"color\":\"#333\",\"background\":\"rgba(0,0,0,0.13)\",\"postion\":\"bottom\",\"showIndex\":false,\"height\":\"200\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"22\"},{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"33\"}],\"id\":\"sm5bk2tv0n8\"},{\"type\":\"nav\",\"num\":\"4\",\"isOne\":true,\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\",\"title\":\"1\"},{\"event\":\"\",\"eventValue\":\"\",\"image\":\"http://img.fhk255.cn/2020047/15862542037212827x100.jpg\",\"title\":\"2\"},{\"event\":\"\",\"eventValue\":\"\",\"image\":\"http://img.fhk255.cn/shopLogo/1586254442712903x100.jpg\",\"title\":\"3\"},{\"event\":\"\",\"eventValue\":\"\",\"image\":\"http://img.fhk255.cn/shopLogo/1586254442712903x100.jpg\",\"title\":\"4\"},{\"event\":\"\",\"eventValue\":\"\",\"image\":\"http://img.fhk255.cn/shopLogo/1586254442712903x100.jpg\",\"title\":\"5\"}],\"id\":\"4gocjo9fh8o\"},{\"type\":\"littleBanner\",\"height\":\"90\",\"data\":[{\"event\":\"\",\"eventValue\":\"\",\"image\":\"\"}],\"id\":\"t2884kil4b8\"},{\"type\":\"shareTop\",\"title\":\"人气版\",\"showMore\":true,\"showTitle\":true,\"showPrice\":true,\"data\":[{\"id\":1144024,\"title\":\"新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg\",\"outPrice\":\"3.7313\",\"status\":1,\"createTime\":2020,\"categoryId\":\"2\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"男装\"},{\"id\":1144013,\"title\":\"新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/349/668/13052866943_352634785.jpg\",\"outPrice\":\"0.4478\",\"status\":0,\"createTime\":2020,\"categoryId\":\"5\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"手机\"},{\"id\":1144012,\"title\":\"速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg\",\"outPrice\":\"0.3836\",\"status\":1,\"createTime\":2020,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144008,\"title\":\"莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg\",\"outPrice\":\"0.2955\",\"status\":1,\"createTime\":2019,\"categoryId\":\"2\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"男装\"},{\"id\":1144007,\"title\":\"新款针织触屏手套女冬季韩版加厚小鹿毛线手套\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg\",\"outPrice\":\"1.1791\",\"status\":1,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144006,\"title\":\"狗窝可拆洗 泰迪卡通宠物窝 宠物用品 大型犬金毛狗床狗垫子批发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2017/377/455/4582554773_813356358.jpg\",\"outPrice\":\"2.806\",\"status\":1,\"createTime\":2019,\"categoryId\":\"46\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"宠物>宠物用品\"},{\"id\":1144005,\"title\":\"【男女袜多款式可选】袜子女短袜子四季款棉透气男士船袜女士袜子\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/757/444/11417444757_442655963.jpg\",\"outPrice\":\"0.0746\",\"status\":0,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144004,\"title\":\"盒装抽纸定做酒店银行保险抽取式餐巾纸定做印logo广告纸巾定制\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/105/171/11722171501_878688472.jpg\",\"outPrice\":\"0.097\",\"status\":0,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144003,\"title\":\"冬新款13cm恨天高松糕厚底弹力绒内增高显瘦女靴水钻过膝长筒靴\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/983/124/9533421389_81353897.jpg\",\"outPrice\":\"0\",\"status\":1,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144002,\"title\":\"跨境货源LOGO可定制USB背包休闲商务男包笔记本双肩包一件代发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/578/232/12073232875_604889811.jpg\",\"outPrice\":\"4.0299\",\"status\":1,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"}],\"id\":\"2ovpvd9vcj8\"},{\"type\":\"collection\",\"title\":\"特价专栏\",\"showMore\":true,\"showTitle\":false,\"showPrice\":false,\"data\":[{\"id\":1,\"productIds\":[{\"id\":1144008,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg\"},{\"id\":1144012,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg\"},{\"id\":1144013,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/349/668/13052866943_352634785.jpg\"},{\"id\":1144024,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg\"}],\"title\":\"默认商品集\",\"createTime\":null,\"updateTime\":null,\"remark\":\"\",\"status\":true,\"count\":4},{\"id\":2,\"productIds\":[{\"id\":1144000,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/252/678/9051876252_973676538.jpg\"},{\"id\":1144004,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/105/171/11722171501_878688472.jpg\"}],\"title\":\"推荐商品\",\"createTime\":null,\"updateTime\":null,\"remark\":\"\",\"status\":true,\"count\":2},{\"id\":3,\"productIds\":[{\"id\":1143997,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/263/920/10126029362_1648360977.jpg\"},{\"id\":1144000,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/252/678/9051876252_973676538.jpg\"},{\"id\":1144007,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg\"}],\"title\":\"商品集1\",\"createTime\":null,\"updateTime\":null,\"remark\":\"\",\"status\":true,\"count\":3},{\"id\":4,\"productIds\":[{\"id\":1143998,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2017/901/919/7190919109_1031885222.jpg\"},{\"id\":1144003,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/983/124/9533421389_81353897.jpg\"},{\"id\":1144005,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/757/444/11417444757_442655963.jpg\"},{\"id\":1144006,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2017/377/455/4582554773_813356358.jpg\"}],\"title\":\"商品集2\",\"createTime\":null,\"updateTime\":null,\"remark\":\"\",\"status\":true,\"count\":4},{\"id\":5,\"productIds\":[{\"id\":1143915,\"mainImage\":\"\"},{\"id\":1143916,\"mainImage\":\"\"},{\"id\":1143996,\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/253/255/10798552352_963618484.jpg\"}],\"title\":\"商品集3\",\"createTime\":null,\"updateTime\":null,\"remark\":\"\",\"status\":true,\"count\":3}],\"id\":\"em91u5jqvd\"},{\"type\":\"product\",\"title\":\"商品列表\",\"itemType\":\"2\",\"isShowTitle\":true,\"showRemark\":true,\"showPrice\":true,\"showTitle\":true,\"data\":[{\"id\":1144024,\"title\":\"新款潮流气质百搭耳骨夹女士简约个性无耳洞耳夹耳挂批发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/389/598/13075895983_1960059920.jpg\",\"outPrice\":\"3.7313\",\"status\":1,\"createTime\":2020,\"categoryId\":\"2\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"男装\"},{\"id\":1144013,\"title\":\"新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/349/668/13052866943_352634785.jpg\",\"outPrice\":\"0.4478\",\"status\":0,\"createTime\":2020,\"categoryId\":\"5\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"手机\"},{\"id\":1144012,\"title\":\"速卖通爆款锆石耳环不锈钢耳骨钉欧美微镶太阳花螺丝耳朵穿刺批发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/451/477/12789774154_1228803637.jpg\",\"outPrice\":\"0.3836\",\"status\":1,\"createTime\":2020,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144008,\"title\":\"莫特瑞 美甲店专用光疗甲油胶蔻丹芭比美甲指甲油胶持久40天\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/678/148/9617841876_1069880368.jpg\",\"outPrice\":\"0.2955\",\"status\":1,\"createTime\":2019,\"categoryId\":\"2\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"男装\"},{\"id\":1144007,\"title\":\"新款针织触屏手套女冬季韩版加厚小鹿毛线手套\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/851/140/12253041158_875394864.jpg\",\"outPrice\":\"1.1791\",\"status\":1,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144006,\"title\":\"狗窝可拆洗 泰迪卡通宠物窝 宠物用品 大型犬金毛狗床狗垫子批发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2017/377/455/4582554773_813356358.jpg\",\"outPrice\":\"2.806\",\"status\":1,\"createTime\":2019,\"categoryId\":\"46\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"宠物>宠物用品\"},{\"id\":1144005,\"title\":\"【男女袜多款式可选】袜子女短袜子四季款棉透气男士船袜女士袜子\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/757/444/11417444757_442655963.jpg\",\"outPrice\":\"0.0746\",\"status\":0,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144004,\"title\":\"盒装抽纸定做酒店银行保险抽取式餐巾纸定做印logo广告纸巾定制\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/105/171/11722171501_878688472.jpg\",\"outPrice\":\"0.097\",\"status\":0,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144003,\"title\":\"冬新款13cm恨天高松糕厚底弹力绒内增高显瘦女靴水钻过膝长筒靴\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2018/983/124/9533421389_81353897.jpg\",\"outPrice\":\"0\",\"status\":1,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"},{\"id\":1144002,\"title\":\"跨境货源LOGO可定制USB背包休闲商务男包笔记本双肩包一件代发\",\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/578/232/12073232875_604889811.jpg\",\"outPrice\":\"4.0299\",\"status\":1,\"createTime\":2019,\"categoryId\":\"1\",\"shopId\":1,\"shopName\":\"Joker旗舰店\",\"categoryName\":\"通用\"}],\"id\":\"ronueuo4lgg\",\"showMore\":false}]', '测试');
 
 -- ----------------------------
 -- Table structure for category
@@ -82,6 +110,30 @@ INSERT INTO `category` VALUES ('48', '宠物医护', '12', '12', '2');
 INSERT INTO `category` VALUES ('50', '牛仔裤', '15', '2,15', '3');
 
 -- ----------------------------
+-- Table structure for collection
+-- ----------------------------
+DROP TABLE IF EXISTS `collection`;
+CREATE TABLE `collection` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品集ID',
+  `productIds` varchar(255) DEFAULT NULL COMMENT '商品id',
+  `title` varchar(255) DEFAULT NULL COMMENT '商品集标题',
+  `createTime` bigint(20) DEFAULT NULL,
+  `updateTime` bigint(20) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注说明',
+  `status` int(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of collection
+-- ----------------------------
+INSERT INTO `collection` VALUES ('1', '1144024,1144013,1144012,1144008', '默认商品集', null, null, '默认', '1');
+INSERT INTO `collection` VALUES ('2', '1144004,1144000', '推荐商品', null, null, '推荐', '1');
+INSERT INTO `collection` VALUES ('3', '1144007,1143009,1144000,1143997', '商品集1', null, null, '商品集1', '1');
+INSERT INTO `collection` VALUES ('4', '1144006,1144005,1144003,1143998', '商品集2', null, null, '商品集2', '1');
+INSERT INTO `collection` VALUES ('5', '1143915,1143916,1143996', '商品集3', null, null, '商品集3', '1');
+
+-- ----------------------------
 -- Table structure for config_key
 -- ----------------------------
 DROP TABLE IF EXISTS `config_key`;
@@ -141,7 +193,7 @@ CREATE TABLE `image` (
   `serverPath` varchar(255) DEFAULT NULL COMMENT '服务器路径',
   `pathDir` varchar(255) DEFAULT 'default',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of image
@@ -182,6 +234,8 @@ INSERT INTO `image` VALUES ('2020047', '15862543159836354', 'http://img.fhk255.c
 INSERT INTO `image` VALUES ('2020047', '15862543764586260', 'http://img.fhk255.cn/shopLogo//15862543764586260x240.jpg', '128', '1586254376000', '10', 'jpg', 'http://img.fhk255.cn/shopLogo//15862543764586260x100.jpg', 'http://img.fhk255.cn/shopLogo//15862543764586260.jpg', '2.38', '182.37', 'E:\\img.fhk255.cn/shopLogo//15862543764586260', 'shopLogo');
 INSERT INTO `image` VALUES ('shopLogo', '1586254442712903', 'http://img.fhk255.cn/shopLogo/1586254442712903x240.jpg', '129', '1586254442000', '8', 'jpg', 'http://img.fhk255.cn/shopLogo/1586254442712903x100.jpg', 'http://img.fhk255.cn/shopLogo/1586254442712903.jpg', '2.06', '113.64', 'E:\\img.fhk255.cn/shopLogo/1586254442712903', 'shopLogo');
 INSERT INTO `image` VALUES ('2020047', '15862544573974430', 'http://img.fhk255.cn/2020047/15862544573974430x240.jpg', '130', '1586254457000', '10', 'jpg', 'http://img.fhk255.cn/2020047/15862544573974430x100.jpg', 'http://img.fhk255.cn/2020047/15862544573974430.jpg', '2.38', '182.37', 'E:\\img.fhk255.cn/2020047/15862544573974430', 'default');
+INSERT INTO `image` VALUES ('20200411', '15865865877791109', 'http://img.fhk255.cn/20200411/15865865877791109x240.jpg', '131', '1586586587000', '10', 'jpg', 'http://img.fhk255.cn/20200411/15865865877791109x100.jpg', 'http://img.fhk255.cn/20200411/15865865877791109.jpg', '2.38', '182.37', 'E:\\img.fhk255.cn/20200411/15865865877791109', 'default');
+INSERT INTO `image` VALUES ('20200411', '15865868451479495', 'http://img.fhk255.cn/20200411/15865868451479495x240.jpg', '132', '1586586845000', '10', 'jpg', 'http://img.fhk255.cn/20200411/15865868451479495x100.jpg', 'http://img.fhk255.cn/20200411/15865868451479495.jpg', '2.38', '182.37', 'E:\\img.fhk255.cn/20200411/15865868451479495', 'default');
 
 -- ----------------------------
 -- Table structure for member
@@ -197,12 +251,16 @@ CREATE TABLE `member` (
   `lastLoginTime` bigint(20) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of member
 -- ----------------------------
-INSERT INTO `member` VALUES ('000001', '13226627208', 'Joker', '123456', '0', null, null, '1');
+INSERT INTO `member` VALUES ('000001', '13226627208', 'Joker', '123456', '0', null, '1586496842861', '1');
+INSERT INTO `member` VALUES ('000002', '132266272081', '132266272081', '123567', '0', '1586497755036', null, '1');
+INSERT INTO `member` VALUES ('000003', '13226627201', '13226627201', '123567', '0', '1586497872425', null, '1');
+INSERT INTO `member` VALUES ('000004', '132266272012', '132266272012', '123567', '0', '1586497911473', null, '1');
+INSERT INTO `member` VALUES ('000005', '1322662720', '1322662720', '123567', '0', '1586497949135', '1586497983074', '1');
 
 -- ----------------------------
 -- Table structure for memberinfo
@@ -220,6 +278,8 @@ CREATE TABLE `memberinfo` (
 -- Records of memberinfo
 -- ----------------------------
 INSERT INTO `memberinfo` VALUES ('1', '0.00', '1000', null);
+INSERT INTO `memberinfo` VALUES ('1144024', '0.00', '1000', null);
+INSERT INTO `memberinfo` VALUES ('5', '0.00', '1000', null);
 
 -- ----------------------------
 -- Table structure for menu
@@ -237,7 +297,7 @@ CREATE TABLE `menu` (
   `createTime` bigint(20) DEFAULT NULL,
   `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`,`path`)
-) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -264,6 +324,8 @@ INSERT INTO `menu` VALUES ('22', '/config/components', null, '', '页面组件',
 INSERT INTO `menu` VALUES ('23', '/product/category', null, '', '基础分类', '00000000001', '', '0', '1586018252000', null);
 INSERT INTO `menu` VALUES ('24', '/member', null, 'el-icon-user', '会员模块', '00000000000', '', '0', null, null);
 INSERT INTO `menu` VALUES ('25', '/member/list', null, '', '会员列表', '00000000024', '', '0', null, null);
+INSERT INTO `menu` VALUES ('26', '/operation', null, '', '运营模块', '00000000000', '', '0', null, null);
+INSERT INTO `menu` VALUES ('27', '/operation/homeConfig', null, '', '首页配置', '00000000026', '', '0', null, null);
 
 -- ----------------------------
 -- Table structure for order
@@ -630,7 +692,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29', '1,2,3,4,23,5,6,7,8,9,10,11,12,13,14,15,19,20,21,22,24,25', '1582107045000', '1585816191000', 'admin', '10000', '一看就很拽');
+INSERT INTO `role` VALUES ('9999', '超级管理员', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29', '1,2,3,4,23,5,6,7,8,9,10,11,12,13,14,15,19,20,21,22,24,25,26,27', '1582107045000', '1585816191000', 'admin', '10000', '一看就很拽');
 INSERT INTO `role` VALUES ('10000', '普通用户', '3,5,7,9,10,11,12,13,14,20,23,25', '1,2,3,4,5,6,7,9,10,13,14,15', '1582107045000', '1585732032000', 'admin', '10000', '苦逼1');
 INSERT INTO `role` VALUES ('8888', '体验账号', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,19,20', '1585547587000', '1585732014000', 'admin', '10000', '');
 
@@ -717,7 +779,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585884860000', '9999', '超级管理员', '1586332592577', 'ADMIN', '10000');
+INSERT INTO `user` VALUES ('10000', 'admin', '123456', '215537936@qq.com', '215537936', '1', '13226627208', 'Joker', '1584878000000', '1585884860000', '9999', '超级管理员', '1586504293579', 'ADMIN', '10000');
 INSERT INTO `user` VALUES ('10001', 'joker', '123456', '3', '', '1', '22222', 'FHK', '1584878000000', '1585731778000', '10000', '普通用户', '1585534641027', 'Joker', '10000');
 INSERT INTO `user` VALUES ('9999', 'test', 'fhk255.cn/test', null, null, '1', null, '体验者账号', '1585547569000', '1585737268000', '8888', '体验账号', '1585737268898', null, '10000');
 

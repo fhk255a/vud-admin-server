@@ -25,7 +25,6 @@ router.get('/m/page/:id',async ctx=>{
         }
         if(page.content[i].type=='collection'){
           page.content[i].data = await queryCollections(page.content[i].data.map(item=>item.id));
-          console.log(page.content[i].data);
         }
       }
     }else{
@@ -33,7 +32,6 @@ router.get('/m/page/:id',async ctx=>{
       return;
     }
   })
-  console.log('结束')
   ctx.body = new Success(page);
   return;
 })

@@ -4,8 +4,7 @@ const MyError = require('../../../../lib/error');
 const query = require('../../../../lib/query');
 const CONFIG = require('../../../../lib/config');
 const jwt = require('jsonwebtoken');
-const Promise = require("bluebird");
-const {SEARCH,UPDATE} = require('../../../../lib/sql');
+const {SEARCH,UPDATE,INSERT} = require('../../../../lib/sql');
 const router = new Router();
 const TABLE_NAME = 'member';
 router.post('/m/user/login',async ctx=>{
@@ -53,12 +52,49 @@ router.post('/m/user/login',async ctx=>{
   userInfo.token = jwt.sign(payload, CONFIG.tokenVerify);
   // 3修改登录时间  
   await query(UPDATE(TABLE_NAME,{lastLoginTime},{id:user_info.id}));
-  ctx.session.userInfo = {
+  ctx.session.mUserInfo = {
     ...user_info,
     token:userInfo.token
   };
   ctx.body = new Success(userInfo,'登录成功');
 })
-
-router.name="m/user/login";
+// 注册
+router.post('/m/user/register',async ctx=>{
+  let username = ctx.request.body.username;
+  let password = ctx.request.body.password;
+  let nickname = ctx.request.body.nickname?ctx.request.body.nickname:ctx.request.body.username;
+  if(!username){
+    ctx.body = new MyError('用户名不能为空',400,1000);
+    return;
+  }
+  if(!password){
+    ctx.body = new MyError('密码不能为空',400,1000);
+    return;
+  }
+  let params = {
+    createTime:new Date().getTime(),
+    username,
+    password,
+    nickname 
+  }
+  await query(SEARCH(TABLE_NAME,{username})).then(async res=>{
+    if(res.length>0){
+      ctx.body = new MyError('该号码已经存在',400,1000);
+      return;
+    }else{
+      await query(INSERT(TABLE_NAME,params,[params])).then(async res=>{
+        await query('select max(id) as id from member').then(async ress=>{
+          await query(INSERT('memberInfo',{id:ress[0].id},[{id:ress[0].id}])).then(res=>{
+            ctx.body = new Success(null,'注册成功');
+            return;
+          }).catch(err=>{
+            ctx.body = new MyError('注册失败');
+            return;
+          })
+        })
+      })
+    }
+  })
+})
+router.name="m/user/login-register";
 module.exports=router;

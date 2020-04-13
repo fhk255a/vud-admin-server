@@ -25,7 +25,6 @@ router.get('/m/page/:id',async ctx=>{
         }
         if(page.content[i].type=='collection'){
           page.content[i].data = await queryCollections(page.content[i].data.map(item=>item.id));
-          console.log(page.content[i].data);
         }
       }
     }else{
@@ -33,9 +32,16 @@ router.get('/m/page/:id',async ctx=>{
       return;
     }
   })
-  console.log('结束')
   ctx.body = new Success(page);
   return;
+})
+
+// 获取展示分类
+router.get('/m/category/list',async ctx=>{
+  if(!ctx.params.id){
+    ctx.body = new MyError('ID不能为空');
+    return;
+  }
 })
 router.name="/m/page/home";
 module.exports = router;

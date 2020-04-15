@@ -40,5 +40,6 @@ router.get('/m/product/queryProductIds/:id',async ctx=>{
   ctx.body = new Success(data);
   return;
 })
+
 router.name="/m/product/product";
 module.exports = router;

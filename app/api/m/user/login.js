@@ -46,6 +46,7 @@ router.post('/m/user/login',async ctx=>{
   }
   // 存储信息给用户
   userInfo.userInfo = user_info;
+  userInfo.address = await query(SEARCH('address',{userId:userInfo.userInfo.id}));
   delete userInfo.userInfo.password;
   // 生成token
   let payload = {username:user_info.username,time:new Date().getTime(),timeout:CONFIG.tokenTime}

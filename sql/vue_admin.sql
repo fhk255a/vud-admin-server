@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : vue_admin
+Source Server         : hk_blog
 Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : vue_admin
@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-04-15 18:45:35
+Date: 2020-04-17 01:03:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for address
+-- ----------------------------
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE `address` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`,`userId`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of address
+-- ----------------------------
+INSERT INTO `address` VALUES ('1', '1', 'Joker', '13226627208', '广东省广州市番禺区Joker实验室402');
 
 -- ----------------------------
 -- Table structure for apppageconfig
@@ -324,7 +342,7 @@ CREATE TABLE `member` (
 -- ----------------------------
 -- Records of member
 -- ----------------------------
-INSERT INTO `member` VALUES ('000001', '13226627208', 'Joker', '123456', '0', null, '1586496842861', '1');
+INSERT INTO `member` VALUES ('000001', '13226627208', 'Joker', '123456', '0', null, '1587055571916', '1');
 INSERT INTO `member` VALUES ('000002', '132266272081', '132266272081', '123567', '0', '1586497755036', null, '1');
 INSERT INTO `member` VALUES ('000003', '13226627201', '13226627201', '123567', '0', '1586497872425', null, '1');
 INSERT INTO `member` VALUES ('000004', '132266272012', '132266272012', '123567', '0', '1586497911473', null, '1');
@@ -339,15 +357,16 @@ CREATE TABLE `memberinfo` (
   `price` double(20,2) NOT NULL DEFAULT '0.00',
   `cion` int(10) NOT NULL DEFAULT '1000' COMMENT '虚拟币',
   `head` varchar(255) DEFAULT NULL,
+  `addressId` int(11) DEFAULT NULL COMMENT '默认地址',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of memberinfo
 -- ----------------------------
-INSERT INTO `memberinfo` VALUES ('1', '0.00', '1000', null);
-INSERT INTO `memberinfo` VALUES ('1144024', '0.00', '1000', null);
-INSERT INTO `memberinfo` VALUES ('5', '0.00', '1000', null);
+INSERT INTO `memberinfo` VALUES ('1', '0.00', '1000', null, null);
+INSERT INTO `memberinfo` VALUES ('1144024', '0.00', '1000', null, null);
+INSERT INTO `memberinfo` VALUES ('5', '0.00', '1000', null, null);
 
 -- ----------------------------
 -- Table structure for menu
@@ -878,6 +897,5 @@ DELIMITER ;
 DROP TRIGGER IF EXISTS `image_create_time`;
 DELIMITER ;;
 CREATE TRIGGER `image_create_time` BEFORE INSERT ON `image` FOR EACH ROW SET new.createTime = unix_timestamp(now())*1000
-;
 ;;
 DELIMITER ;

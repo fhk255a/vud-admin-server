@@ -3,6 +3,7 @@ const Success = require('../../../../lib/success');
 const MyError = require('../../../../lib/error');
 const query = require('../../../../lib/query');
 const CONFIG = require('../../../../lib/config');
+const {CATEGORYTREE} = require('../../../../lib/common');
 const {SEARCH,UPDATE,INSERT} = require('../../../../lib/sql');
 const {queryProductIds,queryCollections} = require('../function/product');
 const router = new Router();
@@ -34,6 +35,15 @@ router.get('/m/page/:id',async ctx=>{
   })
   ctx.body = new Success(page);
   return;
+})
+
+// 获取展示分类
+router.get('/m/category/list',async ctx=>{
+  await query(SEARCH('h5Category')).then(res=>{
+    ctx.body = new Success(CATEGORYTREE(res));
+  }).catch(err=>{
+
+  })
 })
 router.name="/m/page/home";
 module.exports = router;

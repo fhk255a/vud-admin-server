@@ -52,6 +52,11 @@ router.post('/m/user/login',async ctx=>{
   let payload = {username:user_info.username,time:new Date().getTime(),timeout:CONFIG.tokenTime}
   userInfo.token = jwt.sign(payload, CONFIG.tokenVerify);
   // 3修改登录时间  
+  userInfo.address = await query(SEARCH('address',{userId:userInfo.userInfo.id}));
+  userInfo.address.map(item=>{
+    item.isDefault = item.isDefault==1?true:false;
+    return item;
+  })
   await query(UPDATE(TABLE_NAME,{lastLoginTime},{id:user_info.id}));
   ctx.session.mUserInfo = {
     ...user_info,

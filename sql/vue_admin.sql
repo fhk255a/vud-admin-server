@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-04-15 18:45:35
+Date: 2020-04-16 16:58:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -324,7 +324,7 @@ CREATE TABLE `member` (
 -- ----------------------------
 -- Records of member
 -- ----------------------------
-INSERT INTO `member` VALUES ('000001', '13226627208', 'Joker', '123456', '0', null, '1586496842861', '1');
+INSERT INTO `member` VALUES ('000001', '13226627208', 'Joker', '123456', '0', null, '1587023763894', '1');
 INSERT INTO `member` VALUES ('000002', '132266272081', '132266272081', '123567', '0', '1586497755036', null, '1');
 INSERT INTO `member` VALUES ('000003', '13226627201', '13226627201', '123567', '0', '1586497872425', null, '1');
 INSERT INTO `member` VALUES ('000004', '132266272012', '132266272012', '123567', '0', '1586497911473', null, '1');
@@ -560,6 +560,73 @@ INSERT INTO `order` VALUES ('144010', 'A15825456403891', 'ORDINARY_ORDER', '1021
 INSERT INTO `order` VALUES ('144009', 'A15825412693966', 'ORDINARY_ORDER', '1190928', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/729/600/10511006927_996761267.jpg\",\"quantity\":2,\"productId\":1186681,\"price\":152.29,\"title\":\"ฤดูร้อนใหม่แฟชั่นเกาหลีกระเป๋าเอวสูงสะโพกกระเป๋าเอวสูงกระโปรงยีนส์กระโปรงสั้นสีทึบกระโปรงคำน้ำหญิง\",\"skuId\":', '', '6369.00', '0', '0.00', '160.00', '', 'CANCEL', '1', '1583146070000', '1582541270000', '1582541270000', '0000-00-00 00:00:00', 'A1000202', '160', '33', 'Cancelled', '0', '0', '฿6369.00', '', '', '', '', '0.00', '', null, '1582541296000', '1190928', 'TH', '0000-00-00 00:00:00', '', '', '', '', '', '0ee1397f5b19485abf73bf096ccde9b6', '', '', '', '0', '0', '', '', 'false', '', 'false');
 INSERT INTO `order` VALUES ('144008', 'A15825387821924', 'ORDINARY_ORDER', '1087350', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/854/964/10594469458_472470698.jpg\",\"quantity\":5,\"productId\":1210887,\"price\":61.50,\"title\":\"A สปริงใหม่ทองเลดี้หน้ากากตาชุ่มชื้นชุ่มชื้นวงกลมสีดำแพนด้าตาทองตาหน้ากาก 60 สติกเกอร์ / 30 คู่\",\"skuId\":\"121', '', '342.00', '0', '0.00', '50.00', '9', 'PAYSUCC', '1', '1583143583000', '1582538782000', '1582538786000', '0000-00-00 00:00:00', '', '0', '5', 'To Be Delivered', '0', '0', '฿342.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
 INSERT INTO `order` VALUES ('144007', 'A15825374257412', 'ORDINARY_ORDER', '1022593', '0', '[{\"mainImage\":\"https://cbu01.alicdn.com/img/ibank/2019/118/531/10575135811_1659606264.jpg\",\"quantity\":13,\"productId\":1209637,\"price\":66.91,\"title\":\"ไฟ LED สตริงลูกกลมไฟคริสต์มาสไฟกระพริบ Amazon Dragon Ball แบตเตอรี่กล่องไฟสตริงแต่งงานไฟวันหยุด\",\"skuId\":\"1', '', '930.00', '0', '0.00', '60.00', '9', 'PAYSUCC', '1', '1583142225000', '1582537425000', '1582537429000', '0000-00-00 00:00:00', '', '0', '13', 'To Be Delivered', '0', '0', '฿930.00', '', '', '', '', '0.00', '', null, '', '', 'TH', '0000-00-00 00:00:00', '', 'ENTER_SUCCESS', '', '', '', '', '', '', '', '0', '0', '', '', 'false', 'COD', 'true');
+
+-- ----------------------------
+-- Table structure for orderlist
+-- ----------------------------
+DROP TABLE IF EXISTS `orderlist`;
+CREATE TABLE `orderlist` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `cancelUserId` int(11) DEFAULT NULL,
+  `cancelReason` varchar(255) DEFAULT NULL,
+  `cancelTime` bigint(20) DEFAULT NULL,
+  `createTime` bigint(20) NOT NULL,
+  `orderStatus` int(1) NOT NULL COMMENT '-1未付款，0待发货，1已发货，2已收货，3退款',
+  `totalPrice` double(20,2) DEFAULT NULL,
+  `discount` double(10,2) DEFAULT NULL,
+  `addressId` int(11) DEFAULT NULL,
+  `orderType` int(1) NOT NULL DEFAULT '0' COMMENT '-1已取消，0待付款，1已付款，2已完成，3退款中，4已退款',
+  `endTime` bigint(20) DEFAULT NULL COMMENT '完成时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=100003 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of orderlist
+-- ----------------------------
+INSERT INTO `orderlist` VALUES ('1', '1', null, null, null, '1587017518218', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('2', '1', null, null, null, '1587017697535', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('3', '1', null, null, null, '1587017726590', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('4', '1', null, null, null, '1587017775608', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('5', '1', null, null, null, '1587019444775', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('6', '1', null, null, null, '1587019465645', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('7', '1', null, null, null, '1587019476706', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('8', '1', null, null, null, '1587019498861', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('9', '1', null, null, null, '1587019587341', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('10', '1', null, null, null, '1587019610405', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('11', '1', null, null, null, '1587019636317', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('12', '1', null, null, null, '1587019679959', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('13', '1', null, null, null, '1587019717908', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('100000', '0', null, null, null, '0', '0', null, null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('100001', '1', null, null, null, '1587020436208', '-1', '31.71', null, null, '0', null);
+INSERT INTO `orderlist` VALUES ('100002', '1', null, null, null, '1587020451844', '-1', '2.00', null, null, '0', null);
+
+-- ----------------------------
+-- Table structure for orderproduct
+-- ----------------------------
+DROP TABLE IF EXISTS `orderproduct`;
+CREATE TABLE `orderproduct` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderId` int(11) DEFAULT NULL,
+  `num` int(11) DEFAULT NULL,
+  `skuId` int(11) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
+  `price` double(10,2) DEFAULT NULL COMMENT 'sku价格',
+  `title` varchar(255) DEFAULT NULL COMMENT '商品标题',
+  `skuName` varchar(255) DEFAULT NULL COMMENT 'sku标题',
+  `shopId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of orderproduct
+-- ----------------------------
+INSERT INTO `orderproduct` VALUES ('1', '7', '1', '3', '1144013', '31.71', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'iphone x', '1');
+INSERT INTO `orderproduct` VALUES ('2', '8', '1', '3', '1144013', '31.71', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'iphone x', '1');
+INSERT INTO `orderproduct` VALUES ('3', '9', '1', '3', '1144013', '31.71', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'iphone x', '1');
+INSERT INTO `orderproduct` VALUES ('4', '13', '1', '3', '1144013', '31.71', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'iphone x', '1');
+INSERT INTO `orderproduct` VALUES ('5', '100001', '1', '3', '1144013', '31.71', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'iphone x', '1');
+INSERT INTO `orderproduct` VALUES ('6', '100002', '1', '1', '1144013', '2.00', '新款弧形椭圆钢化玻璃手机壳适用苹果11Pro/OPPOReno2/VIVOS1/V30', 'iphone 7', '1');
 
 -- ----------------------------
 -- Table structure for page
@@ -810,9 +877,9 @@ CREATE TABLE `skulist` (
 -- ----------------------------
 -- Records of skulist
 -- ----------------------------
-INSERT INTO `skulist` VALUES ('1', '1144013', 'iphone 7', '1.00', '2.00', '0', '1586771447049', '1', 'https://cbu01.alicdn.com/img/ibank/2019/481/209/13052902184_352634785.jpg', '1');
+INSERT INTO `skulist` VALUES ('1', '1144013', 'iphone 7', '1.00', '2.00', '0', '1586771447049', '1', 'https://cbu01.alicdn.com/img/ibank/2019/481/209/13052902184_352634785.jpg', '0');
 INSERT INTO `skulist` VALUES ('2', '1144013', 'iphone 8', '1.00', '21.88', '0', '1586771447049', '1', 'https://cbu01.alicdn.com/img/ibank/2019/161/372/13094273161_352634785.jpg', '2');
-INSERT INTO `skulist` VALUES ('3', '1144013', 'iphone x', '2.00', '31.71', '0', '1586771447049', '1', 'https://cbu01.alicdn.com/img/ibank/2019/349/668/13052866943_352634785.jpg', '2');
+INSERT INTO `skulist` VALUES ('3', '1144013', 'iphone x', '2.00', '31.71', '0', '1586771447049', '1', 'https://cbu01.alicdn.com/img/ibank/2019/349/668/13052866943_352634785.jpg', '0');
 INSERT INTO `skulist` VALUES ('4', '1144013', 'iphone xr', '1.00', '2.00', '0', '1586771447049', '0', 'https://cbu01.alicdn.com/img/ibank/2019/865/878/13052878568_352634785.jpg', '1');
 INSERT INTO `skulist` VALUES ('5', '1144008', '中', '2.00', '3.00', '0', '0', '1', 'http://img.fhk255.cn/product/2020046/15861734502104912x240.jpg', '1');
 INSERT INTO `skulist` VALUES ('13', '1144008', '模拟sku', '0.00', '0.00', '1586251173154', '1586311411398', '1', 'http://img.fhk255.cn/product/1144024/15862511684881988.jpg', '2');

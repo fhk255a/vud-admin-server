@@ -4,7 +4,7 @@ const MyError = require('../../../../lib/error');
 const query = require('../../../../lib/query');
 const CONFIG = require('../../../../lib/config');
 const {CATEGORYTREE} = require('../../../../lib/common');
-const {SEARCH,UPDATE,INSERT,UPDATES} = require('../../../../lib/sql');
+const {SEARCH,UPDATE,INSERT,UPDATES,DELETES} = require('../../../../lib/sql');
 const {queryProductIds,queryCollections} = require('../function/product');
 const router = new Router();
 const TABLE_NAME = 'order';
@@ -21,6 +21,12 @@ router.post(URL+'create',async ctx=>{
     return;
   }
   const ids = orderInfo.map(item=>item.id);
+  let cartIds = [];
+  for(let i in orderInfo){
+    if(orderInfo[i].cartId){
+      cartIds.push(orderInfo[i].cartId);
+    }
+  }
   let result = [];
   const sql = `SELECT s.count,p.shopId,p.title,s.outPrice,s.label,s.id as skuId,p.id as productId from product as p ,skuList as s where s.id in(${ids}) and s.productId = p.id and s.status != 0 and count != 0 `;
   let skuRes = await query(sql);
@@ -38,11 +44,11 @@ router.post(URL+'create',async ctx=>{
         item.num = sameItem.num;
         skuIds.push({
           id:item.skuId,
-          count:(item.count)*1-(sameItem.num)*1
+          count: item.count*1-sameItem.num*1
         });
         productNum+=item.num;
         result.push(item);
-        totalPrice+=(item.outPrice*item.num)*1;
+        totalPrice+=(item.outPrice*item.num).toFixed(2);
       }
     }
     const userInfo = ctx.session.mUserInfo;
@@ -78,6 +84,7 @@ router.post(URL+'create',async ctx=>{
       const insertOrderProductRes = await query(INSERT('orderProduct',skuPushData[0],skuPushData));
       const updateSkuRes = await query(UPDATES('skuList',skuIds))
       if(insertOrderProductRes && updateSkuRes){
+        await query(DELETES('cart',cartIds));
         ctx.body = new Success({orderId:orderRes.insertId},'创建成功');
         return;
       }else{
@@ -116,11 +123,11 @@ router.get(URL+'id/:id',async ctx=>{
           products.push({
             name:item.name,
             logo:item.logo,
-            price:item.price*1*item.num,
+            price:(item.price * item.num).toFixed(2),
             products:[item]
           });
         }else{
-          products[INDEX].price+=item.price*1*item.num;
+          products[INDEX].price+=(item.price * item.num).toFixed(2);
           products[INDEX].products.push(item);
         }
       }

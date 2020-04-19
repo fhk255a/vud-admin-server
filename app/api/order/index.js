@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const Success = require('../../../lib/success');
 const MyError = require('../../../lib/error');
 const query = require('../../../lib/query');
-const TABLE_NAME = 'order';
+const TABLE_NAME = 'orderlist';
 const {WHERE_TOTAL,SEARCH_PAGE,SEARCH,UPDATE} = require('../../../lib/sql');
 const router = new Router();
 // 获取订单列表
@@ -53,6 +53,25 @@ router.get('/order/details',async (ctx,next)=>{
   }).catch(err=>{
     ctx.body = err;
   });
+})
+
+// 查询未发货订单
+router.get('/order/review/list', async ctx=>{
+  let params = {
+    userId:ctx.query.userId,
+    current:ctx.query.current,
+    size:ctx.query.size,
+    orderId:ctx.query.orderId,
+    orderStatus:'0'
+  }
+  const total = WHERE_TOTAL(TABLE_NAME,params);
+  const SQL = SEARCH_PAGE(TABLE_NAME,params);
+  const resultTotal = await query(total);
+  const resultData = await query(SQL);
+  ctx.body = new Success({
+    total:resultTotal[0].total,
+    data:resultData
+  })
 })
 // 添加
   // const SQL = INSERT('order',ctx.request.body.data[0],ctx.request.body.data);

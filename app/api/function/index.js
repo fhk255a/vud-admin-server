@@ -12,6 +12,8 @@ const router = new Router();
 router.post('/function/upload',async (ctx,next)=>{
   const file = ctx.request.files.image;
   const otherDir = ctx.request.body.path;
+  let returnSize = ctx.request.body.size;
+  returnSize = returnSize==0?'':returnSize==1?'x240':'x100';
   if(file){
     if(file.size/1024 > 500){
       ctx.body = new MyError('图片大小不能超过500KB',400,1000);
@@ -72,7 +74,8 @@ router.post('/function/upload',async (ctx,next)=>{
           // 存原始图
           const upStream = fs.createWriteStream(file.path);
           reader.pipe(upStream);
-          ctx.body = new Success(params.image,'上传成功');
+          let returnImage = `http://${fileP}${pName}${returnSize}.${ext}`;
+          ctx.body = new Success(returnImage,'上传成功');
           return;
         }else{
           ctx.body = new MyError('上传失败,数据库插入失败');

@@ -184,7 +184,6 @@ router.post(URL+'toPay',async ctx=>{
     ctx.body = new MyError('支付失败，密码错误');
     return;
   }
-  console.log(orderRes);
 })
 router.get(URL+'list' ,async ctx=>{
   const orderRes = await query(SEARCH('orderList',{userId:ctx.session.mUserInfo.id}));

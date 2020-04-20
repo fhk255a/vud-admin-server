@@ -26,6 +26,10 @@ router.post(URL+'update',async ctx=>{
     ctx.body = new MyError('分类名称不能为空');
     return;
   }
+  if(params.baseCategoryId==0){
+    ctx.body = new MyError('绑定的ID不能为0');
+    return;
+  }
   await query(UPDATE('h5category',params,{id:params.id})).then(res=>{
     ctx.body = new Success(null,'修改成功');
   }).catch(err=>{
@@ -41,6 +45,10 @@ router.post(URL+'add',async ctx=>{
   }
   if(params.label.trim()==''){
     ctx.body = new MyError('分类名称不能为空');
+    return;
+  }
+  if(params.baseCategoryId==0){
+    ctx.body = new MyError('绑定的ID不能为0');
     return;
   }
   let parentLevel = 1;

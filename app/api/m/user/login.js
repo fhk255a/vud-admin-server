@@ -26,7 +26,7 @@ router.post('/m/user/login',async ctx=>{
   let user_info = {};
   await query(SEARCH(TABLE_NAME,params)).then(async res=>{
     if(res.length>0){
-      await query(SEARCH('memberInfo',{id:res[0].id})).then(ress=>{
+      await query(SEARCH('memberinfo',{id:res[0].id})).then(ress=>{
         user_info = {
           ...ress[0],
           ...res[0],
@@ -90,7 +90,7 @@ router.post('/m/user/register',async ctx=>{
     }else{
       await query(INSERT(TABLE_NAME,params,[params])).then(async res=>{
         await query('select max(id) as id from member').then(async ress=>{
-          await query(INSERT('memberInfo',{id:ress[0].id},[{id:ress[0].id}])).then(res=>{
+          await query(INSERT('memberinfo',{id:ress[0].id},[{id:ress[0].id}])).then(res=>{
             ctx.body = new Success(null,'注册成功');
             return;
           }).catch(err=>{

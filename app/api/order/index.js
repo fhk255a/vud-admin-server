@@ -60,8 +60,8 @@ router.get('/order/details',async (ctx,next)=>{
   let orderInfoRes = await query(`SELECT member.username, member.nickname,orderlist.* from orderlist,member WHERE orderlist.id = ${ctx.query.id} and orderlist.userId = member.id`);
   if(orderInfoRes.length>0){
     const sql = `SELECT sp.name,sp.logo,p.mainImage,s.num,p.shopId,s.title,s.price,s.skuName,s.productId,p.shopId as productId from product as p ,
-    orderProduct as s, shop as sp where s.orderId in(${orderInfoRes[0].id}) and s.productId = p.id and s.shopId = sp.id `;
-    // const productRes = await query(SEARCH('orderProduct',{orderId:orderInfoRes[0].id}));
+    orderproduct as s, shop as sp where s.orderId in(${orderInfoRes[0].id}) and s.productId = p.id and s.shopId = sp.id `;
+    // const productRes = await query(SEARCH('orderproduct',{orderId:orderInfoRes[0].id}));
     const productRes = await query(sql);
     let products = []
     for(let i in productRes){

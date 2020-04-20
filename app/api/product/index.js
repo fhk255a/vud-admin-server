@@ -61,7 +61,7 @@ router.get('/product/details/:id' , async (ctx,next)=>{
         info.categoryName = cate.map(item=>item.label).join('>');
       })
       // 查sku信息
-      await query(SEARCH('skuList',{productId:res[0].id})).then(ress=>{
+      await query(SEARCH('skulist',{productId:res[0].id})).then(ress=>{
         info.skuList = ress;
       }).catch(()=>{
         ctx.body = new MyError('商品SKU有问题',400,404);
@@ -102,7 +102,7 @@ router.post('/product/save' , async (ctx,next)=>{
   let skuItems = [];
   let addSkus = [];
   if(deleteSkus.length>0){
-    await query(DELETES('skuList',deleteSkus))
+    await query(DELETES('skulist',deleteSkus))
   }
   INFO.skuList.forEach(item=>{
     item.productId=INFO.id; 
@@ -125,11 +125,11 @@ router.post('/product/save' , async (ctx,next)=>{
   if(INFO.id){
     // 用productId更新原有的sku
     if(skuItems.length>0){
-      await query(UPDATES('skuList',skuItems,'id'));
+      await query(UPDATES('skulist',skuItems,'id'));
     }
     // 用productId新增sku
     if(addSkus.length>0){
-      await query(INSERT('skuList',addSkus[0],addSkus));
+      await query(INSERT('skulist',addSkus[0],addSkus));
     }
     await query(UPDATE(TABLE_NAME,PRODUCTINFO,{id:INFO.id})).then(res=>{
       ctx.body = new Success('p118修改成功');
@@ -185,15 +185,15 @@ router.post('/product/save' , async (ctx,next)=>{
             let imgs = images.map(item=>item.image);
             // 更改商品图片里面得图
             await query(UPDATE(TABLE_NAME,{images:imgs},{id:res[0].id}))
-            await query(UPDATES('productImage',images,'fileName'))
+            await query(UPDATES('productimage',images,'fileName'))
             if(addSkus.length>0){
-              await query(INSERT('skuList',addSkus[0],addSkus));
+              await query(INSERT('skulist',addSkus[0],addSkus));
             }
             ctx.body = new Success({id:res[0].id},'创建成功');
             return;
           }else{
             if(addSkus.length>0){
-              await query(INSERT('skuList',addSkus[0],addSkus));
+              await query(INSERT('skulist',addSkus[0],addSkus));
             }
             ctx.body = new Success({id:res[0].id},'创建成功');
             return;

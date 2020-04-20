@@ -22,7 +22,7 @@ router.post(URL+'create',async ctx=>{
   }
   const ids = orderInfo.map(item=>item.id);
   let result = [];
-  const sql = `SELECT s.count,p.shopId,p.title,s.outPrice,s.label,s.id as skuId,p.id as productId from product as p ,skuList as s where s.id in(${ids}) and s.productId = p.id and s.status != 0 and count != 0 `;
+  const sql = `SELECT s.count,p.shopId,p.title,s.outPrice,s.label,s.id as skuId,p.id as productId from product as p ,skulist as s where s.id in(${ids}) and s.productId = p.id and s.status != 0 and count != 0 `;
   let skuRes = await query(sql);
   let skuIds = [];
   let totalPrice = 0;
@@ -76,8 +76,8 @@ router.post(URL+'create',async ctx=>{
           skuName:item.label
         })
       }
-      const insertOrderProductRes = await query(INSERT('orderProduct',skuPushData[0],skuPushData));
-      const updateSkuRes = await query(UPDATES('skuList',skuIds))
+      const insertOrderProductRes = await query(INSERT('orderproduct',skuPushData[0],skuPushData));
+      const updateSkuRes = await query(UPDATES('skulist',skuIds))
       await query(UPDATES('member',{isFirst:0},{id:userInfo.id*1}))
       if(insertOrderProductRes && updateSkuRes){
         // 如果是从购物车下单
@@ -111,8 +111,8 @@ router.get(URL+'id/:id',async ctx=>{
       return;
     }else{
       const sql = `SELECT sp.name,sp.logo,p.mainImage,s.num,p.shopId,s.title,s.price,s.skuName,s.productId,p.shopId as productId from product as p ,
-      orderProduct as s, shop as sp where s.orderId in(${orderInfoRes[0].id}) and s.productId = p.id and s.shopId = sp.id`;
-      // const productRes = await query(SEARCH('orderProduct',{orderId:orderInfoRes[0].id}));
+      orderproduct as s, shop as sp where s.orderId in(${orderInfoRes[0].id}) and s.productId = p.id and s.shopId = sp.id`;
+      // const productRes = await query(SEARCH('orderproduct',{orderId:orderInfoRes[0].id}));
       const productRes = await query(sql);
       let products = []
       for(let i in productRes){
@@ -190,7 +190,7 @@ router.get(URL+'list' ,async ctx=>{
   for(let i in orderRes){
     let item = orderRes[i];
     item.products = await query(`
-    SELECT product.mainImage, orderProduct.* FROM orderProduct , product  WHERE orderId=${item.id} and orderproduct.productId = product.id`);
+    SELECT product.mainImage, orderproduct.* FROM orderproduct , product  WHERE orderId=${item.id} and orderproduct.productId = product.id`);
   }
   ctx.body = new Success(orderRes);
 })

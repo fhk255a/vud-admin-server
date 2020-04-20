@@ -5,12 +5,12 @@ const query = require('../../../../lib/query');
 const {SEARCH,UPDATE,INSERT} = require('../../../../lib/sql');
 const {Price} = require('../../../../lib/common');
 const router = new Router();
-const TABLE_NAME = 'skuList';
+const TABLE_NAME = 'skulist';
 const URL = '/m/sku';
 router.post(URL+'/querySkuProductInfo',async ctx =>{
   const skuData = JSON.parse(ctx.request.body.skuData);
   const ids = skuData.map(item=>item.id);
-  const sql = `SELECT s.count,p.shopId,p.title,s.outPrice,s.label,s.id as skuId,p.mainImage,p.id as productId from product as p ,skuList as s where s.id in(${ids}) and s.productId = p.id and s.status != 0`;
+  const sql = `SELECT s.count,p.shopId,p.title,s.outPrice,s.label,s.id as skuId,p.mainImage,p.id as productId from product as p ,skulist as s where s.id in(${ids}) and s.productId = p.id and s.status != 0`;
   let res = await query(sql);
   let result = [];
   if(res.length>0){

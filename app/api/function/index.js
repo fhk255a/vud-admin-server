@@ -135,7 +135,7 @@ router.post('/function/uploadProduct',async (ctx,next)=>{
         type:ext,
         createTime:new Date().getTime()
       }
-      await query(INSERT('productImage',params,[params])).then(async (res)=>{
+      await query(INSERT('productimage',params,[params])).then(async (res)=>{
         if(res){
           // 缩略图
           const imgBuffer = sharp(oldFileP);

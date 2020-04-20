@@ -39,7 +39,7 @@ router.get('/m/page/:id',async ctx=>{
 
 // 获取展示分类
 router.get('/m/category/list',async ctx=>{
-  await query(SEARCH('h5Category')).then(res=>{
+  await query(SEARCH('h5category')).then(res=>{
     ctx.body = new Success(CATEGORYTREE(res));
   }).catch(err=>{
 

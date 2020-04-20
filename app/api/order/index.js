@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const Success = require('../../../lib/success');
 const MyError = require('../../../lib/error');
 const query = require('../../../lib/query');
-const TABLE_NAME = 'order';
+const TABLE_NAME = 'orderlist';
 const {WHERE_TOTAL,SEARCH_PAGE,SEARCH,UPDATE} = require('../../../lib/sql');
 const router = new Router();
 // 获取订单列表
@@ -28,11 +28,11 @@ router.post('/order/cancel',async (ctx,next)=>{
     return;
   }
   let key ={
-    cancelDate:new Date().getTime(),
-    isCancel:true,
-    cancelCode:'运营后台取消',
-    cancelUser:ctx.session.userInfo.username,
-    orderStatus:'CANCEL'
+    cancelTime:new Date().getTime(),
+    cancelReason:'运营后台取消',
+    cancelUserId:ctx.session.userInfo.username,
+    orderStatus:3,
+    orderType:-1,
   }
   const SQL = UPDATE(TABLE_NAME,key,{id:ctx.request.body.id});
   await query(SQL).then(res=>{

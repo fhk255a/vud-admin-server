@@ -3,6 +3,7 @@ const Success = require('../../../../lib/success');
 const MyError = require('../../../../lib/error');
 const query = require('../../../../lib/query');
 const {SEARCH,UPDATE,INSERT} = require('../../../../lib/sql');
+const {Price} = require('../../../../lib/common');
 const router = new Router();
 const TABLE_NAME = 'skuList';
 const URL = '/m/sku';
@@ -28,18 +29,18 @@ router.post(URL+'/querySkuProductInfo',async ctx =>{
           let data = {
             ...shopInfo[0],
             products:[item],
-            price:Math.round(item.outPrice*item.num * 100) / 100 ,
+            price:Price(item.outPrice)*item.num ,
           }
           result.push(data);
         }else{
-          result[Index].price += Math.round(item.outPrice*item.num * 100) / 100 ; 
+          result[Index].price += Price(item.outPrice)*item.num; 
           result[Index].products.push(item);
         }
       }
     }
     let totalPrice = 0;
     for(let i in result){
-      totalPrice+=  Math.round(result[i].price * 100) / 100 ; 
+      totalPrice+= Price(result[i].price); 
     }
     ctx.body = new Success({totalPrice,result});
   }

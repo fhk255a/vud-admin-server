@@ -3,7 +3,7 @@ const Success = require('../../../../lib/success');
 const MyError = require('../../../../lib/error');
 const query = require('../../../../lib/query');
 const CONFIG = require('../../../../lib/config');
-const {CATEGORYTREE} = require('../../../../lib/common');
+const {CATEGORYTREE,Price} = require('../../../../lib/common');
 const {SEARCH,UPDATE,INSERT,UPDATES,DELETES} = require('../../../../lib/sql');
 const {queryProductIds,queryCollections} = require('../function/product');
 const router = new Router();
@@ -48,13 +48,13 @@ router.post(URL+'create',async ctx=>{
         });
         productNum+=item.num;
         result.push(item);
-        totalPrice+=(item.outPrice*item.num).toFixed(2);
+        totalPrice+=Price(item.outPrice)*item.num;
       }
     }
     const userInfo = ctx.session.mUserInfo;
     let order = {
       createTime:new Date().getTime(),
-      userId:userInfo.id,
+      userId:userInfo.id*1,
       orderStatus:-1,
       addressId:ctx.request.body.addressId,
       totalPrice:totalPrice,
@@ -62,6 +62,7 @@ router.post(URL+'create',async ctx=>{
       num:productNum,
       resultPrice:totalPrice , //后面需要查优惠券 减去优惠券内容
     }
+
     let orderRes = await query(INSERT('orderList',order,[order]));
     if(orderRes && orderRes.insertId){
       // orderRes.insertId  最新的orderId 
@@ -83,8 +84,12 @@ router.post(URL+'create',async ctx=>{
       }
       const insertOrderProductRes = await query(INSERT('orderProduct',skuPushData[0],skuPushData));
       const updateSkuRes = await query(UPDATES('skuList',skuIds))
+      await query(UPDATES('member',{isFirst:0},{id:userInfo.id*1}))
       if(insertOrderProductRes && updateSkuRes){
-        await query(DELETES('cart',cartIds));
+        // 如果是从购物车下单
+        if(cartIds.length>0){
+          await query(DELETES('cart',cartIds));
+        }
         ctx.body = new Success({orderId:orderRes.insertId},'创建成功');
         return;
       }else{
@@ -121,18 +126,20 @@ router.get(URL+'id/:id',async ctx=>{
         let INDEX = products.findIndex(it=>it.shopId==item.shopId);
         if(INDEX==-1){
           products.push({
+            shopId:item.shopId,
             name:item.name,
             logo:item.logo,
-            price:(item.price * item.num).toFixed(2),
+            price:Price(item.price)* item.num,
             products:[item]
           });
         }else{
-          products[INDEX].price+=(item.price * item.num).toFixed(2);
+          products[INDEX].price+=Price(item.price)* item.num;
           products[INDEX].products.push(item);
         }
       }
       const addressRes = await query(SEARCH('address',{id:orderInfoRes[0].addressId}));
       orderInfoRes[0].products = products;
+      console.log(orderInfoRes[0].products)
       orderInfoRes[0].address = addressRes[0];
       ctx.body = new Success(orderInfoRes[0]);
       return;
@@ -189,7 +196,8 @@ router.get(URL+'list' ,async ctx=>{
   const orderRes = await query(SEARCH('orderList',{userId:ctx.session.mUserInfo.id}));
   for(let i in orderRes){
     let item = orderRes[i];
-    item.products = await query(SEARCH('orderProduct',{orderId:item.id}));
+    item.products = await query(`
+    SELECT product.mainImage, orderProduct.* FROM orderProduct , product  WHERE orderId=${item.id} and orderproduct.productId = product.id`);
   }
   ctx.body = new Success(orderRes);
 })

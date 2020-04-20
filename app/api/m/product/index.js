@@ -13,6 +13,7 @@ router.get('/m/product/queryProductIds/:id',async ctx=>{
     return;
   }
   let data = {};
+  let isCollect=false;
   await query(SEARCH(TABLE_NAME,{id:ctx.params.id})).then(async res=>{
     if(res.length>0){
       data = {
@@ -21,6 +22,12 @@ router.get('/m/product/queryProductIds/:id',async ctx=>{
         propList:JSON.parse(res[0].propList),
         attrList:JSON.parse(res[0].attrList)
       };
+      if(ctx.session.mUserInfo){
+        const collectRes = await query(SEARCH('collect',{userId:ctx.session.mUserInfo.id*1,productId:ctx.params.id}));
+        if(collectRes.length>0){
+          isCollect = true;
+        }
+      }
       let ress = await query(SEARCH('skulist',{productId:res[0].id}));
       let shopInfo = await query(SEARCH('shop',{id:res[0].shopId}));
       if(ress.length>0){
@@ -37,6 +44,7 @@ router.get('/m/product/queryProductIds/:id',async ctx=>{
       return;
     }
   })
+  data.isCollect = isCollect;
   ctx.body = new Success(data);
   return;
 })

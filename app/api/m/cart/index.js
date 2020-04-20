@@ -39,53 +39,37 @@ router.get(URL+'list',async ctx=>{
     let item = cartRes[i];
     const Index = result.findIndex(it=>it.shopId == item.shopId);
     if(Index==-1){
-        result.push({
-          shopName:item.name,
-          status:true,
-          logo:item.logo,
-          shopId:item.shopId,
-          products:[{
-            productId:item.productId,
-            title:item.title,
-            status:true,
-            mainImage:item.mainImage,
-            skuList:[{
-              skuId:item.skuId,
-              num:item.num,
-              cartId:item.cartId,
-              status:true,
-              price:item.outPrice,
-              label:item.label
-            }]
-          }]
-        })
-    }else{
-      const pIndex = result[Index].products.findIndex(it=>it.productId == item.productId);
-      if(pIndex==-1){
-        result[Index].products.push({
+      result.push({
+        shopName:item.name,
+        status:true,
+        logo:item.logo,
+        shopId:item.shopId,
+        products:[{
           productId:item.productId,
-          mainImage:item.mainImage,
-          status:true,
           title:item.title,
-          skuList:[{
-            skuId:item.skuId,
-            num:item.num,
-            cartId:item.cartId,
-            price:item.outPrice,
-            status:true,
-            label:item.label
-          }]
-        })
-      }else{
-        result[Index].products[pIndex].skuList.push({
+          status:true,
+          mainImage:item.mainImage,
           skuId:item.skuId,
           num:item.num,
-          price:item.outPrice,
-          status:true,
           cartId:item.cartId,
+          status:true,
+          price:item.outPrice,
           label:item.label
-        })
-      }
+        }]
+      })
+    }else{
+      result[Index].products.push({
+        productId:item.productId,
+        title:item.title,
+        status:true,
+        mainImage:item.mainImage,
+        skuId:item.skuId,
+        num:item.num,
+        cartId:item.cartId,
+        status:true,
+        price:item.outPrice,
+        label:item.label
+      })
     }
   }
   ctx.body = new Success(result);

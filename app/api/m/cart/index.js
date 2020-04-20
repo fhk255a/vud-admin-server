@@ -9,6 +9,10 @@ const {queryProductIds,queryCollections} = require('../function/product');
 const router = new Router();
 const TABLE_NAME = 'order';
 const URL = '/m/cart/';
+router.get(URL+'list',async ctx=>{
+  let userid = ctx.session.mUserInfo.id*1;
+  console.log(userid);
+})
 router.post(URL+'add',async ctx=>{
   let params = ctx.request.body;
   if(!params.skuId){

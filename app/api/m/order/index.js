@@ -21,12 +21,6 @@ router.post(URL+'create',async ctx=>{
     return;
   }
   const ids = orderInfo.map(item=>item.id);
-  let cartIds = [];
-  for(let i in orderInfo){
-    if(orderInfo[i].cartId){
-      cartIds.push(orderInfo[i].cartId);
-    }
-  }
   let result = [];
   const sql = `SELECT s.count,p.shopId,p.title,s.outPrice,s.label,s.id as skuId,p.id as productId from product as p ,skuList as s where s.id in(${ids}) and s.productId = p.id and s.status != 0 and count != 0 `;
   let skuRes = await query(sql);
@@ -44,7 +38,7 @@ router.post(URL+'create',async ctx=>{
         item.num = sameItem.num;
         skuIds.push({
           id:item.skuId,
-          count: item.count*1-sameItem.num*1
+          count:(item.count)*1-(sameItem.num)*1
         });
         productNum+=item.num;
         result.push(item);

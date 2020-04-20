@@ -5,7 +5,7 @@ const query = require('../../../lib/query');
 const {CATEGORYTREE} = require('../../../lib/common');
 const {DELETE,SEARCH,INSERT,UPDATE,UPDATES,DELETES} = require('../../../lib/sql');
 const router = new Router();
-const TABLE_NAME = 'h5Category';
+const TABLE_NAME = 'h5category';
 const URL = '/operation/category/';
 // 展示分类列表
 router.get(URL+'list',async ctx=>{

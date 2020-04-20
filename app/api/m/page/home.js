@@ -7,7 +7,7 @@ const {CATEGORYTREE} = require('../../../../lib/common');
 const {SEARCH,UPDATE,INSERT} = require('../../../../lib/sql');
 const {queryProductIds,queryCollections} = require('../function/product');
 const router = new Router();
-const TABLE_NAME = 'appPageConfig';
+const TABLE_NAME = 'apppageconfig';
 
 // 获取页面信息
 router.get('/m/page/:id',async ctx=>{

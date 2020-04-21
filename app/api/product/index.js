@@ -13,7 +13,7 @@ const router = new Router();
 router.get('/product/list', async (ctx,next)=>{
   // 查询shop跟product表
   let params = getColumn(TABLE_NAME,['id','title','mainImage','outPrice','status','createTime','categoryId','shopId']);
-  const SQL = `SELECT ${params},shop.name as shopName FROM ${TABLE_NAME},shop WHERE  product.shopId = shop.id ${getValue(ctx.query,['title'])}`;
+  const SQL = `SELECT ${params},shop.name as shopName FROM ${TABLE_NAME},shop WHERE product.shopId = shop.id ${getValue(ctx.query,['title'])}`;
   const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query,['title']);
   let body = {
     total:0,

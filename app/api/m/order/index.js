@@ -27,7 +27,12 @@ router.post(URL+'create',async ctx=>{
   let skuIds = [];
   let totalPrice = 0;
   let productNum = 0;
-  let cartIds = orderInfo.map(item=>item.cartId);
+  let cartIds = [];
+  for(let i = 0 ; i < orderInfo.length ; i++ ){
+    if(orderInfo[i].cartId){
+    	cartIds.push(orderInfo[i].cartId)
+    }
+  }
   if(ids.length == skuRes.length){
     for(let i in skuRes){
       let item = skuRes[i];

@@ -11,9 +11,14 @@ const URL = '/shop/';
 router.get(URL+'list',async ctx=>{
   let p_n = 'product'; // 商品表
   let s_n = 'shop'; // 店铺表
+  let isNull = false;
+  if(!ctx.query.id=='' || !ctx.query.name=='' || !ctx.query.from=='' || !ctx.query.status==''){
+    isNull = true;
+  }
   const SQL = `select * from ${s_n} as s left join 
-  (select count(*) as num,shopId from ${p_n} GROUP BY shopId) as p on s.id = p.shopId WHERE ${getValue(ctx.query,['name'])}`;
+  (select count(*) as num,shopId from ${p_n} GROUP BY shopId) as p on s.id = p.shopId ${isNull?'WHERE':''} ${getValue(ctx.query,['name'])}`;
   const TOTAL = WHERE_TOTAL(TABLE_NAME,ctx.query,['name']);
+  console.log(SQL)
   let body = {
     total:0,
     data:[]

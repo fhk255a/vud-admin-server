@@ -206,6 +206,21 @@ router.post('/product/save' , async (ctx,next)=>{
     })
   }
 })
+// 上下架商品
+router.post('/product/changeStatus/:id', async ctx=>{
+  if(!ctx.params.id){
+    ctx.body = new MyError('商品ID不能为空');
+    return;
+  }
+  const status = ctx.request.body.status;
+  await query(UPDATE('product',{status},{id:ctx.params.id})).then(res=>{
+    ctx.body = new Success(null,status==1?'该商品已上架':'该商品已下架');
+    return;
+  }).catch(err=>{
+    ctx.body = new MyError('更改状态失败');
+    return;
+  })
+})
 
 router.name="product";
 module.exports=router;

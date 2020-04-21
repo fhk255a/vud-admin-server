@@ -13,6 +13,7 @@ router.post(URL+'/querySkuProductInfo',async ctx =>{
   const sql = `SELECT s.count,p.shopId,p.title,s.outPrice,s.label,s.id as skuId,p.mainImage,p.id as productId from product as p ,skulist as s where s.id in(${ids}) and s.productId = p.id and s.status != 0`;
   let res = await query(sql);
   let result = [];
+  console.log(skuData);
   if(res.length>0){
     for(let i in res){
       let item = res[i];
@@ -22,6 +23,10 @@ router.post(URL+'/querySkuProductInfo',async ctx =>{
         return;
       }else{
         item.num = skuItem.num;
+        if(skuItem.cartId){
+          item.cartId = skuItem.cartId;
+        }
+        console.log(item);
         let Index = result.findIndex(it=>item.shopId==it.id);
         if(Index==-1){
           let shopInfo = await query(`SELECT * from shop where id = ${item.shopId}`);

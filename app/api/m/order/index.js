@@ -27,6 +27,7 @@ router.post(URL+'create',async ctx=>{
   let skuIds = [];
   let totalPrice = 0;
   let productNum = 0;
+  let cartIds = orderInfo.map(item=>item.cartId);
   if(ids.length == skuRes.length){
     for(let i in skuRes){
       let item = skuRes[i];
@@ -56,12 +57,12 @@ router.post(URL+'create',async ctx=>{
       num:productNum,
       resultPrice:totalPrice , //后面需要查优惠券 减去优惠券内容
     }
-
-    let orderRes = await query(INSERT('orderList',order,[order]));
-    if(orderRes && orderRes.insertId){
+    let orderRes = {};
+    let skuPushData = [];
+    await query(INSERT('orderlist',order,[order])).then(res=>{
+      orderRes = res;
       // orderRes.insertId  最新的orderId 
       // 这一步 要剔除原本的sku数量
-      let skuPushData = [];
       // 把sku数据存到orderproduct里面
       for(let i in result){
         const item = result[i];
@@ -76,19 +77,24 @@ router.post(URL+'create',async ctx=>{
           skuName:item.label
         })
       }
+    }).catch(err=>{
+      ctx.body = new MyError('生成订单失败');
+      return;
+    })
+    if(orderRes && orderRes.insertId){
       const insertOrderProductRes = await query(INSERT('orderproduct',skuPushData[0],skuPushData));
       const updateSkuRes = await query(UPDATES('skulist',skuIds))
-      await query(UPDATES('member',{isFirst:0},{id:userInfo.id*1}))
-      if(insertOrderProductRes && updateSkuRes){
+      await query(UPDATE('member',{isFirst:0},{id:userInfo.id*1}))
+      if(!insertOrderProductRes.insertId && !updateSkuRes){
         // 如果是从购物车下单
-        if(cartIds.length>0){
+        ctx.body = new MyError('生成订单失败');
+        return;
+      }else{
+        if(cartIds && cartIds.length>0){
           await query(DELETES('cart',cartIds));
         }
         ctx.body = new Success({orderId:orderRes.insertId},'创建成功');
-        return;
-      }else{
-        ctx.body = new MyError('生成订单失败');
-        return;
+        return;   
       }
     }else{
       ctx.body = new MyError('订单创建失败');
@@ -104,7 +110,7 @@ router.get(URL+'id/:id',async ctx=>{
     ctx.body = new MyError('订单ID不能为空');
     return;
   }
-  let orderInfoRes = await query(SEARCH('orderList',{id:ctx.params.id}));
+  let orderInfoRes = await query(SEARCH('orderlist',{id:ctx.params.id}));
   if(orderInfoRes.length>0){
     if(orderInfoRes[0].userId*1!== ctx.session.mUserInfo.id*1){
       ctx.body = new MyError('不能偷看别人得订单噢',404,404);
@@ -133,7 +139,6 @@ router.get(URL+'id/:id',async ctx=>{
       }
       const addressRes = await query(SEARCH('address',{id:orderInfoRes[0].addressId}));
       orderInfoRes[0].products = products;
-      console.log(orderInfoRes[0].products)
       orderInfoRes[0].address = addressRes[0];
       ctx.body = new Success(orderInfoRes[0]);
       return;
@@ -155,7 +160,7 @@ router.post(URL+'toPay',async ctx=>{
     return;
   }
   const USERID = ctx.session.mUserInfo.id;
-  const orderRes = await query(SEARCH('orderList',{id:ID,userId:USERID}));
+  const orderRes = await query(SEARCH('orderlist',{id:ID,userId:USERID}));
   if(orderRes.length==0){
     ctx.body = new MyError('不存在该订单');
     return;
@@ -169,7 +174,7 @@ router.post(URL+'toPay',async ctx=>{
         orderStatus:0,
         orderType:1,
       }
-      await query(UPDATE('orderList',order,{id:ID}));
+      await query(UPDATE('orderlist',order,{id:ID}));
       await query(UPDATE('memberinfo',{price},{id:USERID}));
       ctx.body = new Success(null,'支付成功');
       // 付款成功 
@@ -186,7 +191,7 @@ router.post(URL+'toPay',async ctx=>{
   }
 })
 router.get(URL+'list' ,async ctx=>{
-  const orderRes = await query(SEARCH('orderList',{userId:ctx.session.mUserInfo.id}));
+  const orderRes = await query(`select * from orderlist where userId = ${ctx.session.mUserInfo.id} order by id desc`);
   for(let i in orderRes){
     let item = orderRes[i];
     item.products = await query(`

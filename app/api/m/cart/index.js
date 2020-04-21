@@ -32,7 +32,7 @@ router.post(URL+'add',async ctx=>{
 router.get(URL+'list',async ctx=>{
   const userId = ctx.session.mUserInfo.id*1;
   const sql = `SELECT c.id as cartId ,p.shopId,shop.name,shop.logo,p.mainImage,p.title,s.outPrice,s.label,c.skuId,p.id as productId ,s.id ,c.num
-  from product as p ,shop,cart as c ,skuList as s where c.userId = ${userId} and s.productId = p.id  and c.skuId = s.id and p.shopId = shop.id`;
+  from product as p ,shop,cart as c ,skulist as s where c.userId = ${userId} and s.productId = p.id  and c.skuId = s.id and p.shopId = shop.id`;
   const cartRes = await query(sql);
   let result = [];
   for(let i in cartRes){

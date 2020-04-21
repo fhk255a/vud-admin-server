@@ -21,7 +21,7 @@ router.get('/m/user/getUserInfo',async ctx=>{
     WHERE m.id=${userId} and  m.id=mu.id and c.userId = m.id and c.userId = m.id 
   `);
   let orderNum = await query(WHERE_TOTAL('orderlist',{userId}));
-  let addressNum = await query(WHERE_TOTAL('address',{userId}));
+  let addressNum = await query(WHERE_TOTAL('address',{userId,status:1}));
   let unPaid = await query(WHERE_TOTAL('orderlist',{userId,orderStatus:-1})); // 未付款
   let notShip = await query(WHERE_TOTAL('orderlist',{userId,orderStatus:0})); // 未发货
   let shiped = await query(WHERE_TOTAL('orderlist',{userId,orderStatus:1})); // 已发货

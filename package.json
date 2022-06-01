@@ -28,6 +28,6 @@
     "qr-image": "^3.2.0",
     "redis": "^3.0.2",
     "require-directory": "^2.1.1",
-    "sharp": "^0.25.2"
+    "sharp": "^0.30.5"
   }
 }
